@@ -1,1 +1,203 @@
-/* You can add global styles to this file, and also import other style files */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --white: #fff;
+  --offwhite: #f7f7ff;
+  --primary_daylight: #edf6ff;
+  --primary_midnight: #0e0940;
+  --primary_purple: #5631e8;
+  --primary_red: rgba(255, 79, 104, 1);
+
+  --popup-button-hover: var(--primary_midnight);
+  --background_color: var(--primary_daylight);
+  --pokemon_background_color: var(--offwhite);
+  --sidebar_background_color: var(--white);
+  --pokemon_title_background: var(--white);
+  --titles-color: rgba(14, 9, 64, 1);
+  --pokemons-names-color: rgba(14, 9, 64, 1);
+  --pokemon-details-name-color: rgba(14, 9, 64, 1);
+  --dashes-filter: none;
+
+  --menu_background_color: var(--offwhite);
+  --shadow-color: rgba(48, 55, 115, 0.4);
+  --box-shadow: 0 0.2rem 1rem 0 var(--shadow-color);
+  --evolution-shadow: 0px 2px 15px 0px var(--shadow-color);
+  --pokemon-info-popup-background: var(--white);
+  --active-button-tekst: rgba(255, 255, 255, 1);
+  --searchBar-background: rgba(246, 246, 255, 1);
+  --sideBar-Containers-border-color: #e7e6ec;
+  --shades-silver: rgba(219, 218, 230, 1);
+
+  --shades-grey: rgba(243, 243, 247, 1);
+  --titles-color: rgba(14, 9, 64, 1);
+  --poki-index-color: rgba(255, 255, 255, 1);
+  --rights-color: var(--primary_midnight);
+  --tabs-color: var(--primary_midnight);
+  --about-details-color: var(--primary_midnight);
+  --selected-tab-color: var(--primary_midnight);
+  --evolution-name-color: var(--primary_midnight);
+  --evolutions-background: var(--white);
+  --type-normal: rgba(144, 153, 162, 1);
+  --type-fighting: rgba(206, 63, 106, 1);
+  --type-flying: rgba(147, 169, 226, 1);
+  --type-poison: rgba(171, 106, 200, 1);
+  --type-ground: rgba(216, 118, 69, 1);
+  --type-rock: rgba(196, 186, 133, 1);
+  --type-bug: rgba(143, 191, 43, 1);
+  --type-ghost: rgba(84, 106, 166, 1);
+  --type-steel: rgba(90, 143, 161, 1);
+  --type-fire: rgba(255, 79, 104, 1);
+  --type-water: rgba(77, 144, 214, 1);
+  --type-grass: rgba(100, 188, 85, 1);
+  --type-electric: rgba(229, 186, 0, 1);
+  --type-psychic: rgba(131, 12, 185, 1);
+  --type-ice: rgba(125, 224, 208, 1);
+  --type-dragon: rgba(6, 112, 190, 1);
+  --type-dark: rgba(92, 82, 98, 1);
+  --type-fairy: rgba(235, 144, 230, 1);
+  --type-unknown: rgba(182, 182, 182, 1);
+  --type-shadow: rgba(91, 82, 101, 1);
+
+  --Loading-linear-gradient: linear-gradient(
+    45deg,
+    rgb(226, 226, 226) 0 30%,
+    rgb(255, 255, 255) 45% 55%,
+    rgb(226, 226, 226) 70% 100%
+  );
+
+  --top-layer: 10000;
+}
+
+.darkMode {
+  --primary_daylight: #d2eefc;
+  --primary_midnight: #e7e6ec;
+  --primary_purple: #5897ff;
+  --popup-button-hover: #26282b;
+
+  --background_color: #26282b;
+  --pokemon_background_color: #919191b4;
+  --sidebar_background_color: #2c2c2c;
+  --pokemon_title_background: #cecece;
+  --titles-color: #90b8f8;
+
+  --menu_background_color: #cecece;
+
+  --shadow-color: rgba(255, 255, 255, 0.123);
+  --box-shadow: 0 0.2rem 0.5rem 0.3rem var(--shadow-color);
+  --evolution-shadow: 0px 0.2rem 0.9rem 0.3rem var(--shadow-color);
+  --pokemon-info-popup-background: #cecece;
+  --sideBar-Containers-border-color: #cecece;
+
+  --active-button-tekst: rgba(255, 255, 255, 1);
+  --sideBar-Containers-border-color: #e7e6ec;
+
+  --rights-color: #cecece;
+  --tabs-color: #ffffff;
+
+  --about-details-color: #e7e6ec;
+  --selected-tab-color: var(--primary_purple);
+  --evolutions-background: #b6b6b6;
+  --dashes-filter: brightness(100);
+}
+
+html {
+  font-family: "Rubik", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: 300;
+}
+
+body {
+  width: 100vw;
+  padding: 1em;
+  background-color: var(--background_color);
+}
+
+button {
+  border: none;
+}
+
+/* pokemon types */
+.normal {
+  background-color: var(--type-normal);
+}
+
+.fighting {
+  background-color: var(--type-fighting);
+}
+
+.flying {
+  background-color: var(--type-flying);
+}
+
+.poison {
+  background-color: var(--type-poison);
+}
+
+.ground {
+  background-color: var(--type-ground);
+}
+
+.rock {
+  background-color: var(--type-rock);
+}
+
+.bug {
+  background-color: var(--type-bug);
+}
+
+.ghost {
+  background-color: var(--type-ghost);
+}
+
+.steel {
+  background-color: var(--type-steel);
+}
+
+.fire {
+  background-color: var(--type-fire);
+}
+
+.water {
+  background-color: var(--type-water);
+}
+
+.grass {
+  background-color: var(--type-grass);
+}
+
+.electric {
+  background-color: var(--type-electric);
+}
+
+.psychic {
+  background-color: var(--type-psychic);
+}
+
+.ice {
+  background-color: var(--type-ice);
+}
+
+.dragon {
+  background-color: var(--type-dragon);
+}
+
+.dark {
+  background-color: var(--type-dark);
+}
+
+.fairy {
+  background-color: var(--type-fairy);
+}
+
+.unknown {
+  background-color: var(--type-unknown);
+}
+
+.shadow {
+  background-color: var(--type-shadow);
+}

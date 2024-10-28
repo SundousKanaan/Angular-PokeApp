@@ -1,0 +1,42 @@
+h1 {
+  font-size: 1.5em;
+}
+
+ul {
+  width: 100%;
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+li {
+  width: 10em;
+  border-radius: 1em;
+  box-shadow: var(--box-shadow);
+
+  background-color: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+.dialog {
+  width: 80%;
+  height: 90%;
+  padding: 0;
+
+  border: none;
+  border-radius: 1rem;
+  background-color: var(--sidebar_background_color);
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+.dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.dialog.close {
+  display: none;
+}

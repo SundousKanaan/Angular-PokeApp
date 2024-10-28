@@ -1,0 +1,19 @@
+<h1>All Pokemon's</h1>
+
+<ul>
+  <li *ngFor="let pokemon of pokemonList">
+    <pokemonBlock
+      [pokemon]="pokemon"
+      (openDialogEvent)="openDialog($event)"
+    ></pokemonBlock>
+  </li>
+</ul>
+
+<dialog #dialogRef class="dialog close">
+  <h2>{{ pokemonData?.name }}</h2>
+  <p>
+    {{ formattedPokemonId }}
+  </p>
+
+  <button (click)="closeDialog()">Close</button>
+</dialog>

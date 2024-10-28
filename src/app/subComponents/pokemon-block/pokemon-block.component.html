@@ -1,0 +1,42 @@
+<div class="container">
+  <h2>{{ pokemon.name }}</h2>
+  <p>{{ pokedex }}</p>
+  <div class="imageContainer">
+    <img
+      class="frontImage"
+      [src]="pokemon.sprites.front_default"
+      alt="pokemon"
+    />
+    <img class="backImage" [src]="pokemon.sprites.back_default" alt="pokemon" />
+  </div>
+  <button (click)="handleAddToFavorite()">
+    <img
+      [src]="
+        favoritedPokemon
+          ? '/assets/images/icons/favorited.svg'
+          : '/assets/images/icons/unfavorited.svg'
+      "
+      alt="add to favorite"
+    />
+  </button>
+</div>
+<ul>
+  <li class="buttonItem">
+    <button (click)="openDialog()">
+      <img src="/assets/images/icons/open.svg" alt="open the pokemon details" />
+    </button>
+  </li>
+  <li class="buttonItem">
+    <button>
+      <img
+        (click)="handleBattlePokemon()"
+        [src]="
+          battlePokemon
+            ? '/assets/images/icons/active-battle.svg'
+            : '/assets/images/icons/battle.svg'
+        "
+        alt="choese the pokemon fot a battle"
+      />
+    </button>
+  </li>
+</ul>

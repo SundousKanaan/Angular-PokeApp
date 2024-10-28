@@ -1,0 +1,72 @@
+// Define the properties types and what should be returned
+
+// <img [src]="pokemon.sprites?.front_default" alt="pokemon" />
+// <img [src]="pokemon.sprites?.back_default" alt="pokemon" />
+// <img [src]="pokemon.sprites?.front_shiny" alt="pokemon" />
+// <img [src]="pokemon.sprites?.back_shiny" alt="pokemon" />
+// <img [src]="pokemon.sprites?.front_f" alt="pokemon" />
+// <img [src]="pokemon.sprites?.back_f" alt="pokemon" />
+// <img [src]="pokemon.sprites?.front_shiny_f" alt="pokemon" />
+// <img [src]="pokemon.sprites?.back_shiny_f" alt="pokemon" />
+// <img [src]="pokemon.sprites?.dream_world" alt="pokemon" />
+// <img [src]="pokemon.sprites?.showdown?.front_default" alt="pokemon" />
+// <img [src]="pokemon.sprites?.showdown?.back_default" alt="pokemon" />
+
+export interface Pokemon {
+  name: string;
+  id: number;
+  types: string[];
+  sprites: PokemonSprites;
+  species_Url: string;
+  abilities: PokemonAbility[];
+  weight: number;
+  height: number;
+  base: number;
+  stats: PokemonState[];
+}
+
+export type PokemonSprites = {
+  front_default: string;
+  back_default?: string;
+  front_shiny?: string;
+  back_shiny?: string;
+  front_f?: string;
+  back_f?: string;
+  front_shiny_f?: string;
+  back_shiny_f?: string;
+  dream_world?: string;
+  showdown?: {
+    front_default?: string;
+    back_default?: string;
+  };
+};
+
+export type PokemonAbility = {
+  ability: {
+    name: string;
+  };
+  slot: number;
+  isHidden: boolean;
+};
+
+export type PokemonState = {
+  baseStat: number;
+  statName: string;
+};
+
+export type PokemonEvolution = {
+  id: number;
+
+  evolutionLevelOne: {
+    name: string;
+    url: string;
+  };
+  evolutionLevelTwo: {
+    name: string;
+    url: string;
+  };
+  evolutionLevelThree: {
+    name: string;
+    url: string;
+  };
+};
