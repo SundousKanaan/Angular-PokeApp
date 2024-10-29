@@ -14,6 +14,12 @@
   <p>
     {{ formattedPokemonId }}
   </p>
+  <div class="imageContainer">
+    <img
+      [src]="pokemonData?.sprites?.official_artwork"
+      alt="pokemon official artwork"
+    />
+  </div>
 
   <button (click)="closeDialog()">Close</button>
 </dialog>

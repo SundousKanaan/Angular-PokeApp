@@ -32,6 +32,8 @@ export class PokemonBlockComponent implements OnInit {
     sprites: {
       front_default: '',
       back_default: '',
+      official_artwork: '',
+      dream_world: '',
     },
 
     species_Url: '',

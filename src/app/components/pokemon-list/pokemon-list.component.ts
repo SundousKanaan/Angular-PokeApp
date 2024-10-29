@@ -51,8 +51,6 @@ export class PokemonListComponent implements OnInit {
   closeDialog() {
     if (this.dialogRef) {
       this.dialogRef.nativeElement.close();
-      console.log('Dialog closed');
-      // add class close to the dialog
       this.dialogRef.nativeElement.classList.add('close');
     }
   }
@@ -86,7 +84,9 @@ export class PokemonListComponent implements OnInit {
                 back_f: data.sprites.back_female,
                 front_shiny_f: data.sprites.front_shiny_female,
                 back_shiny_f: data.sprites.back_shiny_female,
-                dream_world: data.sprites.other.dream_world,
+                dream_world: data.sprites.other.dream_world.front_default,
+                official_artwork:
+                  data.sprites.other['official-artwork'].front_default,
                 showdown: {
                   front_default: data.sprites.other.showdown.front_default,
                   back_default: data.sprites.other.showdown.back_default,

@@ -35,6 +35,7 @@ export type PokemonSprites = {
   front_shiny_f?: string;
   back_shiny_f?: string;
   dream_world?: string;
+  official_artwork?: string;
   showdown?: {
     front_default?: string;
     back_default?: string;
