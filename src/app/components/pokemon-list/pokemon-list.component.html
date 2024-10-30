@@ -1,4 +1,8 @@
-<main>
+<main
+  [style]="{
+    '--id-bg-color': 'var(--type-' + PokemonMainType + ')'
+  }"
+>
   <h1>All Pokemon's</h1>
 
   <ul class="pokemonList">
@@ -15,7 +19,6 @@
     class="dialog close"
     [ngStyle]="{
       'box-shadow': '0 0 0 0.5em  var(--type-' + PokemonMainType + ')',
-      '--id-bg-color': 'var(--type-' + PokemonMainType + ')'
     }"
   >
     <h2 class="dialogPokemonName">

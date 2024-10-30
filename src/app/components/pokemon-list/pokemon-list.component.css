@@ -115,7 +115,7 @@ h1 {
     0.67em 0.35em 0 var(--id-bg-color),
     0.67em -0.34em 0 var(--id-bg-color),
     0 -0.33em var(--id-bg-color),
-    0 0.35em var(--id-bg-color);
+    0 0.4em var(--id-bg-color);
 }
 
 .dialogPokemonId::after {
@@ -149,7 +149,18 @@ h1 {
   border-radius: 0.5em;
   box-shadow: 0 0 0.5em var(--shadow-color);
   position: relative;
-  z-index: 2;
+  z-index: -2;
+}
+.dialogImageContainer::after {
+  content: "";
+  width: 1.5em;
+  height: 4em;
+  position: absolute;
+  top: -0.5em;
+  right: -1.5em;
+  background-color: var(--id-bg-color);
+  z-index: -2;
+  transform: skewY(29deg);
 }
 
 .dialogImageContainer img {
