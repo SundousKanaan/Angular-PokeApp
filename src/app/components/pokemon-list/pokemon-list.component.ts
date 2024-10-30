@@ -32,6 +32,8 @@ export class PokemonListComponent implements OnInit {
   pokemonData: Pokemon | null = null;
   formattedPokemonId: string = '';
   pokemonEvolutions: PokemonEvolution | null = null;
+  PokemonMainType: string = '';
+  openTab: string = 'about';
 
   openDialog(pokemonData: Pokemon) {
     if (this.dialogRef) {
@@ -43,6 +45,7 @@ export class PokemonListComponent implements OnInit {
         this.formattedPokemonId = this.formatPokemonIdService.formatPokemonId(
           this.pokemonData.id
         );
+        this.PokemonMainType = pokemonData.types[0];
         // this.bringPokemonEvolution(this.pokemonData.species_Url);
       }
     }
@@ -52,12 +55,14 @@ export class PokemonListComponent implements OnInit {
     if (this.dialogRef) {
       this.dialogRef.nativeElement.close();
       this.dialogRef.nativeElement.classList.add('close');
+      document.body.style.overflow = '';
     }
   }
 
   // Call the createPokemonList method when the component is initialized
   ngOnInit(): void {
     this.createPokemonList();
+    // this.dialogRef.nativeElement.showModal();
   }
   // Create a method to fetch the first 10 Pokémon from the API endpoint
   createPokemonList() {
@@ -70,11 +75,13 @@ export class PokemonListComponent implements OnInit {
         pokemonNames.forEach((pokemon) => {
           this.pokemonService.getPokemonDetails(pokemon).subscribe((data) => {
             // Format the Pokémon data according to the Pokemon type from types.ts
+            console.log('DATA:', data.types);
+
             const formattedPokemon: Pokemon = {
               name: data.name,
               id: data.id,
               abilities: data.abilities,
-              types: data.types,
+              types: data.types.map((type: any) => type.type.name),
               sprites: {
                 front_default: data.sprites.front_default,
                 back_default: data.sprites.back_default,
@@ -94,12 +101,12 @@ export class PokemonListComponent implements OnInit {
               },
 
               species_Url: data.species.url,
-
-              weight: data.weight,
-              height: data.height,
+              weight: data.weight / 100,
+              height: data.height / 10,
               base: data.base_experience,
               stats: data.stats,
             };
+
             this.pokemonList.push(formattedPokemon);
           });
         });

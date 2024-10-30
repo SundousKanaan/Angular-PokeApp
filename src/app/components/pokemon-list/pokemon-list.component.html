@@ -1,25 +1,115 @@
-<h1>All Pokemon's</h1>
+<main>
+  <h1>All Pokemon's</h1>
 
-<ul>
-  <li *ngFor="let pokemon of pokemonList">
-    <pokemonBlock
-      [pokemon]="pokemon"
-      (openDialogEvent)="openDialog($event)"
-    ></pokemonBlock>
-  </li>
-</ul>
+  <ul class="pokemonList">
+    <li *ngFor="let pokemon of pokemonList">
+      <pokemonBlock
+        [pokemon]="pokemon"
+        (openDialogEvent)="openDialog($event)"
+      ></pokemonBlock>
+    </li>
+  </ul>
 
-<dialog #dialogRef class="dialog close">
-  <h2>{{ pokemonData?.name }}</h2>
-  <p>
-    {{ formattedPokemonId }}
-  </p>
-  <div class="imageContainer">
-    <img
-      [src]="pokemonData?.sprites?.official_artwork"
-      alt="pokemon official artwork"
-    />
-  </div>
+  <dialog
+    #dialogRef
+    class="dialog close"
+    [ngStyle]="{
+      'box-shadow': '0 0 0 0.5em  var(--type-' + PokemonMainType + ')',
+      '--id-bg-color': 'var(--type-' + PokemonMainType + ')'
+    }"
+  >
+    <h2 class="dialogPokemonName">
+      {{ pokemonData?.name }}
+    </h2>
+    <div
+      class="mainTypeIcon"
+      [ngStyle]="{
+        'background-image':
+          'url(/assets/images/typesIcons/' + PokemonMainType + '.png' + ')'
+      }"
+    ></div>
+    <p class="dialogPokemonId">
+      {{ formattedPokemonId }}
+    </p>
+    <div
+      class="dialogImageContainer"
+      [ngStyle]="{
+        'border-color': 'var(--type-' + PokemonMainType + ')'
+      }"
+    >
+      <img
+        [src]="pokemonData?.sprites?.official_artwork"
+        alt="pokemon official artwork"
+      />
+    </div>
 
-  <button (click)="closeDialog()">Close</button>
-</dialog>
+    <!-- ! add the actieve class -->
+    <section class="details">
+      <div class="tabsButtonsContainer">
+        <button class="active">About</button>
+        <button>State</button>
+        <button>Evolution</button>
+      </div>
+
+      <div class="tabContainer aboutTab">
+        <ul class="typesList">
+          <!-- <li *ngFor="let type of pokemonData?.types">{{ type?.type?.name }}</li> -->
+          <li>
+            <span
+              [ngStyle]="{
+                'background-image':
+                  'url(/assets/images/typesIcons/grass.png' + ')'
+              }"
+            >
+            </span>
+            grass
+          </li>
+          <li>
+            <span
+              [ngStyle]="{
+                'background-image':
+                  'url(/assets/images/typesIcons/poison.png' + ')'
+              }"
+            ></span>
+            poison
+          </li>
+          <li>
+            <span
+              [ngStyle]="{
+                'background-image':
+                  'url(/assets/images/typesIcons/fighting.png' + ')'
+              }"
+            ></span>
+            fighting
+          </li>
+        </ul>
+        <!-- * weight - kg -->
+        <div class="weight">
+          <p>weight</p>
+          <p>
+            {{ pokemonData?.weight }}
+            Kg
+          </p>
+        </div>
+        <!-- * height - m -->
+        <div class="height">
+          <p>height</p>
+          <p>
+            {{ pokemonData?.height }}
+            M
+          </p>
+        </div>
+        <!-- * abilites -->
+        <p class="abilitiesTitle">Abilities</p>
+        <ul class="abilitiesList">
+          <li *ngFor="let ability of pokemonData?.abilities">
+            {{ ability?.ability?.name }}
+          </li>
+        </ul>
+      </div>
+    </section>
+    <button class="closeDialog" (click)="closeDialog()">
+      <img src="/assets/images/icons/Close.svg" alt="" />
+    </button>
+  </dialog>
+</main>
