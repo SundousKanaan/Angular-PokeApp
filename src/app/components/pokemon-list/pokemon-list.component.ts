@@ -29,45 +29,23 @@ export class PokemonListComponent implements OnInit {
   @ViewChild('dialogRef') dialogRef!: ElementRef<HTMLDialogElement>;
 
   pokemonList: Pokemon[] = [];
-  pokemonData: Pokemon | null = null;
+  pokemonData: Pokemon | null = null; // the data comes from the pokemon block
   formattedPokemonId: string = '';
   pokemonEvolutions: PokemonEvolution | null = null;
   PokemonMainType: string = '';
-  openTab: string = 'about';
+  openTabName: string = 'aboutTab';
 
-  openDialog(pokemonData: Pokemon) {
-    if (this.dialogRef) {
-      // Gebruik nativeElement om de methode aan te roepen
-      this.dialogRef.nativeElement.showModal();
-      this.dialogRef.nativeElement.classList.remove('close');
-      this.pokemonData = pokemonData;
-      if (this.pokemonData) {
-        this.formattedPokemonId = this.formatPokemonIdService.formatPokemonId(
-          this.pokemonData.id
-        );
-        this.PokemonMainType = pokemonData.types[0];
-        // this.bringPokemonEvolution(this.pokemonData.species_Url);
-      }
-    }
-  }
-
-  closeDialog() {
-    if (this.dialogRef) {
-      this.dialogRef.nativeElement.close();
-      this.dialogRef.nativeElement.classList.add('close');
-      document.body.style.overflow = '';
-    }
-  }
-
+  // * pokemon list functions
   // Call the createPokemonList method when the component is initialized
   ngOnInit(): void {
     this.createPokemonList();
     // this.dialogRef.nativeElement.showModal();
   }
-  // Create a method to fetch the first 10 Pokémon from the API endpoint
+
+  // Create a method to fetch the Pokémons from the API endpoint
   createPokemonList() {
     this.pokemonService.getPokemonList().subscribe((data) => {
-      // Get the names of the first 10 Pokémon
+      // Get the names of the Pokémons
       const pokemonNames = data.results.map((pokemon: any) => pokemon.name);
 
       // Fetch details for each Pokémon
@@ -75,7 +53,6 @@ export class PokemonListComponent implements OnInit {
         pokemonNames.forEach((pokemon) => {
           this.pokemonService.getPokemonDetails(pokemon).subscribe((data) => {
             // Format the Pokémon data according to the Pokemon type from types.ts
-            console.log('DATA:', data.types);
 
             const formattedPokemon: Pokemon = {
               name: data.name,
@@ -104,7 +81,13 @@ export class PokemonListComponent implements OnInit {
               weight: data.weight / 100,
               height: data.height / 10,
               base: data.base_experience,
-              stats: data.stats,
+
+              stats: data.stats.map((stat: any) => {
+                return {
+                  baseStat: stat.base_stat,
+                  statName: stat.stat.name,
+                };
+              }),
             };
 
             this.pokemonList.push(formattedPokemon);
@@ -112,6 +95,35 @@ export class PokemonListComponent implements OnInit {
         });
       }
     });
+  }
+
+  // * dialog functions
+  openDialog(pokemonData: Pokemon) {
+    if (this.dialogRef) {
+      // Gebruik nativeElement om de methode aan te roepen
+      this.dialogRef.nativeElement.showModal();
+      this.dialogRef.nativeElement.classList.remove('close');
+      this.pokemonData = pokemonData;
+      if (this.pokemonData) {
+        this.formattedPokemonId = this.formatPokemonIdService.formatPokemonId(
+          this.pokemonData.id
+        );
+        this.PokemonMainType = pokemonData.types[0];
+        // this.bringPokemonEvolution(this.pokemonData.species_Url);
+      }
+    }
+  }
+
+  closeDialog() {
+    if (this.dialogRef) {
+      this.dialogRef.nativeElement.close();
+      this.dialogRef.nativeElement.classList.add('close');
+      document.body.style.overflow = '';
+    }
+  }
+
+  handleOpenTab(tab: string) {
+    this.openTabName = tab;
   }
 
   // bringPokemonEvolution(url: string): void {

@@ -1,13 +1,17 @@
 <div class="container">
-  <h2>{{ pokemon.name }}</h2>
+  <h2>{{ pokemonData.name }}</h2>
   <p>{{ pokedex }}</p>
   <div class="imageContainer">
     <img
       class="frontImage"
-      [src]="pokemon.sprites.front_default"
+      [src]="pokemonData.sprites.front_default"
       alt="pokemon"
     />
-    <img class="backImage" [src]="pokemon.sprites.back_default" alt="pokemon" />
+    <img
+      class="backImage"
+      [src]="pokemonData.sprites.back_default"
+      alt="pokemon"
+    />
   </div>
   <button (click)="handleAddToFavorite()">
     <img

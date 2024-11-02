@@ -15,7 +15,9 @@ export class PokemonBlockComponent implements OnInit {
   @Output() openDialogEvent = new EventEmitter<Pokemon>();
 
   openDialog() {
-    this.openDialogEvent.emit(this.pokemon);
+    this.openDialogEvent.emit(this.pokemonData);
+    console.log(this.pokemonData);
+
     document.body.style.overflow = 'hidden';
   }
 
@@ -24,7 +26,7 @@ export class PokemonBlockComponent implements OnInit {
 
   // The @Input() decorator is used to pass data from the parent component to the child component
   pokedex: string = '';
-  @Input() pokemon: Pokemon = {
+  @Input() pokemonData: Pokemon = {
     name: '',
     id: 0,
     abilities: [],
@@ -41,14 +43,19 @@ export class PokemonBlockComponent implements OnInit {
     weight: 0,
     height: 0,
     base: 0,
-    stats: [],
+    stats: [
+      {
+        baseStat: 0,
+        statName: '',
+      },
+    ],
   };
 
   ngOnInit(): void {
     // fix the pokeIndex format
-    if (this.pokemon.id) {
+    if (this.pokemonData.id) {
       this.pokedex = this.formatPokemonIdService.formatPokemonId(
-        this.pokemon.id
+        this.pokemonData.id
       );
     }
 
@@ -61,14 +68,14 @@ export class PokemonBlockComponent implements OnInit {
     const favoritePokemonsArr: number[] = JSON.parse(
       localStorage.getItem('favoritePokemons') || '[]'
     );
-    const index = favoritePokemonsArr.indexOf(this.pokemon.id);
+    const index = favoritePokemonsArr.indexOf(this.pokemonData.id);
     if (index > -1) {
       // If the id is in the list, remove it
       favoritePokemonsArr.splice(index, 1);
       this.favoritedPokemon = false;
     } else {
       // If the id is not in the list, add it
-      favoritePokemonsArr.push(this.pokemon.id);
+      favoritePokemonsArr.push(this.pokemonData.id);
       this.favoritedPokemon = true;
     }
     // Save the updated list to local storage
@@ -84,7 +91,7 @@ export class PokemonBlockComponent implements OnInit {
       localStorage.getItem('favoritePokemons') || '[]'
     );
     // check if the pokemon is in the
-    this.favoritedPokemon = favoritePokemonArr.includes(this.pokemon.id);
+    this.favoritedPokemon = favoritePokemonArr.includes(this.pokemonData.id);
   }
 
   handleBattlePokemon() {
@@ -92,14 +99,14 @@ export class PokemonBlockComponent implements OnInit {
     const battlePokemonsArr: number[] = JSON.parse(
       localStorage.getItem('battlePokemons') || '[]'
     );
-    const index = battlePokemonsArr.indexOf(this.pokemon.id);
+    const index = battlePokemonsArr.indexOf(this.pokemonData.id);
     if (index > -1) {
       // If the id is in the list, remove it
       battlePokemonsArr.splice(index, 1);
       this.battlePokemon = false;
     } else {
       // If the id is not in the list, add it
-      battlePokemonsArr.push(this.pokemon.id);
+      battlePokemonsArr.push(this.pokemonData.id);
       this.battlePokemon = true;
     }
     // Save the updated list to local storage
@@ -112,6 +119,6 @@ export class PokemonBlockComponent implements OnInit {
       localStorage.getItem('battlePokemons') || '[]'
     );
     // check if the pokemon is in the
-    this.battlePokemon = battlePokemonsArr.includes(this.pokemon.id);
+    this.battlePokemon = battlePokemonsArr.includes(this.pokemonData.id);
   }
 }

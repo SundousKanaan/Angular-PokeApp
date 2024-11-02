@@ -31,4 +31,8 @@ import { PokemonListComponent } from './components/pokemon-list/pokemon-list.com
 })
 export class AppComponent {
   constructor(private router: Router) {}
+
+  setDarkMode() {
+    document.body.classList.toggle('darkMode');
+  }
 }

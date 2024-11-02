@@ -33,6 +33,10 @@
   --sideBar-Containers-border-color: #e7e6ec;
   --shades-silver: rgba(219, 218, 230, 1);
 
+  --pokeCard-background: #ffffff7a;
+  --pokeCard-backdrop: rgba(255, 255, 255, 0.5);
+  --pokeCard-ditails-background: white;
+
   --shades-grey: rgba(243, 243, 247, 1);
   --titles-color: rgba(14, 9, 64, 1);
   --poki-index-color: rgba(255, 255, 255, 1);
@@ -103,6 +107,10 @@
   --selected-tab-color: var(--primary_purple);
   --evolutions-background: #b6b6b6;
   --dashes-filter: brightness(100);
+
+  --pokeCard-background: #0000007a;
+  --pokeCard-backdrop: rgba(0, 0, 0, 0.5);
+  --pokeCard-ditails-background: rgb(37, 37, 37);
 }
 
 html {

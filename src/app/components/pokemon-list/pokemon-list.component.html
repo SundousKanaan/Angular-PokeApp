@@ -8,7 +8,7 @@
   <ul class="pokemonList">
     <li *ngFor="let pokemon of pokemonList">
       <pokemonBlock
-        [pokemon]="pokemon"
+        [pokemonData]="pokemon"
         (openDialogEvent)="openDialog($event)"
       ></pokemonBlock>
     </li>
@@ -18,7 +18,7 @@
     #dialogRef
     class="dialog close"
     [ngStyle]="{
-      'box-shadow': '0 0 0 0.5em  var(--type-' + PokemonMainType + ')',
+      'box-shadow': '0 0 0 0.5em  var(--type-' + PokemonMainType + ')'
     }"
   >
     <h2 class="dialogPokemonName">
@@ -37,7 +37,9 @@
     <div
       class="dialogImageContainer"
       [ngStyle]="{
-        'border-color': 'var(--type-' + PokemonMainType + ')'
+        'border-color': 'var(--type-' + PokemonMainType + ')',
+        'background-image':
+          'radial-gradient(white, var(--type-' + PokemonMainType + ')80%)'
       }"
     >
       <img
@@ -49,67 +51,110 @@
     <!-- ! add the actieve class -->
     <section class="details">
       <div class="tabsButtonsContainer">
-        <button class="active">About</button>
-        <button>State</button>
-        <button>Evolution</button>
+        <!-- class="active" -->
+        <button
+          (click)="handleOpenTab('aboutTab')"
+          [class.active]="openTabName === 'aboutTab'"
+          [ngStyle]="{
+            color:
+              openTabName === 'aboutTab'
+                ? 'var(--type-' + PokemonMainType + ')'
+                : '',
+            'border-bottom-color':
+              openTabName === 'aboutTab'
+                ? 'var(--type-' + PokemonMainType + ')'
+                : ''
+          }"
+        >
+          About
+        </button>
+        <button
+          (click)="handleOpenTab('stateTab')"
+          [class.active]="openTabName === 'stateTab'"
+          [ngStyle]="{
+            color:
+              openTabName === 'stateTab'
+                ? 'var(--type-' + PokemonMainType + ')'
+                : '',
+            'border-bottom-color':
+              openTabName === 'stateTab'
+                ? 'var(--type-' + PokemonMainType + ')'
+                : ''
+          }"
+        >
+          State
+        </button>
+        <button
+          (click)="handleOpenTab('evolutionTab')"
+          [class.active]="openTabName === 'evolutionTab'"
+          [ngStyle]="{
+            color:
+              openTabName === 'evolutionTab'
+                ? 'var(--type-' + PokemonMainType + ')'
+                : '',
+            'border-bottom-color':
+              openTabName === 'evolutionTab'
+                ? 'var(--type-' + PokemonMainType + ')'
+                : ''
+          }"
+        >
+          Evolution
+        </button>
       </div>
+      <section class="tabContainer" [ngSwitch]="openTabName">
+        <div *ngSwitchDefault="'aboutTab'" class="aboutTab">
+          <ul class="typesList">
+            <li *ngFor="let type of pokemonData?.types">
+              <span
+                [ngStyle]="{
+                  'background-image':
+                    'url(/assets/images/typesIcons/' + type + '.png' + ')'
+                }"
+              >
+              </span>
+              {{ type }}
+            </li>
+          </ul>
+          <div class="weight">
+            <p>weight</p>
+            <p>
+              {{ pokemonData?.weight }}
+              Kg
+            </p>
+          </div>
+          <div class="height">
+            <p>height</p>
+            <p>
+              {{ pokemonData?.height }}
+              M
+            </p>
+          </div>
+          <p class="abilitiesTitle">Abilities</p>
+          <ul class="abilitiesList">
+            <li *ngFor="let ability of pokemonData?.abilities">
+              {{ ability?.ability?.name }}
+            </li>
+          </ul>
+        </div>
 
-      <div class="tabContainer aboutTab">
-        <ul class="typesList">
-          <!-- <li *ngFor="let type of pokemonData?.types">{{ type?.type?.name }}</li> -->
-          <li>
-            <span
+        <div *ngSwitchCase="'stateTab'" class="stateTab">
+          <ul>
+            <li
+              *ngFor="let state of pokemonData?.stats"
               [ngStyle]="{
-                'background-image':
-                  'url(/assets/images/typesIcons/grass.png' + ')'
+                '--stat-bg-color': 'var(--type-' + PokemonMainType + ')',
+                '--color-spread': state?.baseStat + '%'
               }"
             >
-            </span>
-            grass
-          </li>
-          <li>
-            <span
-              [ngStyle]="{
-                'background-image':
-                  'url(/assets/images/typesIcons/poison.png' + ')'
-              }"
-            ></span>
-            poison
-          </li>
-          <li>
-            <span
-              [ngStyle]="{
-                'background-image':
-                  'url(/assets/images/typesIcons/fighting.png' + ')'
-              }"
-            ></span>
-            fighting
-          </li>
-        </ul>
-        <!-- * weight - kg -->
-        <div class="weight">
-          <p>weight</p>
-          <p>
-            {{ pokemonData?.weight }}
-            Kg
-          </p>
+              <p>{{ state?.statName }}</p>
+              <p>{{ state?.baseStat }}</p>
+            </li>
+          </ul>
         </div>
-        <!-- * height - m -->
-        <div class="height">
-          <p>height</p>
-          <p>
-            {{ pokemonData?.height }}
-            M
-          </p>
+        <div *ngSwitchCase="'evolutionTab'" class="evolutionTab">
+          evolution div
         </div>
-        <!-- * abilites -->
-        <p class="abilitiesTitle">Abilities</p>
-        <ul class="abilitiesList">
-          <li *ngFor="let ability of pokemonData?.abilities">
-            {{ ability?.ability?.name }}
-          </li>
-        </ul>
-      </div>
+      </section>
     </section>
     <button class="closeDialog" (click)="closeDialog()">
       <img src="/assets/images/icons/Close.svg" alt="" />
