@@ -194,11 +194,6 @@ h1 {
   color: var(--primary_midnight);
 }
 
-/* .tabsButtonsContainer button.active {
-  border-bottom-color: var(--primary_purple);
-  color: var(--selected-tab-color);
-} */
-
 .tabContainer {
   grid-area: 4/1/5/-1;
   width: 100%;
@@ -365,7 +360,8 @@ h1 {
   position: relative;
 }
 
-.stateTab ul li::before {
+.stateTab ul li::before,
+.stateTab ul li::after {
   content: "";
   width: 100%;
   height: 0.2em;
@@ -374,11 +370,23 @@ h1 {
   left: 0;
   border-radius: 1em;
 
-  background-image: linear-gradient(
-    to right,
-    var(--stat-bg-color) var(--color-spread),
-    var(--shades-silver) var(--color-spread)
-  );
+  background-color: var(--shades-silver);
+}
+
+.stateTab ul li::after {
+  background-color: var(--stat-bg-color);
+  width: var(--color-spread);
+  transform-origin: left;
+  animation: showStat 2s 1 ease-in-out both;
+}
+
+@keyframes showStat {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
 
 .stateTab ul li p {

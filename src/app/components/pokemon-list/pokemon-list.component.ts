@@ -119,6 +119,7 @@ export class PokemonListComponent implements OnInit {
       this.dialogRef.nativeElement.close();
       this.dialogRef.nativeElement.classList.add('close');
       document.body.style.overflow = '';
+      this.openTabName = 'aboutTab';
     }
   }
 
