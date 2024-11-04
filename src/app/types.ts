@@ -15,6 +15,7 @@
 export interface Pokemon {
   name: string;
   id: number;
+  formattedPokemonId: string;
   types: string[];
   sprites: PokemonSprites;
   species_Url: string;
@@ -23,6 +24,7 @@ export interface Pokemon {
   height: number;
   base: number;
   stats: PokemonState[];
+  evolutions?: PokemonEvolution[];
 }
 
 export type PokemonSprites = {
@@ -55,19 +57,17 @@ export type PokemonState = {
   statName: string;
 };
 
-export type PokemonEvolution = {
-  id: number;
-
-  evolutionLevelOne: {
+export type PokemonEvolution = [
+  {
     name: string;
     url: string;
-  };
-  evolutionLevelTwo: {
+  },
+  {
     name: string;
     url: string;
-  };
-  evolutionLevelThree: {
+  },
+  {
     name: string;
     url: string;
-  };
-};
+  }
+];

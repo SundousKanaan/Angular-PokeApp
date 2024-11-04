@@ -3,43 +3,51 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // Import the Pokemon services
 import { PokemonService } from '../../services/pokemon.service';
+import { PopupService } from '../../services/popup.service';
 import { FormatPokemonIdService } from '../../services/formatPokemonId.service';
 
 // Import the PokemonBlockComponent (child component)
 import { PokemonBlockComponent } from '../../subComponents/pokemon-block/pokemon-block.component';
 // Import the Pokemon type from types.ts
 import { Pokemon, PokemonEvolution } from '../../types';
+import { PopupComponent } from '../../subComponents/popup/popup.component';
 
 @Component({
   selector: 'app-pokemon-list',
   standalone: true,
-  // Import the PokemonBlockComponent and CommonModule
-  imports: [CommonModule, PokemonBlockComponent],
+  imports: [CommonModule, PokemonBlockComponent, PopupComponent],
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.css'],
 })
 export class PokemonListComponent implements OnInit {
-  // Inject the Pokémon service
-  constructor(
-    private pokemonService: PokemonService,
-    private formatPokemonIdService: FormatPokemonIdService
-  ) {}
-
-  // Use the @ViewChild() decorator to get a reference to the dialog element
   @ViewChild('dialogRef') dialogRef!: ElementRef<HTMLDialogElement>;
 
   pokemonList: Pokemon[] = [];
   pokemonData: Pokemon | null = null; // the data comes from the pokemon block
-  formattedPokemonId: string = '';
-  pokemonEvolutions: PokemonEvolution | null = null;
   PokemonMainType: string = '';
   openTabName: string = 'aboutTab';
+  pokemonEvolutions: PokemonEvolution[] = [];
 
-  // * pokemon list functions
+  // Inject services
+  constructor(
+    private pokemonService: PokemonService,
+    private popupService: PopupService,
+    private formatPokemonIdService: FormatPokemonIdService
+  ) {}
+
   // Call the createPokemonList method when the component is initialized
+  // and subscribe to changes in the dialog status
   ngOnInit(): void {
     this.createPokemonList();
-    // this.dialogRef.nativeElement.showModal();
+    this.popupService.currentDialogRef.subscribe((isOpen) => {
+      if (this.dialogRef) {
+        if (isOpen) {
+          this.dialogRef.nativeElement.showModal();
+        } else {
+          this.dialogRef.nativeElement.close();
+        }
+      }
+    });
   }
 
   // Create a method to fetch the Pokémons from the API endpoint
@@ -57,6 +65,9 @@ export class PokemonListComponent implements OnInit {
             const formattedPokemon: Pokemon = {
               name: data.name,
               id: data.id,
+              formattedPokemonId: this.formatPokemonIdService.formatPokemonId(
+                data.id
+              ),
               abilities: data.abilities,
               types: data.types.map((type: any) => type.type.name),
               sprites: {
@@ -89,7 +100,6 @@ export class PokemonListComponent implements OnInit {
                 };
               }),
             };
-
             this.pokemonList.push(formattedPokemon);
           });
         });
@@ -98,62 +108,11 @@ export class PokemonListComponent implements OnInit {
   }
 
   // * dialog functions
+
+  // Open the dialog with the selected Pokémon data
   openDialog(pokemonData: Pokemon) {
-    if (this.dialogRef) {
-      // Gebruik nativeElement om de methode aan te roepen
-      this.dialogRef.nativeElement.showModal();
-      this.dialogRef.nativeElement.classList.remove('close');
-      this.pokemonData = pokemonData;
-      if (this.pokemonData) {
-        this.formattedPokemonId = this.formatPokemonIdService.formatPokemonId(
-          this.pokemonData.id
-        );
-        this.PokemonMainType = pokemonData.types[0];
-        // this.bringPokemonEvolution(this.pokemonData.species_Url);
-      }
-    }
+    this.PokemonMainType = pokemonData.types[0];
+    this.pokemonData = pokemonData;
+    this.popupService.openDialog();
   }
-
-  closeDialog() {
-    if (this.dialogRef) {
-      this.dialogRef.nativeElement.close();
-      this.dialogRef.nativeElement.classList.add('close');
-      document.body.style.overflow = '';
-      this.openTabName = 'aboutTab';
-    }
-  }
-
-  handleOpenTab(tab: string) {
-    this.openTabName = tab;
-  }
-
-  // bringPokemonEvolution(url: string): void {
-  //   if (url) {
-  //     console.log('URL:', url);
-  //     this.pokemonEvolutions = null;
-
-  //     this.pokemonService.getPokemonSpecies(url).subscribe((res) => {
-  //       this.pokemonService
-  //         .getPokemonEvolution(res.evolution_chain.url)
-  //         .subscribe((data) => {
-  //           this.pokemonEvolutions = {
-  //             id: data.id,
-  //             evolutionLevelOne: {
-  //               name: data.chain.species.name,
-  //               url: data.chain.species.url,
-  //             },
-  //             evolutionLevelTwo: {
-  //               name: data.chain.evolves_to[0]?.species.name || '',
-  //               url: data.chain.evolves_to[0]?.species.url || '',
-  //             },
-  //             evolutionLevelThree: {
-  //               name:
-  //                 data.chain.evolves_to[0]?.evolves_to[0]?.species.name || '',
-  //               url: data.chain.evolves_to[0]?.evolves_to[0]?.species.url || '',
-  //             },
-  //           };
-  //         });
-  //     });
-  //   }
-  // }
 }

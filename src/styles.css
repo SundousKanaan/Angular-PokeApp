@@ -111,6 +111,9 @@
   --pokeCard-background: #0000007a;
   --pokeCard-backdrop: rgba(0, 0, 0, 0.5);
   --pokeCard-ditails-background: rgb(37, 37, 37);
+
+  --type-psychic: rgb(210 106 255);
+  --type-dark: rgb(236 227 241);
 }
 
 html {

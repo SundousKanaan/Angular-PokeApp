@@ -25,10 +25,10 @@ export class PokemonBlockComponent implements OnInit {
   battlePokemon: boolean = false;
 
   // The @Input() decorator is used to pass data from the parent component to the child component
-  pokedex: string = '';
   @Input() pokemonData: Pokemon = {
     name: '',
     id: 0,
+    formattedPokemonId: '',
     abilities: [],
     types: [],
     sprites: {
@@ -52,18 +52,14 @@ export class PokemonBlockComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    // fix the pokeIndex format
-    if (this.pokemonData.id) {
-      this.pokedex = this.formatPokemonIdService.formatPokemonId(
-        this.pokemonData.id
-      );
-    }
-
     this.checkFavoritePokemon();
     this.checkBattlePokemon();
   }
 
   handleAddToFavorite() {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return;
+    }
     // get the favorite pokemons from the local storage
     const favoritePokemonsArr: number[] = JSON.parse(
       localStorage.getItem('favoritePokemons') || '[]'
@@ -86,6 +82,9 @@ export class PokemonBlockComponent implements OnInit {
   }
 
   checkFavoritePokemon() {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return;
+    }
     // get the favorite pokemons from the local storage
     const favoritePokemonArr = JSON.parse(
       localStorage.getItem('favoritePokemons') || '[]'
@@ -114,11 +113,14 @@ export class PokemonBlockComponent implements OnInit {
   }
 
   checkBattlePokemon() {
-    // get the favorite pokemons from the local storage
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+      return;
+    }
+    // get the battle pokemons from the local storage
     const battlePokemonsArr: number[] = JSON.parse(
       localStorage.getItem('battlePokemons') || '[]'
     );
-    // check if the pokemon is in the
+    // check if the pokemon is in the list
     this.battlePokemon = battlePokemonsArr.includes(this.pokemonData.id);
   }
 }
