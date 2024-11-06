@@ -11,7 +11,6 @@
   grid-template-columns: 1.5em repeat(5, 1fr);
   grid-template-rows: 2em 40%;
   gap: 0.5em;
-  position: relative;
   overflow: visible;
   background-color: var(--pokeCard-background);
   backdrop-filter: blur(0.2em);
@@ -81,8 +80,8 @@
   width: 80%;
   padding-right: 0.5em;
   margin: 0;
-  background-color: var(--id-bg-color);
-  font-family: "Rubik", sans-serif;
+  background-color: var(--pokemon-type-color);
+  font-family: var(--primary-font);
   font-weight: 400;
   font-size: 1.5em;
   text-align: end;
@@ -90,11 +89,11 @@
   align-items: center;
   justify-content: end;
   box-shadow:
-    0.67em 0 0 var(--id-bg-color),
-    0.67em 0.35em 0 var(--id-bg-color),
-    0.67em -0.34em 0 var(--id-bg-color),
-    0 -0.33em var(--id-bg-color),
-    0 0.4em var(--id-bg-color);
+    0.67em 0 0 var(--pokemon-type-color),
+    0.67em 0.35em 0 var(--pokemon-type-color),
+    0.67em -0.34em 0 var(--pokemon-type-color),
+    0 -0.33em var(--pokemon-type-color),
+    0 0.4em var(--pokemon-type-color);
 }
 
 .dialogPokemonId::after {
@@ -105,7 +104,7 @@
   top: calc(50% - 150% / 2);
   left: -20px;
   transform: skewX(141deg);
-  background-color: var(--id-bg-color);
+  background-color: var(--pokemon-type-color);
   z-index: -1;
 }
 
@@ -116,7 +115,7 @@
   position: absolute;
   top: 0.6em;
   left: 0.2em;
-  font-family: "Rubik", sans-serif;
+  font-family: var(--primary-font);
   font-weight: 400;
 }
 
@@ -138,7 +137,7 @@
   position: absolute;
   top: -0.5em;
   right: -1.5em;
-  background-color: var(--id-bg-color);
+  background-color: var(--pokemon-type-color);
   z-index: -2;
   transform: skewY(29deg);
 }
@@ -552,12 +551,8 @@
 
   display: grid;
   place-items: center;
-  cursor: pointer;
-}
-
-.closeDialog img {
-  width: 90%;
-  height: auto;
-  object-fit: contain;
-  object-position: center;
+  background-image: url(/assets/images/icons/close.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
 }

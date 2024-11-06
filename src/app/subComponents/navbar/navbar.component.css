@@ -1,0 +1,208 @@
+.navDialog {
+  width: 20em;
+  aspect-ratio: 6/9;
+
+  padding: 1em 0.5em;
+  border: none;
+  border-radius: 1em;
+  background-color: var(--sidebar_background_color);
+  box-shadow: var(--box-shadow);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: visible;
+}
+
+.navDialog.close {
+  display: none;
+}
+
+dialog::backdrop {
+  background-color: var(--pokeCard-backdrop);
+}
+
+.closeButtons {
+  width: 2.5em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: absolute;
+  top: -0.5em;
+  right: -0.5em;
+
+  box-shadow: var(--box-shadow);
+  background-image: url(/assets/images/icons/close.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 70%;
+}
+
+.logoContainer {
+  width: 100%;
+  height: 4em;
+  margin-bottom: 0.5em;
+  padding-bottom: 1em;
+  border-bottom: solid 0.1em var(--shades-silver);
+}
+
+.logoContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.navBar ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.navBar ul li {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: transparent;
+}
+
+.navBar ul li a {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--primary-font);
+  font-size: 1rem;
+  font-weight: 200;
+  text-decoration: none;
+  color: var(--primary_midnight);
+  transition: 0.5s;
+  opacity: 0.65;
+
+  text-indent: 2em;
+  background-repeat: no-repeat;
+  background-position: 1em;
+  background-size: 1.5em;
+}
+
+.navBar ul li .pokemonsLink {
+  background-image: url(/assets/images/icons/pokeball.svg);
+}
+
+.navBar ul li .pokemonsLink.activeLink {
+  background-image: url(/assets/images/icons/active-pokeball.svg);
+}
+
+.navBar ul li .FavoritesLink {
+  background-image: url(/assets/images/icons/unfavorited.svg);
+}
+
+.navBar ul li .FavoritesLink.activeLink {
+  background-image: url(/assets/images/icons/favorited.svg);
+}
+
+.navBar ul li .battleLink {
+  background-image: url(/assets/images/icons/battle.svg);
+}
+
+.navBar ul li .battleLink.activeLink {
+  background-image: url(/assets/images/icons/active-battle.svg);
+}
+
+.navBar ul li .searchLink {
+  background-image: url(/assets/images/icons/search.svg);
+}
+
+.navBar ul li .searchLink.activeLink {
+  background-image: url(/assets/images/icons/active-search.svg);
+}
+
+.navBar ul li .activeLink {
+  font-weight: 400;
+  opacity: 1;
+  background-color: var(--primary_purple);
+  color: var(--active-button-tekst);
+}
+
+.modeButton {
+  width: fit-content;
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  border-radius: 0.5em;
+  margin: 0 auto;
+  padding: 0 1em 0 0.5em;
+  border-radius: 0.75rem;
+  background-color: transparent;
+  font-weight: 400;
+  transition: 1s;
+  color: var(--pokemons-names-color);
+  box-shadow: 0 0 0.5em var(--primary_purple);
+}
+
+.modeButton.darkMode {
+  color: white;
+  background-color: var(--primary_purple);
+}
+
+.modeButton img {
+  width: 3em;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.rights {
+  font-family: var(--primary-font);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+  text-align: center;
+  color: var(--rights-color);
+  margin: 0;
+  margin-top: 1.5em;
+}
+
+/* TODO: remove to search page */
+/* 
+.logoSearchContainer label {
+  display: block;
+  width: 80%;
+  height: 2.5em;
+
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  background-color: var(--searchBar-background);
+
+  background-image: url(/assets/images/icons/search.svg);
+  background-repeat: no-repeat;
+  background-position: 0.5em;
+  background-size: 100% contain;
+  box-shadow: var(--box-shadow);
+  box-shadow: inset 0 0 0.5em var(--shadow-color);
+}
+
+.logoSearchContainer label #search {
+  width: 100%;
+  height: 100%;
+  font-family: var(--primary-font);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 120%;
+  color: var(--primary_midnight);
+  border: none;
+  background-color: transparent;
+
+  text-indent: 1.5em;
+
+  --webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+.logoSearchContainer label #search:focus-visible {
+  outline: none;
+} */

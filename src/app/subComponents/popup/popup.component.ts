@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Pokemon, PokemonEvolution } from '../../types';
+import { Pokemon } from '../../types';
 import { PopupService } from '../../services/popup.service';
 import { PokemonService } from '../../services/pokemon.service';
 import { FormatPokemonIdService } from '../../services/formatPokemonId.service';
+import { SharePokemonDataService } from '../../services/sharePokemonData.service';
 
 @Component({
   selector: 'popup',
@@ -15,45 +16,54 @@ import { FormatPokemonIdService } from '../../services/formatPokemonId.service';
 export class PopupComponent implements OnInit {
   @ViewChild('dialogRef') dialogRef!: ElementRef<HTMLDialogElement>;
 
-  @Input() pokemonData: Pokemon | null = null; // the data comes from the pokemon block through the parent component
-  @Input() PokemonMainType: string = '';
-  @Input() openTabName: string = 'evolutionTab';
-  pokemonEvolutions: Pokemon[] = [];
-
-  isDialogOpen = true; // the dialog is closed by default
+  pokemonData: Pokemon | null = null;
 
   constructor(
     private popupService: PopupService,
     private pokemonService: PokemonService,
-    private formatPokemonIdService: FormatPokemonIdService
+    private formatPokemonIdService: FormatPokemonIdService,
+    private sharePokemonDataService: SharePokemonDataService
   ) {}
 
+  pokemonMainType: string = '';
+  openTabName: string = 'aboutTab';
+  pokemonEvolutions: Pokemon[] = [];
+
+  isDialogOpen = false; // the dialog is closed by default
+
   ngOnInit(): void {
+    this.sharePokemonDataService.currentPokemonData.subscribe(
+      (sharePokemonDataService) => {
+        this.pokemonData = sharePokemonDataService;
+      }
+    );
+
     // Abonneer je op veranderingen in de dialogstatus
     this.popupService.currentDialogRef.subscribe((isOpen) => {
       this.isDialogOpen = isOpen;
       if (isOpen) {
-        this.openDialog();
+        this.pokemonMainType = this.pokemonData?.types[0] || '';
+        this.handleOpenDialog();
       } else {
-        this.closeDialog();
+        this.handleOpenDialog();
       }
     });
   }
 
-  openDialog() {
+  handleOpenDialog() {
     if (this.dialogRef) {
-      this.dialogRef.nativeElement.showModal();
-      this.dialogRef.nativeElement.classList.remove('close');
+      this.openTabName = 'aboutTab';
       this.dialogRef.nativeElement.classList.add('open');
+      this.dialogRef.nativeElement.classList.remove('close');
+      this.dialogRef.nativeElement.showModal();
     }
   }
 
-  closeDialog() {
+  handleCloseDialog() {
     if (this.dialogRef) {
-      document.body.style.overflow = '';
-      this.openTabName = 'aboutTab';
       this.dialogRef.nativeElement.close();
       this.dialogRef.nativeElement.classList.add('close');
+      document.body.style.overflow = '';
     }
   }
 
@@ -63,8 +73,6 @@ export class PopupComponent implements OnInit {
     if (tab === 'evolutionTab') {
       if (this.pokemonData?.species_Url) {
         this.getPokemonEvolutions(this.pokemonData.species_Url);
-
-        console.log(this.pokemonEvolutions);
       }
     }
   }

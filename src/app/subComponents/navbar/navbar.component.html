@@ -1,0 +1,70 @@
+<dialog #dialogRef class="navDialog close">
+  <span>
+    <button class="closeButtons" (click)="closeNavbar()"></button>
+    <div class="logoContainer">
+      <img src="/assets/images/pokemon-logo.svg" alt="" />
+    </div>
+
+    <!-- TODO: remove to search page -->
+    <!-- <label>
+        <input type="text" name="search" id="search" placeholder="Search" />
+      </label> -->
+
+    <nav class="navBar">
+      <ul>
+        <li>
+          <a
+            routerLink="/pokemonlist"
+            routerLinkActive="activeLink"
+            class="pokemonsLink"
+          >
+            Pokémon
+          </a>
+        </li>
+        <li>
+          <a
+            routerLink="/favorites"
+            routerLinkActive="activeLink"
+            class="FavoritesLink"
+            >Favorites</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/battle"
+            routerLinkActive="activeLink"
+            class="battleLink"
+            >Battle</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/search"
+            routerLinkActive="activeLink"
+            class="searchLink"
+            >Search</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </span>
+
+  <span>
+    <!-- TODO: active dack mode -->
+    <button
+      class="modeButton"
+      [ngClass]="{ darkMode: darkMode }"
+      (click)="handleMode()"
+    >
+      <!-- TODO: make the img dynamic -->
+      <img *ngIf="darkMode" src="/assets/images/icons/lunatone.svg" alt="" />
+      <img *ngIf="!darkMode" src="/assets/images/icons/solrock.svg" alt="" />
+      Light Mode
+    </button>
+    <p class="rights">
+      The original design rights belong to Triple and I have added some
+      modifications to it.
+      <br />Pokémon and Pokémon character names are trademarks of Nintendo.
+    </p>
+  </span>
+</dialog>

@@ -110,7 +110,6 @@ p {
   transition: 0.3s;
   display: grid;
   place-items: center;
-  cursor: pointer;
 
   position: absolute;
   top: 1em;
@@ -150,7 +149,8 @@ li button {
   transition: 0.3s;
   display: grid;
   place-items: center;
-  cursor: pointer;
+  position: relative;
+  z-index: 2;
 }
 
 button:hover {

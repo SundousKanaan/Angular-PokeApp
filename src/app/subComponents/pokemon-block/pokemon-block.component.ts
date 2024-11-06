@@ -16,9 +16,7 @@ export class PokemonBlockComponent implements OnInit {
 
   openDialog() {
     this.openDialogEvent.emit(this.pokemonData);
-    console.log(this.pokemonData);
-
-    document.body.style.overflow = 'hidden';
+    console.log(this.pokemonData.name);
   }
 
   favoritedPokemon: boolean = false;

@@ -1,0 +1,13 @@
+<div>
+  <h1>All Pokemon's</h1>
+
+  <ul class="pokemonList">
+    <li *ngFor="let pokemon of pokemonList">
+      <pokemonBlock
+        [pokemonData]="pokemon"
+        (openDialogEvent)="openDialog(pokemon)"
+      ></pokemonBlock>
+    </li>
+  </ul>
+  <popup></popup>
+</div>

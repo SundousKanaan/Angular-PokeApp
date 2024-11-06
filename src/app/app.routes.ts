@@ -1,24 +1,34 @@
 import { Routes } from '@angular/router';
-import { PokemonListComponent } from './components/pokemon-list/pokemon-list.component';
 import { AppComponent } from './app.component';
-import { PopupComponent } from './subComponents/popup/popup.component';
+import { PokemonsPageComponent } from './components/pokemons-page/pokemons-page.component';
+import { FavoritesPageComponent } from './components/favorites-page/favorites-page.component';
+import { BattlePageComponent } from './components/battle-page/battle-page.component';
+import { SearchPageComponent } from './components/search-page/search-page.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'pokemonlist',
+    redirectTo: 'pokemon',
     pathMatch: 'full',
   },
   {
-    path: 'pokemonlist',
-    component: PokemonListComponent,
+    path: 'pokemon',
+    component: PokemonsPageComponent,
   },
   {
-    path: 'test',
-    component: PopupComponent,
+    path: 'favorites',
+    component: FavoritesPageComponent,
+  },
+  {
+    path: 'battle',
+    component: BattlePageComponent,
+  },
+  {
+    path: 'search',
+    component: SearchPageComponent,
   },
   {
     path: '**',
-    component: AppComponent,
+    component: PokemonsPageComponent,
   },
 ];

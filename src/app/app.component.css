@@ -13,6 +13,7 @@ header {
   top: 0;
   left: 0;
   right: 0;
+  z-index: var(--top-layer);
   background-color: var(--background_color);
 }
 
@@ -36,6 +37,11 @@ header {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.navbarContainer {
+  height: fit-content;
+  width: fit-content;
 }
 
 main {
