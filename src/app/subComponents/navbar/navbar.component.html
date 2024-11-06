@@ -14,9 +14,10 @@
       <ul>
         <li>
           <a
-            routerLink="/pokemonlist"
+            routerLink="/pokemon"
             routerLinkActive="activeLink"
             class="pokemonsLink"
+            (click)="closeNavbar()"
           >
             Pokémon
           </a>
@@ -26,6 +27,7 @@
             routerLink="/favorites"
             routerLinkActive="activeLink"
             class="FavoritesLink"
+            (click)="closeNavbar()"
             >Favorites</a
           >
         </li>
@@ -34,6 +36,7 @@
             routerLink="/battle"
             routerLinkActive="activeLink"
             class="battleLink"
+            (click)="closeNavbar()"
             >Battle</a
           >
         </li>
@@ -42,6 +45,7 @@
             routerLink="/search"
             routerLinkActive="activeLink"
             class="searchLink"
+            (click)="closeNavbar()"
             >Search</a
           >
         </li>

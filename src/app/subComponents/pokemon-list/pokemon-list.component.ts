@@ -33,7 +33,7 @@ export class PokemonListComponent implements OnInit {
     private sharePokemonDataService: SharePokemonDataService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.createPokemonList();
 
     this.sharePokemonDataService.currentPokemonData.subscribe(

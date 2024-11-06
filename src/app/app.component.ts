@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 // import the PokemonService to make it available to the entire application
 import { PokemonService } from './services/pokemon.service';

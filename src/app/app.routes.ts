@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { PokemonsPageComponent } from './components/pokemons-page/pokemons-page.component';
 import { FavoritesPageComponent } from './components/favorites-page/favorites-page.component';
 import { BattlePageComponent } from './components/battle-page/battle-page.component';
