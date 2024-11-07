@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // Import the Pokemon services
 import { GetPokemonListService } from '../../services/getPokemonList.service';
-import { SharePokemonDataService } from '../../services/sharePokemonData.service';
 
 // Import the PokemonBlockComponent (child component)
 import { PokemonBlockComponent } from '../../subComponents/pokemon-block/pokemon-block.component';
@@ -21,7 +20,7 @@ import { PopupService } from '../../services/popup.service';
 })
 export class PokemonListComponent implements OnInit {
   @ViewChild('dialogRef') dialogRef!: ElementRef<HTMLDialogElement>;
-
+  @Input() pageTitle: string = '';
   @Input() pokemonsNamesList: string[] = [];
   pokemonList: Pokemon[] = [];
   pokemonData: Pokemon | null = null;
@@ -29,16 +28,14 @@ export class PokemonListComponent implements OnInit {
   // Inject services
   constructor(
     private getPokemonListService: GetPokemonListService,
-    private popupService: PopupService,
-    private sharePokemonDataService: SharePokemonDataService
+    private popupService: PopupService
   ) {}
 
   ngOnInit() {
+    // this.createPokemonList();
+    // if (this.pokemonsNamesList && this.pokemonsNamesList.length !== 0) {
     this.createPokemonList();
-
-    this.sharePokemonDataService.currentPokemonData.subscribe(
-      (sharePokemonDataService) => (this.pokemonData = sharePokemonDataService)
-    );
+    // }
   }
 
   createPokemonList() {
@@ -52,13 +49,7 @@ export class PokemonListComponent implements OnInit {
   }
 
   // * dialog functions
-  openDialog(pokemon: Pokemon) {
-    this.pokemonData = pokemon;
-
-    this.sharePokemonDataService.setPokemonData(pokemon);
-
-    if (this.pokemonData) {
-      this.popupService.openDialog();
-    }
+  openDialog() {
+    this.popupService.openDialog();
   }
 }

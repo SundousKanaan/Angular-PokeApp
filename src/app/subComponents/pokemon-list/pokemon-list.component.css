@@ -15,18 +15,14 @@ h1 {
   width: 98.5%;
   list-style-type: none;
   padding: 0;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9em, 1fr));
   gap: 1em;
   margin: auto 0;
-
-  min-width: fit-content;
-  max-width: 30em;
 }
 
 .pokemonList li {
-  flex-grow: 1;
-  width: 10em;
+  width: 100%;
   border-radius: 1em;
   box-shadow: var(--box-shadow);
   overflow: hidden;

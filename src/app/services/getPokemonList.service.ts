@@ -30,6 +30,7 @@ export class GetPokemonListService {
               ),
               abilities: data.abilities,
               types: data.types.map((type: any) => type.type.name),
+              mainType: data.types[0].type.name,
               sprites: {
                 front_default: data.sprites.front_default,
                 back_default: data.sprites.back_default,

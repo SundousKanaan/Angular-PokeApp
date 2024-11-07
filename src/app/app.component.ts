@@ -1,22 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, NgModule, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 // import the PokemonService to make it available to the entire application
 import { PokemonService } from './services/pokemon.service';
 import { PopupService } from './services/popup.service';
 import { GetPokemonListService } from './services/getPokemonList.service';
-import { SharePokemonDataService } from './services/sharePokemonData.service';
+import { ShareDataService } from './services/shareData.service';
 
 // import the HttpClientModule module to make HTTP requests
 import { HttpClientModule } from '@angular/common/http';
 
 // components
 import { NavbarComponent } from './subComponents/navbar/navbar.component';
-import { PokemonListComponent } from './subComponents/pokemon-list/pokemon-list.component';
-import { PokemonsPageComponent } from './components/pokemons-page/pokemons-page.component';
-import { FavoritesPageComponent } from './components/favorites-page/favorites-page.component';
-import { BattlePageComponent } from './components/battle-page/battle-page.component';
-import { SearchPageComponent } from './components/search-page/search-page.component';
 
 @Component({
   selector: 'app-root',
@@ -28,18 +24,15 @@ import { SearchPageComponent } from './components/search-page/search-page.compon
     // import the HttpClientModule module to make HTTP requests
     HttpClientModule,
     // components imports
-    PokemonListComponent,
-    PokemonsPageComponent,
-    FavoritesPageComponent,
-    BattlePageComponent,
-    SearchPageComponent,
+    NavbarComponent,
   ],
   // Inject the PokemonService into the providers array to make it available to the entire application
   providers: [
     PokemonService,
     PopupService,
     GetPokemonListService,
-    SharePokemonDataService,
+    ShareDataService,
+    RouterModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

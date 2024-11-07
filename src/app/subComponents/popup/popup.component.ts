@@ -4,7 +4,7 @@ import { Pokemon } from '../../types';
 import { PopupService } from '../../services/popup.service';
 import { PokemonService } from '../../services/pokemon.service';
 import { FormatPokemonIdService } from '../../services/formatPokemonId.service';
-import { SharePokemonDataService } from '../../services/sharePokemonData.service';
+import { ShareDataService } from '../../services/shareData.service';
 
 @Component({
   selector: 'popup',
@@ -16,33 +16,28 @@ import { SharePokemonDataService } from '../../services/sharePokemonData.service
 export class PopupComponent implements OnInit {
   @ViewChild('dialogRef') dialogRef!: ElementRef<HTMLDialogElement>;
 
-  pokemonData: Pokemon | null = null;
-
   constructor(
     private popupService: PopupService,
     private pokemonService: PokemonService,
     private formatPokemonIdService: FormatPokemonIdService,
-    private sharePokemonDataService: SharePokemonDataService
+    private shareDataService: ShareDataService
   ) {}
 
-  pokemonMainType: string = '';
+  pokemonData: Pokemon | null = null;
   openTabName: string = 'aboutTab';
   pokemonEvolutions: Pokemon[] = [];
 
   isDialogOpen = false; // the dialog is closed by default
 
   ngOnInit(): void {
-    this.sharePokemonDataService.currentPokemonData.subscribe(
-      (sharePokemonDataService) => {
-        this.pokemonData = sharePokemonDataService;
-      }
-    );
+    this.shareDataService.getPokemonData().subscribe((data) => {
+      this.pokemonData = data;
+    });
 
     // Abonneer je op veranderingen in de dialogstatus
     this.popupService.currentDialogRef.subscribe((isOpen) => {
       this.isDialogOpen = isOpen;
       if (isOpen) {
-        this.pokemonMainType = this.pokemonData?.types[0] || '';
         this.handleOpenDialog();
       } else {
         this.handleOpenDialog();
@@ -125,6 +120,7 @@ export class PopupComponent implements OnInit {
                     this.formatPokemonIdService.formatPokemonId(data.id),
                   abilities: data.abilities,
                   types: data.types.map((type: any) => type.type.name),
+                  mainType: data.types[0].type.name,
                   sprites: {
                     front_default: data.sprites.front_default,
                     back_default: data.sprites.back_default,

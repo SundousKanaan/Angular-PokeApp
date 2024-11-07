@@ -14,15 +14,15 @@ export class PokemonsPageComponent implements OnInit {
   pokemonsNamesList: string[] = [];
 
   ngOnInit(): void {
-    console.log('test');
-
-    this.getpokemonList();
+    if (this.pokemonsNamesList.length === 0) {
+      this.getpokemonList();
+    }
   }
 
   getpokemonList() {
     this.pokemonService.getPokemonList().subscribe((data) => {
-      this.pokemonsNamesList = data.results.map((pokemon: any) => pokemon.name);
-      console.log('PokemonsPageComponent', this.pokemonsNamesList);
+      const test = data.results.map((pokemon: any) => pokemon.name);
+      this.pokemonsNamesList = test;
     });
   }
 }

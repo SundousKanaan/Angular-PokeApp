@@ -17,6 +17,7 @@ export interface Pokemon {
   id: number;
   formattedPokemonId: string;
   types: string[];
+  mainType: string;
   sprites: PokemonSprites;
   species_Url: string;
   abilities: PokemonAbility[];

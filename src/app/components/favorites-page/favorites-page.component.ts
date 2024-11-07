@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonListComponent } from '../../subComponents/pokemon-list/pokemon-list.component';
+import { ShareDataService } from '../../services/shareData.service';
 
 @Component({
   selector: 'app-favorites-page',
@@ -9,19 +10,17 @@ import { PokemonListComponent } from '../../subComponents/pokemon-list/pokemon-l
   styleUrl: './favorites-page.component.css',
 })
 export class FavoritesPageComponent implements OnInit {
-  constructor() {}
+  constructor(private shareDataService: ShareDataService) {}
+  favoritePokemons: string[] = [];
 
-  pokemonsNamesList: string[] = [];
+  ngOnInit() {
+    this.checkFavoriteList();
+  }
 
-  ngOnInit(): void {
-    // git the favorites list from the local storage
-    const favoritesList = localStorage.getItem('favorites');
-    if (favoritesList) {
-      this.pokemonsNamesList = JSON.parse(favoritesList);
-      console.log(this.pokemonsNamesList);
-    } else {
-      this.pokemonsNamesList = [];
-      console.log(this.pokemonsNamesList);
+  checkFavoriteList() {
+    if (this.shareDataService.getFavoritePokemons() === null) {
+      this.favoritePokemons = [];
     }
+    this.favoritePokemons = this.shareDataService.getFavoritePokemons();
   }
 }

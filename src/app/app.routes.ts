@@ -3,6 +3,7 @@ import { PokemonsPageComponent } from './components/pokemons-page/pokemons-page.
 import { FavoritesPageComponent } from './components/favorites-page/favorites-page.component';
 import { BattlePageComponent } from './components/battle-page/battle-page.component';
 import { SearchPageComponent } from './components/search-page/search-page.component';
+import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   {
@@ -28,6 +29,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    component: PokemonsPageComponent,
+    component: AppComponent,
   },
 ];

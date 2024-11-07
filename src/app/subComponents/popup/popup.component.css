@@ -164,7 +164,7 @@
 
 .details::-webkit-scrollbar {
   width: 0.4em;
-  height: 80%;
+  visibility: hidden;
 }
 
 .details::-webkit-scrollbar-track {
@@ -202,7 +202,6 @@
 }
 
 .tabContainer {
-  grid-area: 4/1/5/-1;
   width: 100%;
   height: 100%;
 }
