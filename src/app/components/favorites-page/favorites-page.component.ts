@@ -1,26 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonListComponent } from '../../subComponents/pokemon-list/pokemon-list.component';
 import { ShareDataService } from '../../services/shareData.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-favorites-page',
   standalone: true,
-  imports: [PokemonListComponent],
+  imports: [PokemonListComponent, CommonModule],
   templateUrl: './favorites-page.component.html',
   styleUrl: './favorites-page.component.css',
 })
 export class FavoritesPageComponent implements OnInit {
-  constructor(private shareDataService: ShareDataService) {}
   favoritePokemons: string[] = [];
 
-  ngOnInit() {
-    this.checkFavoriteList();
+  constructor(private shareDataService: ShareDataService) {}
+
+  ngOnInit(): void {
+    this.getpokemonList();
   }
 
-  checkFavoriteList() {
-    if (this.shareDataService.getFavoritePokemons() === null) {
-      this.favoritePokemons = [];
-    }
-    this.favoritePokemons = this.shareDataService.getFavoritePokemons();
+  getpokemonList() {
+    this.shareDataService.currentFavoritePokemonList.subscribe(
+      (favoriteList) => {
+        this.favoritePokemons = favoriteList;
+      }
+    );
   }
 }

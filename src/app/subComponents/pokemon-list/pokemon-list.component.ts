@@ -1,16 +1,14 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
-// CommonModule is used to import common directives such as ngIf and ngFor
 import { CommonModule } from '@angular/common';
-// Import the Pokemon services
-import { GetPokemonListService } from '../../services/getPokemonList.service';
+// Import the services
+import { PopupService } from '../../services/popup.service';
+import { ShareDataService } from '../../services/shareData.service';
 
 // Import the PokemonBlockComponent (child component)
 import { PokemonBlockComponent } from '../../subComponents/pokemon-block/pokemon-block.component';
 // Import the Pokemon type from types.ts
 import { Pokemon } from '../../types';
 import { PopupComponent } from '../../subComponents/popup/popup.component';
-import { PopupService } from '../../services/popup.service';
-import { ShareDataService } from '../../services/shareData.service';
 
 @Component({
   selector: 'pokemon-list',
@@ -28,7 +26,6 @@ export class PokemonListComponent implements OnInit {
 
   // Inject services
   constructor(
-    private getPokemonListService: GetPokemonListService,
     private popupService: PopupService,
     private shareDataService: ShareDataService
   ) {}

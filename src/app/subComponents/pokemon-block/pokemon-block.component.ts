@@ -25,34 +25,6 @@ export class PokemonBlockComponent implements OnInit {
   favoritedPokemon: boolean = false;
   battlePokemon: boolean = false;
 
-  // The @Input() decorator is used to pass data from the parent component to the child component
-  // @Input() pokemonData: Pokemon = {
-  //   name: '',
-  //   id: 0,
-  //   formattedPokemonId: '',
-  //   abilities: [],
-  //   types: [],
-  //   mainType: '',
-  //   sprites: {
-  //     front_default: '',
-  //     back_default: '',
-  //     official_artwork: '',
-  //     dream_world: '',
-  //   },
-
-  //   species_Url: '',
-
-  //   weight: 0,
-  //   height: 0,
-  //   base: 0,
-  //   stats: [
-  //     {
-  //       baseStat: 0,
-  //       statName: '',
-  //     },
-  //   ],
-  // };
-
   ngOnInit() {
     this.checkFavoritePokemon();
     this.checkBattlePokemon();
@@ -67,11 +39,9 @@ export class PokemonBlockComponent implements OnInit {
     if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
       return;
     }
-    // get the favorite pokemons from the local storage
     const favoritePokemonArr = JSON.parse(
       localStorage.getItem('favoritePokemonList') || '[]'
     );
-    // check if the pokemon is in the
     this.favoritedPokemon = favoritePokemonArr.includes(this.pokemonData.name);
   }
 

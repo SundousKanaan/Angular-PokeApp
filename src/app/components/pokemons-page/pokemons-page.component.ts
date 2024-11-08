@@ -16,6 +16,10 @@ export class PokemonsPageComponent implements OnInit {
   ngOnInit(): void {
     if (this.pokemonsNamesList.length === 0) {
       this.getpokemonList();
+    } else {
+      console.log('pokemons page');
+      this.pokemonsNamesList = [];
+      this.getpokemonList();
     }
   }
 

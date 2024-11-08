@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from '../types';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { GetPokemonListService } from './getPokemonList.service';
 
 @Injectable({
@@ -13,6 +13,10 @@ export class ShareDataService {
   currentPokemonData = this.pokemonData.asObservable();
   private pokemonDataList = new BehaviorSubject<Pokemon[] | null>(null);
   currentPokemonDataList = this.pokemonDataList.asObservable();
+  private favoritePokemonList = new BehaviorSubject<string[]>(
+    this.getFavoritePokemons()
+  );
+  currentFavoritePokemonList = this.favoritePokemonList.asObservable();
 
   setPokemonData(pokemon: Pokemon) {
     this.pokemonData.next(pokemon);
@@ -31,34 +35,39 @@ export class ShareDataService {
   }
 
   setFavoritePokemon(name: string) {
-    let favoritePokemonList = JSON.parse(
-      localStorage.getItem('favoritePokemonList') || '[]'
-    );
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      let storageFavoritePokemonList = JSON.parse(
+        localStorage.getItem('favoritePokemonList') || '[]'
+      );
 
-    if (favoritePokemonList.includes(name)) {
-      // first get the index of the pokemon in the list
-      const index = favoritePokemonList.indexOf(name);
-      // remove the pokemon from the list
-      favoritePokemonList.splice(index, 1);
+      if (storageFavoritePokemonList.includes(name)) {
+        // Remove Pokémon from the list if already favorited
+        storageFavoritePokemonList = storageFavoritePokemonList.filter(
+          (pokemon: string) => pokemon !== name
+        );
+      } else {
+        storageFavoritePokemonList.push(name);
+      }
+
+      // Update localStorage
       localStorage.setItem(
         'favoritePokemonList',
-        JSON.stringify(favoritePokemonList)
+        JSON.stringify(storageFavoritePokemonList)
       );
+
+      // Update BehaviorSubject to notify observers of changes
+      this.favoritePokemonList.next(storageFavoritePokemonList);
     } else {
-      favoritePokemonList.push(name);
-      // convert the array to a string
-      localStorage.setItem(
-        'favoritePokemonList',
-        JSON.stringify(favoritePokemonList)
-      );
+      console.error('localStorage is not available 1');
     }
   }
 
-  getFavoritePokemons() {
+  getFavoritePokemons(): string[] {
     if (typeof localStorage !== 'undefined') {
       return JSON.parse(localStorage.getItem('favoritePokemonList') || '[]');
+    } else {
+      console.error('localStorage is not available');
+      return [];
     }
-
-    return null;
   }
 }
