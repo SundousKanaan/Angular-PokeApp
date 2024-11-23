@@ -1,13 +1,27 @@
 <div>
   <h1>{{ pageTitle }}</h1>
 
-  <ul class="pokemonList">
-    <li *ngFor="let pokemon of pokemonList">
-      <pokemonBlock
-        [pokemonData]="pokemon"
-        (openDialogEvent)="openDialog()"
-      ></pokemonBlock>
-    </li>
+  <ul class="pokemonList" *ngIf="pageTitle === 'All Pokémons'">
+    <ng-container *ngFor="let pokemon of pokemonList">
+      <li>
+        <pokemonBlock
+          [pokemonData]="pokemon"
+          (openDialogEvent)="openDialog()"
+        ></pokemonBlock>
+      </li>
+    </ng-container>
+  </ul>
+
+  <ul class="pokemonList" *ngIf="pageTitle === 'Favorites'">
+    <ng-container *ngFor="let pokemon of pokemonList">
+      <li>
+        <pokemonBlock
+          [pokemonData]="pokemon"
+          (openDialogEvent)="openDialog()"
+          (reCheckListEvent)="reCheckList()"
+        ></pokemonBlock>
+      </li>
+    </ng-container>
   </ul>
   <popup></popup>
 </div>

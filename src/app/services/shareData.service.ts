@@ -13,10 +13,16 @@ export class ShareDataService {
   currentPokemonData = this.pokemonData.asObservable();
   private pokemonDataList = new BehaviorSubject<Pokemon[] | null>(null);
   currentPokemonDataList = this.pokemonDataList.asObservable();
-  private favoritePokemonList = new BehaviorSubject<string[]>(
+
+  private favoritePokemonNames = new BehaviorSubject<string[]>(
+    this.setFavoritePokemonNames()
+  );
+  currentFavoritePokemonNames = this.favoritePokemonNames.asObservable();
+
+  private favoritePokemonsData = new BehaviorSubject<Pokemon[]>(
     this.getFavoritePokemons()
   );
-  currentFavoritePokemonList = this.favoritePokemonList.asObservable();
+  currentFavoritePokemonsData = this.favoritePokemonsData.asObservable();
 
   setPokemonData(pokemon: Pokemon) {
     this.pokemonData.next(pokemon);
@@ -26,7 +32,7 @@ export class ShareDataService {
     return this.currentPokemonData;
   }
 
-  setPokemonList(pokemonsNamesList: string[]) {
+  setPokemonDataList(pokemonsNamesList: string[]) {
     this.getPokemonListService
       .getPokemonListService(pokemonsNamesList)
       .subscribe((data: any) => {
@@ -56,17 +62,41 @@ export class ShareDataService {
       );
 
       // Update BehaviorSubject to notify observers of changes
-      this.favoritePokemonList.next(storageFavoritePokemonList);
+      this.favoritePokemonNames.next(storageFavoritePokemonList);
     } else {
-      console.error('localStorage is not available 1');
+      console.error('[setFavoritePokemon] localStorage is not available 1');
     }
   }
 
-  getFavoritePokemons(): string[] {
-    if (typeof localStorage !== 'undefined') {
-      return JSON.parse(localStorage.getItem('favoritePokemonList') || '[]');
+  setFavoritePokemonNames() {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      const storageFavoritePokemonList = JSON.parse(
+        localStorage.getItem('favoritePokemonList') || '[]'
+      );
+
+      return storageFavoritePokemonList;
     } else {
       console.error('localStorage is not available');
+      return [];
+    }
+  }
+
+  getFavoritePokemons(): Pokemon[] {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      const storageFavoritePokemonList = JSON.parse(
+        localStorage.getItem('favoritePokemonList') || '[]'
+      );
+
+      let favoritePokemonsData: Pokemon[] = [];
+      this.getPokemonListService
+        .getPokemonListService(storageFavoritePokemonList)
+        .subscribe((data: Pokemon[]) => {
+          favoritePokemonsData = data;
+        });
+
+      return favoritePokemonsData;
+    } else {
+      console.error('[getFavoritePokemons] localStorage is not available');
       return [];
     }
   }

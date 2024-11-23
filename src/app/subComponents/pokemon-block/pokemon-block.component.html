@@ -13,7 +13,7 @@
       alt="pokemon"
     />
   </div>
-  <button (click)="handleAddToFavorite()">
+  <button (click)="handleAddToFavorite(); reCheckList()">
     <img
       [src]="
         favoritedPokemon

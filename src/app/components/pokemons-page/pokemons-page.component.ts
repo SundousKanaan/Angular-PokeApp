@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonListComponent } from '../../subComponents/pokemon-list/pokemon-list.component';
 import { PokemonService } from '../../services/pokemon.service';
+import { ShareDataService } from '../../services/shareData.service';
 
 @Component({
   selector: 'app-pokemons-page',
@@ -10,23 +11,26 @@ import { PokemonService } from '../../services/pokemon.service';
   styleUrl: './pokemons-page.component.css',
 })
 export class PokemonsPageComponent implements OnInit {
-  constructor(private pokemonService: PokemonService) {}
-  pokemonsNamesList: string[] = [];
+  constructor(
+    private pokemonService: PokemonService,
+    private shareDataService: ShareDataService
+  ) {}
+  pokemonsList: string[] = [];
 
   ngOnInit(): void {
-    if (this.pokemonsNamesList.length === 0) {
+    if (this.pokemonsList.length === 0) {
       this.getpokemonList();
     } else {
-      console.log('pokemons page');
-      this.pokemonsNamesList = [];
-      this.getpokemonList();
+      console.error('Pokemons list is empty');
     }
   }
 
   getpokemonList() {
     this.pokemonService.getPokemonList().subscribe((data) => {
-      const test = data.results.map((pokemon: any) => pokemon.name);
-      this.pokemonsNamesList = test;
+      const pokemonsNamesList = data.results.map(
+        (pokemon: any) => pokemon.name
+      );
+      this.shareDataService.setPokemonDataList(pokemonsNamesList);
     });
   }
 }

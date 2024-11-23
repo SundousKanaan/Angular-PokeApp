@@ -15,14 +15,21 @@ export class PokemonBlockComponent implements OnInit {
 
   // Create an EventEmitter to notify the parent component
   @Output() openDialogEvent = new EventEmitter<Pokemon>();
-  @Input() pokemonData: Pokemon = {} as Pokemon;
+  @Output() reCheckListEvent = new EventEmitter();
+  @Input()
+  pokemonData: Pokemon = {} as Pokemon;
+  favoritedPokemon: boolean = false;
 
   openDialog() {
     this.openDialogEvent.emit(this.pokemonData);
     this.shareDataService.setPokemonData(this.pokemonData);
   }
 
-  favoritedPokemon: boolean = false;
+  reCheckList() {
+    console.log('clicked reCheckList');
+    this.reCheckListEvent.emit();
+  }
+
   battlePokemon: boolean = false;
 
   ngOnInit() {
@@ -36,13 +43,9 @@ export class PokemonBlockComponent implements OnInit {
   }
 
   checkFavoritePokemon() {
-    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
-      return;
-    }
-    const favoritePokemonArr = JSON.parse(
-      localStorage.getItem('favoritePokemonList') || '[]'
-    );
-    this.favoritedPokemon = favoritePokemonArr.includes(this.pokemonData.name);
+    this.shareDataService.currentFavoritePokemonNames.subscribe((data) => {
+      this.favoritedPokemon = data.includes(this.pokemonData.name);
+    });
   }
 
   handleBattlePokemon() {

@@ -16,13 +16,13 @@ h1 {
   list-style-type: none;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(9em, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(9em, 9em));
   gap: 1em;
   margin: auto 0;
 }
 
 .pokemonList li {
-  width: 100%;
+  max-width: 9em;
   border-radius: 1em;
   box-shadow: var(--box-shadow);
   overflow: hidden;

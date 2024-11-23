@@ -10,20 +10,8 @@ import { CommonModule } from '@angular/common';
   templateUrl: './favorites-page.component.html',
   styleUrl: './favorites-page.component.css',
 })
-export class FavoritesPageComponent implements OnInit {
+export class FavoritesPageComponent {
   favoritePokemons: string[] = [];
 
   constructor(private shareDataService: ShareDataService) {}
-
-  ngOnInit(): void {
-    this.getpokemonList();
-  }
-
-  getpokemonList() {
-    this.shareDataService.currentFavoritePokemonList.subscribe(
-      (favoriteList) => {
-        this.favoritePokemons = favoriteList;
-      }
-    );
-  }
 }
