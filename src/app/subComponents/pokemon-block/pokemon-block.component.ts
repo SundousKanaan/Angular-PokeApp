@@ -17,7 +17,7 @@ export class PokemonBlockComponent implements OnInit {
   @Output() openDialogEvent = new EventEmitter<Pokemon>();
   @Output() reCheckListEvent = new EventEmitter();
   @Input()
-  pokemonData: Pokemon = {} as Pokemon;
+  pokemonData!: Pokemon;
   favoritedPokemon: boolean = false;
 
   openDialog() {
@@ -26,7 +26,6 @@ export class PokemonBlockComponent implements OnInit {
   }
 
   reCheckList() {
-    console.log('clicked reCheckList');
     this.reCheckListEvent.emit();
   }
 

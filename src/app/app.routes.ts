@@ -8,11 +8,11 @@ import { AppComponent } from './app.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'pokemon',
+    redirectTo: 'All-Pokémons',
     pathMatch: 'full',
   },
   {
-    path: 'pokemon',
+    path: 'All-Pokémons',
     component: PokemonsPageComponent,
   },
   {

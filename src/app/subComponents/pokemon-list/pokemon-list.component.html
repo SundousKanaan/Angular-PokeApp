@@ -2,25 +2,35 @@
   <h1>{{ pageTitle }}</h1>
 
   <ul class="pokemonList" *ngIf="pageTitle === 'All Pokémons'">
-    <ng-container *ngFor="let pokemon of pokemonList">
-      <li>
+    <ng-container *ngFor="let pokemon of pokemonList; let i = index">
+      <li *ngIf="pokemon; else loadingTemplate">
         <pokemonBlock
           [pokemonData]="pokemon"
           (openDialogEvent)="openDialog()"
         ></pokemonBlock>
       </li>
+      <ng-template #loadingTemplate>
+        <li>
+          <loadingPokemonBlock></loadingPokemonBlock>
+        </li>
+      </ng-template>
     </ng-container>
   </ul>
 
   <ul class="pokemonList" *ngIf="pageTitle === 'Favorites'">
     <ng-container *ngFor="let pokemon of pokemonList">
-      <li>
+      <li *ngIf="pokemon; else loadingTemplate">
         <pokemonBlock
           [pokemonData]="pokemon"
           (openDialogEvent)="openDialog()"
           (reCheckListEvent)="reCheckList()"
         ></pokemonBlock>
       </li>
+      <ng-template #loadingTemplate>
+        <li>
+          <loadingPokemonBlock></loadingPokemonBlock>
+        </li>
+      </ng-template>
     </ng-container>
   </ul>
   <popup></popup>
