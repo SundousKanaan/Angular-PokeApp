@@ -22,7 +22,7 @@
 
 .dialog.open {
   visibility: visible;
-  animation: showCard 1.5s 0.2s linear both;
+  animation: showCard 1s 0.2s linear both;
 }
 
 @keyframes showCard {
@@ -383,7 +383,7 @@
   background-color: var(--pokemon-type-color);
   width: var(--color-spread);
   transform-origin: left;
-  animation: showStat 2s 1 ease-in-out both;
+  animation: showStat 1s 1 ease-in-out both;
 }
 
 @keyframes showStat {
@@ -441,7 +441,7 @@
   background-color: var(--evolutions-background);
   position: relative;
   transform-origin: left;
-  animation: showEvolution 2s ease-in-out both;
+  animation: showEvolution 1s ease-in-out both;
 }
 
 @keyframes showEvolution {
