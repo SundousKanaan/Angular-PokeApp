@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Pokemon } from '../types';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { GetPokemonListService } from './getPokemonList.service';
 
 @Injectable({
@@ -9,8 +9,6 @@ import { GetPokemonListService } from './getPokemonList.service';
 export class ShareDataService {
   constructor(private getPokemonListService: GetPokemonListService) {}
 
-  private pokemonData = new BehaviorSubject<Pokemon | null>(null);
-  currentPokemonData = this.pokemonData.asObservable();
   private pokemonDataList = new BehaviorSubject<Pokemon[] | null>(null);
   currentPokemonDataList = this.pokemonDataList.asObservable();
 
@@ -23,14 +21,6 @@ export class ShareDataService {
     this.getFavoritePokemons()
   );
   currentFavoritePokemonsData = this.favoritePokemonsData.asObservable();
-
-  setPokemonData(pokemon: Pokemon) {
-    this.pokemonData.next(pokemon);
-  }
-
-  getPokemonData() {
-    return this.currentPokemonData;
-  }
 
   setPokemonDataList(pokemonsNamesList: string[]) {
     this.getPokemonListService

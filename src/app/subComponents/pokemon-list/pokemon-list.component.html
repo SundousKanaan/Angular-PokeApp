@@ -6,7 +6,7 @@
       <li *ngIf="pokemon; else loadingTemplate">
         <pokemonBlock
           [pokemonData]="pokemon"
-          (openDialogEvent)="openDialog()"
+          (openDialogEvent)="openDialog($event)"
         ></pokemonBlock>
       </li>
       <ng-template #loadingTemplate>
@@ -22,7 +22,7 @@
       <li *ngIf="pokemon; else loadingTemplate">
         <pokemonBlock
           [pokemonData]="pokemon"
-          (openDialogEvent)="openDialog()"
+          (openDialogEvent)="openDialog($event)"
           (reCheckListEvent)="reCheckList()"
         ></pokemonBlock>
       </li>
@@ -33,5 +33,4 @@
       </ng-template>
     </ng-container>
   </ul>
-  <popup></popup>
 </div>

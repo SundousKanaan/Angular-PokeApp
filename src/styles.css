@@ -75,7 +75,7 @@
     rgb(185, 185, 185) 70% 100%
   );
 
-  --top-layer: 1000000;
+  --top-layer: 999;
 }
 
 .darkMode {
@@ -223,4 +223,13 @@ button {
 
 .shadow {
   background-color: var(--type-shadow);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

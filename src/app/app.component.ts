@@ -1,7 +1,10 @@
-import { Component, NgModule, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+
 // import the PokemonService to make it available to the entire application
 import { PokemonService } from './services/pokemon.service';
 import { PopupService } from './services/popup.service';
@@ -13,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 // components
 import { NavbarComponent } from './subComponents/navbar/navbar.component';
+import { PokemonBlockComponent } from './subComponents/pokemon-block/pokemon-block.component';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +25,7 @@ import { NavbarComponent } from './subComponents/navbar/navbar.component';
     RouterOutlet,
     NavbarComponent,
     FormsModule,
+    MatDialogModule,
     // import the HttpClientModule module to make HTTP requests
     HttpClientModule,
     // components imports
@@ -38,6 +43,8 @@ import { NavbarComponent } from './subComponents/navbar/navbar.component';
   styleUrl: './app.component.css',
 })
 export class AppComponent {
+  constructor(private popup: MatDialog) {}
+
   // constructor(private router: Router) {}
   @ViewChild(NavbarComponent) navbarComponent!: NavbarComponent;
 

@@ -1,8 +1,6 @@
 .dialog {
-  width: 85%;
-  max-width: 25em;
-  height: 75%;
-  max-height: 43em;
+  width: 25em;
+  height: 43em;
   padding: 0.5em 1em;
 
   border: none;
@@ -16,12 +14,9 @@
   backdrop-filter: blur(0.2em);
   box-shadow: 0 0 0 0.5em var(--pokemon-type-color);
   position: fixed;
+  left: calc(50% - 25em / 2);
+  top: calc(50% - 43em / 2);
 
-  visibility: hidden;
-}
-
-.dialog.open {
-  visibility: visible;
   animation: showCard 1s 0.2s linear both;
 }
 

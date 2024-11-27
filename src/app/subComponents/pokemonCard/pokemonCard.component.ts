@@ -1,26 +1,25 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
 import { CommonModule } from '@angular/common';
 import { Pokemon } from '../../types';
-import { PopupService } from '../../services/popup.service';
 import { PokemonService } from '../../services/pokemon.service';
 import { FormatPokemonIdService } from '../../services/formatPokemonId.service';
 import { ShareDataService } from '../../services/shareData.service';
 
 @Component({
-  selector: 'popup',
+  selector: 'pokemonCard',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './popup.component.html',
-  styleUrl: './popup.component.css',
+  templateUrl: './pokemonCard.component.html',
+  styleUrl: './pokemonCard.component.css',
 })
-export class PopupComponent implements OnInit {
-  @ViewChild('dialogRef') dialogRef!: ElementRef<HTMLDialogElement>;
-
+export class pokemonCardComponent implements OnInit {
   constructor(
-    private popupService: PopupService,
     private pokemonService: PokemonService,
     private formatPokemonIdService: FormatPokemonIdService,
-    private shareDataService: ShareDataService
+    @Inject(MAT_DIALOG_DATA) public data: Pokemon,
+    private dialogRef: MatDialogRef<pokemonCardComponent>
   ) {}
 
   pokemonData: Pokemon | null = null;
@@ -29,36 +28,9 @@ export class PopupComponent implements OnInit {
 
   isDialogOpen = false; // the dialog is closed by default
 
-  ngOnInit(): void {
-    this.shareDataService.getPokemonData().subscribe((data) => {
-      this.pokemonData = data;
-    });
-
-    // Abonneer je op veranderingen in de dialogstatus
-    this.popupService.currentDialogRef.subscribe((isOpen) => {
-      this.isDialogOpen = isOpen;
-      if (isOpen) {
-        this.handleOpenDialog();
-      } else {
-        this.handleOpenDialog();
-      }
-    });
-  }
-
-  handleOpenDialog() {
-    if (this.dialogRef) {
-      this.openTabName = 'aboutTab';
-      this.dialogRef.nativeElement.classList.add('open');
-      this.dialogRef.nativeElement.classList.remove('close');
-      this.dialogRef.nativeElement.showModal();
-    }
-  }
-
-  handleCloseDialog() {
-    if (this.dialogRef) {
-      this.dialogRef.nativeElement.close();
-      this.dialogRef.nativeElement.classList.add('close');
-      document.body.style.overflow = '';
+  ngOnInit() {
+    if (this.data) {
+      this.pokemonData = this.data;
     }
   }
 
@@ -157,5 +129,9 @@ export class PopupComponent implements OnInit {
           }
         });
     });
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }

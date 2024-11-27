@@ -1,27 +1,25 @@
-<dialog
-  *ngIf="pokemonData"
-  #dialogRef
+<div
   class="dialog"
   [ngStyle]="{
-    '--pokemon-type-color': 'var(--type-' + pokemonData.mainType + ')'
+    '--pokemon-type-color': 'var(--type-' + pokemonData?.mainType + ')'
   }"
 >
-  <h2 class="dialogPokemonName">
-    {{ pokemonData.name }}
+  <h2 mat-dialog-title class="dialogPokemonName">
+    {{ pokemonData?.name }}
   </h2>
   <div
     class="mainTypeIcon"
     [ngStyle]="{
       'background-image':
-        'url(/assets/images/typesIcons/' + pokemonData.mainType + '.png' + ')'
+        'url(/assets/images/typesIcons/' + pokemonData?.mainType + '.png' + ')'
     }"
   ></div>
   <p class="dialogPokemonId">
-    {{ pokemonData.formattedPokemonId }}
+    {{ pokemonData?.formattedPokemonId }}
   </p>
   <div class="dialogImageContainer">
     <img
-      [src]="pokemonData.sprites.official_artwork"
+      [src]="pokemonData?.sprites?.official_artwork"
       alt="pokemon official artwork"
     />
   </div>
@@ -34,11 +32,11 @@
         [ngStyle]="{
           color:
             openTabName === 'aboutTab'
-              ? 'var(--type-' + pokemonData.mainType + ')'
+              ? 'var(--type-' + pokemonData?.mainType + ')'
               : '',
           'border-bottom-color':
             openTabName === 'aboutTab'
-              ? 'var(--type-' + pokemonData.mainType + ')'
+              ? 'var(--type-' + pokemonData?.mainType + ')'
               : '',
           'font-weight': openTabName === 'aboutTab' ? '800' : '600'
         }"
@@ -51,11 +49,11 @@
         [ngStyle]="{
           color:
             openTabName === 'stateTab'
-              ? 'var(--type-' + pokemonData.mainType + ')'
+              ? 'var(--type-' + pokemonData?.mainType + ')'
               : '',
           'border-bottom-color':
             openTabName === 'stateTab'
-              ? 'var(--type-' + pokemonData.mainType + ')'
+              ? 'var(--type-' + pokemonData?.mainType + ')'
               : '',
           'font-weight': openTabName === 'stateTab' ? '800' : '600'
         }"
@@ -68,11 +66,11 @@
         [ngStyle]="{
           color:
             openTabName === 'evolutionTab'
-              ? 'var(--type-' + pokemonData.mainType + ')'
+              ? 'var(--type-' + pokemonData?.mainType + ')'
               : '',
           'border-bottom-color':
             openTabName === 'evolutionTab'
-              ? 'var(--type-' + pokemonData.mainType + ')'
+              ? 'var(--type-' + pokemonData?.mainType + ')'
               : '',
           'font-weight': openTabName === 'evolutionTab' ? '800' : '600'
         }"
@@ -83,7 +81,7 @@
     <section class="tabContainer" [ngSwitch]="openTabName">
       <div *ngSwitchCase="'aboutTab'" class="aboutTab">
         <ul class="typesList">
-          <li *ngFor="let type of pokemonData.types">
+          <li *ngFor="let type of pokemonData?.types">
             <span
               [ngStyle]="{
                 'background-image':
@@ -97,20 +95,20 @@
         <div class="weight">
           <p>weight</p>
           <p>
-            {{ pokemonData.weight }}
+            {{ pokemonData?.weight }}
             Kg
           </p>
         </div>
         <div class="height">
           <p>height</p>
           <p>
-            {{ pokemonData.height }}
+            {{ pokemonData?.height }}
             M
           </p>
         </div>
         <p class="abilitiesTitle">Abilities</p>
         <ul class="abilitiesList">
-          <li *ngFor="let ability of pokemonData.abilities">
+          <li *ngFor="let ability of pokemonData?.abilities">
             {{ ability?.ability?.name }}
           </li>
         </ul>
@@ -119,7 +117,7 @@
       <div *ngSwitchCase="'stateTab'" class="stateTab">
         <ul>
           <li
-            *ngFor="let state of pokemonData.stats"
+            *ngFor="let state of pokemonData?.stats"
             [ngStyle]="{
               '--color-spread': state?.baseStat + '%'
             }"
@@ -156,5 +154,9 @@
       </div>
     </section>
   </section>
-  <button class="closeDialog" (click)="handleCloseDialog()"></button>
-</dialog>
+  <button
+    mat-dialog-close="true"
+    class="closeDialog"
+    (click)="closeDialog()"
+  ></button>
+</div>

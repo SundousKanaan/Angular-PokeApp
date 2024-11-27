@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // Import the services
-import { PopupService } from '../../services/popup.service';
 import { ShareDataService } from '../../services/shareData.service';
-import { GetPokemonListService } from '../../services/getPokemonList.service';
 import { FormatPokemonIdService } from '../../services/formatPokemonId.service';
 
 // Import the PokemonBlockComponent (child component)
@@ -12,19 +10,14 @@ import { LoadingPokemonBlockComponent } from '../LoadingComponents/loading-pokem
 
 // Import the Pokemon type from types.ts
 import { Pokemon } from '../../types';
-import { PopupComponent } from '../../subComponents/popup/popup.component';
+import { pokemonCardComponent } from '../pokemonCard/pokemonCard.component';
 import { PokemonService } from '../../services/pokemon.service';
-import { response } from 'express';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'pokemon-list',
   standalone: true,
-  imports: [
-    CommonModule,
-    PokemonBlockComponent,
-    LoadingPokemonBlockComponent,
-    PopupComponent,
-  ],
+  imports: [CommonModule, PokemonBlockComponent, LoadingPokemonBlockComponent],
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.css'],
 })
@@ -36,15 +29,13 @@ export class PokemonListComponent implements OnInit {
 
   // Inject services
   constructor(
-    private popupService: PopupService,
+    private popup: MatDialog,
     private shareDataService: ShareDataService,
     private pokemonService: PokemonService,
     private formatPokemonIdService: FormatPokemonIdService
   ) {}
 
   ngOnInit() {
-    console.log('PokemonListComponent ngOnInit', this.pokemonList);
-
     if (this.pageTitle === 'All Pokémons') {
       this.crreateAllPokemonList();
     }
@@ -181,10 +172,7 @@ export class PokemonListComponent implements OnInit {
   }
 
   reCheckList() {
-    console.log('clicked 1');
-
     if (this.pageTitle === 'Favorites') {
-      console.log('clicked 2');
       this.shareDataService.currentFavoritePokemonsData.subscribe((data) => {
         console.log('clicked 3', data);
       });
@@ -192,7 +180,9 @@ export class PokemonListComponent implements OnInit {
   }
 
   // * dialog functions
-  openDialog() {
-    this.popupService.openDialog();
+  openDialog(selectedPokemon: Pokemon) {
+    this.popup.open(pokemonCardComponent, {
+      data: selectedPokemon,
+    });
   }
 }

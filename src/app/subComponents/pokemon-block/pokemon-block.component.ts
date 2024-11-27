@@ -22,7 +22,6 @@ export class PokemonBlockComponent implements OnInit {
 
   openDialog() {
     this.openDialogEvent.emit(this.pokemonData);
-    this.shareDataService.setPokemonData(this.pokemonData);
   }
 
   reCheckList() {
