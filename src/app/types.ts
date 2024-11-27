@@ -25,7 +25,6 @@ export interface Pokemon {
   height: number;
   base: number;
   stats: PokemonState[];
-  evolutions?: PokemonEvolution[];
 }
 
 export type PokemonSprites = {
@@ -57,18 +56,3 @@ export type PokemonState = {
   baseStat: number;
   statName: string;
 };
-
-export type PokemonEvolution = [
-  {
-    name: string;
-    url: string;
-  },
-  {
-    name: string;
-    url: string;
-  },
-  {
-    name: string;
-    url: string;
-  }
-];

@@ -128,7 +128,7 @@
         </ul>
       </div>
       <div *ngSwitchDefault class="evolutionTab">
-        <ul>
+        <ul [ngClass]="{ changePaddingButton: pokemonEvolutions.length > 3 }">
           <li
             *ngFor="let evolution of pokemonEvolutions; let i = index"
             [ngStyle]="{
@@ -154,9 +154,5 @@
       </div>
     </section>
   </section>
-  <button
-    mat-dialog-close="true"
-    class="closeDialog"
-    (click)="closeDialog()"
-  ></button>
+  <button class="closeDialog" (click)="closeDialog()"></button>
 </div>

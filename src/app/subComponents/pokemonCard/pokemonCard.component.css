@@ -137,7 +137,7 @@
   transform: skewY(29deg);
 }
 
-.dialogImageContainer img {
+.dialogImageContainer > img {
   width: 100%;
   height: 100%;
   object-fit: contain;
@@ -422,7 +422,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2em;
+  gap: 1.5em;
+}
+
+.evolutionTab ul.changePaddingButton {
+  height: fit-content;
+  padding-bottom: 1em;
 }
 
 .evolutionTab ul li {
@@ -451,9 +456,9 @@
 .evolutionTab ul li:not(:last-of-type)::before {
   content: "";
   width: 0.3em;
-  height: 1.25rem;
+  height: 1rem;
   position: absolute;
-  bottom: -1.7em;
+  bottom: -1.25em;
   left: 2.5em;
   z-index: 2;
   background-image: url("/assets/images/icons/dashes.svg");

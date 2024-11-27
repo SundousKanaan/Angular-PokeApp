@@ -26,7 +26,7 @@ export class pokemonCardComponent implements OnInit {
   openTabName: string = 'aboutTab';
   pokemonEvolutions: Pokemon[] = [];
 
-  isDialogOpen = false; // the dialog is closed by default
+  isDialogOpen = false;
 
   ngOnInit() {
     if (this.data) {
@@ -48,42 +48,21 @@ export class pokemonCardComponent implements OnInit {
     this.pokemonEvolutions = [];
     this.pokemonService.getPokemonSpecies(url).subscribe((data: any) => {
       const evolutionChainUrl = data.evolution_chain.url;
+
+      // Fetch the evolution chain
       this.pokemonService
         .getPokemonEvolution(evolutionChainUrl)
-        .subscribe((data: any) => {
-          const evolutionChain: { name: string; url: string }[] = [];
+        .subscribe((chain: any) => {
+          const processedEvolutionChain = (chain: any) => {
+            if (!chain) return;
 
-          // Eerste niveau
-          if (data.chain) {
-            evolutionChain.push({
-              name: data.chain.species.name,
-              url: data.chain.species.url,
-            });
+            const evolutionChain = {
+              name: chain.species.name,
+              url: chain.species.url,
+            };
 
-            // Tweede niveau (evolves_to)
-            if (data.chain.evolves_to && data.chain.evolves_to.length > 0) {
-              evolutionChain.push({
-                name: data.chain.evolves_to[0].species.name,
-                url: data.chain.evolves_to[0].species.url,
-              });
-
-              // Derde niveau (evolves_to[0].evolves_to)
-              if (
-                data.chain.evolves_to[0].evolves_to &&
-                data.chain.evolves_to[0].evolves_to.length > 0
-              ) {
-                evolutionChain.push({
-                  name: data.chain.evolves_to[0].evolves_to[0].species.name,
-                  url: data.chain.evolves_to[0].evolves_to[0].species.url,
-                });
-              }
-            }
-          }
-
-          for (let i = 0; i < evolutionChain.length; i++) {
-            const PokemonEvolution = evolutionChain[i];
             this.pokemonService
-              .getPokemonDetails(PokemonEvolution.name)
+              .getPokemonDetails(evolutionChain.name)
               .subscribe((data: any) => {
                 const formattedPokemonEvolution: Pokemon = {
                   name: data.name,
@@ -126,7 +105,17 @@ export class pokemonCardComponent implements OnInit {
 
                 this.pokemonEvolutions.push(formattedPokemonEvolution);
               });
-          }
+
+            if (chain.evolves_to && chain.evolves_to.length > 0) {
+              chain.evolves_to.forEach((evolution: any) => {
+                processedEvolutionChain(evolution);
+              });
+            } else if (this.pokemonEvolutions.length === 0) {
+              console.log('No further evolutions found for this Pokémon.');
+            }
+          };
+
+          processedEvolutionChain(chain.chain);
         });
     });
   }
