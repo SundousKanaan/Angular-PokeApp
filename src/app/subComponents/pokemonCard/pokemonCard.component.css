@@ -1,6 +1,8 @@
 .dialog {
-  width: 25em;
-  height: 43em;
+  --width: 20em;
+  --height: 35em;
+  width: var(--width);
+  height: var(--height);
   padding: 0.5em 1em;
 
   border: none;
@@ -14,10 +16,17 @@
   backdrop-filter: blur(0.2em);
   box-shadow: 0 0 0 0.5em var(--pokemon-type-color);
   position: fixed;
-  left: calc(50% - 25em / 2);
-  top: calc(50% - 43em / 2);
+  left: calc(50% - var(--width) / 2);
+  top: calc(50% - var(--height) / 2);
 
   animation: showCard 1s 0.2s linear both;
+}
+
+@media (max-width: 600px) {
+  .dialog {
+    --width: 25em;
+    --height: 43em;
+  }
 }
 
 @keyframes showCard {
