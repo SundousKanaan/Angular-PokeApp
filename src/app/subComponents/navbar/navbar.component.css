@@ -86,8 +86,8 @@
 }
 
 .modeButton {
-  width: 100%;
-  aspect-ratio: 1;
+  width: 2.5em;
+  height: 2.5em;
   border-radius: 50%;
   margin: 0;
   padding: 0;
