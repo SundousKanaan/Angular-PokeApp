@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // Import the services
 import { ShareDataService } from '../../services/shareData.service';
@@ -22,14 +22,13 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./pokemon-list.component.css'],
 })
 export class PokemonListComponent implements OnInit {
-  @ViewChild('dialogRef') dialogRef!: ElementRef<HTMLDialogElement>;
   @Input() pageTitle: string = '';
   pokemonList: (Pokemon | null)[] = [];
   loading: boolean = true;
 
   // Inject services
   constructor(
-    private popup: MatDialog,
+    private pokemonCard: MatDialog,
     private shareDataService: ShareDataService,
     private pokemonService: PokemonService,
     private formatPokemonIdService: FormatPokemonIdService
@@ -174,14 +173,14 @@ export class PokemonListComponent implements OnInit {
   reCheckList() {
     if (this.pageTitle === 'Favorites') {
       this.shareDataService.currentFavoritePokemonsData.subscribe((data) => {
-        console.log('clicked 3', data);
+        console.log('Favorites', data);
       });
     }
   }
 
   // * dialog functions
   openDialog(selectedPokemon: Pokemon) {
-    this.popup.open(pokemonCardComponent, {
+    this.pokemonCard.open(pokemonCardComponent, {
       data: selectedPokemon,
     });
   }

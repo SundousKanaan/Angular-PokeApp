@@ -1,17 +1,7 @@
-<dialog #dialogRef class="navDialog close">
+<div class="navbar">
   <span>
-    <button class="closeButtons" (click)="closeNavbar()"></button>
-    <div class="logoContainer">
-      <img src="/assets/images/pokemon-logo.svg" alt="" />
-    </div>
-
-    <!-- TODO: remove to search page -->
-    <!-- <label>
-        <input type="text" name="search" id="search" placeholder="Search" />
-      </label> -->
-
-    <nav class="navBar">
-      <ul>
+    <nav class="navBarList">
+      <ul [ngClass]="{ darkMode: darkMode }">
         <li>
           <a
             routerLink="/All-Pokémons"
@@ -19,7 +9,6 @@
             class="pokemonsLink"
             (click)="closeNavbar()"
           >
-            All Pokémons
           </a>
         </li>
         <li>
@@ -28,8 +17,7 @@
             routerLinkActive="activeLink"
             class="FavoritesLink"
             (click)="closeNavbar()"
-            >Favorites</a
-          >
+          ></a>
         </li>
         <li>
           <a
@@ -37,8 +25,7 @@
             routerLinkActive="activeLink"
             class="battleLink"
             (click)="closeNavbar()"
-            >Battle</a
-          >
+          ></a>
         </li>
         <li>
           <a
@@ -46,29 +33,20 @@
             routerLinkActive="activeLink"
             class="searchLink"
             (click)="closeNavbar()"
-            >Search</a
-          >
+          ></a>
         </li>
       </ul>
     </nav>
   </span>
 
-  <span>
-    <!-- TODO: active dack mode -->
-    <button
-      class="modeButton"
-      [ngClass]="{ darkMode: darkMode }"
-      (click)="handleMode()"
-    >
-      <!-- TODO: make the img dynamic -->
-      <img *ngIf="darkMode" src="/assets/images/icons/lunatone.svg" alt="" />
-      <img *ngIf="!darkMode" src="/assets/images/icons/solrock.svg" alt="" />
-      Light Mode
-    </button>
-    <p class="rights">
-      The original design rights belong to Triple and I have added some
-      modifications to it.
-      <br />Pokémon and Pokémon character names are trademarks of Nintendo.
-    </p>
-  </span>
-</dialog>
+  <!-- TODO: active dack mode -->
+  <button
+    class="modeButton"
+    [ngClass]="{ darkMode: darkMode }"
+    (click)="handleMode()"
+  >
+    <!-- TODO: make the img dynamic -->
+    <img *ngIf="darkMode" src="/assets/images/icons/lunatone.svg" alt="" />
+    <img *ngIf="!darkMode" src="/assets/images/icons/solrock.svg" alt="" />
+  </button>
+</div>

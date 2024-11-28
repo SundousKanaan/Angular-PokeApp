@@ -86,7 +86,7 @@
 
   --background_color: #26282b;
   --pokemon_background_color: #919191b4;
-  --sidebar_background_color: #2c2c2c;
+  --sidebar_background_color: #808080;
   --pokemon_title_background: #cecece;
   --titles-color: #90b8f8;
 
@@ -127,8 +127,12 @@ html {
 body {
   width: 100%;
   margin: 0;
-  padding: 1em;
   background-color: var(--background_color);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header "
+    "main";
 }
 
 /*  media to laptop en bigger screens */

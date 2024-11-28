@@ -25,7 +25,7 @@ export class PokemonService {
   // Fetcht de eerste 10 Pokémon
   // pokemon.service.ts
   getPokemonList(): Observable<{ results: object[] }> {
-    return this.http.get<{ results: object[] }>(`${this.apiUrl}?limit=200`);
+    return this.http.get<{ results: object[] }>(`${this.apiUrl}?limit=8`);
   }
 
   // Fetcht details for a specific Pokémon by name

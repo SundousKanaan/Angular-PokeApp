@@ -378,7 +378,7 @@
   background-color: var(--pokemon-type-color);
   width: var(--color-spread);
   transform-origin: left;
-  animation: showStat 1s 1 ease-in-out both;
+  animation: showStat 0.8s 1 ease-in-out both;
 }
 
 @keyframes showStat {

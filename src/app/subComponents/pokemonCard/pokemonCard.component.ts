@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { Pokemon } from '../../types';
 import { PokemonService } from '../../services/pokemon.service';
 import { FormatPokemonIdService } from '../../services/formatPokemonId.service';
-import { ShareDataService } from '../../services/shareData.service';
 
 @Component({
   selector: 'pokemonCard',

@@ -16,14 +16,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 // components
 import { NavbarComponent } from './subComponents/navbar/navbar.component';
-import { PokemonBlockComponent } from './subComponents/pokemon-block/pokemon-block.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     RouterOutlet,
-    NavbarComponent,
     FormsModule,
     MatDialogModule,
     // import the HttpClientModule module to make HTTP requests
@@ -43,23 +41,6 @@ import { PokemonBlockComponent } from './subComponents/pokemon-block/pokemon-blo
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  constructor(private popup: MatDialog) {}
-
-  // constructor(private router: Router) {}
-  @ViewChild(NavbarComponent) navbarComponent!: NavbarComponent;
-
-  openNavbar() {
-    if (this.navbarComponent) {
-      this.navbarComponent.openDialog();
-    }
-  }
-
-  handleCloseNavbar() {
-    if (this.navbarComponent) {
-      this.navbarComponent.closeNavbar();
-    }
-  }
-
   setDarkMode() {
     document.body.classList.toggle('darkMode');
   }

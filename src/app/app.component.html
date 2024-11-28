@@ -1,11 +1,23 @@
 <header>
-  <button class="navbarButton" (click)="openNavbar()">=</button>
   <div class="pokemonLogo">
     <img src="/assets/images/pokemon-logo.svg" alt="" />
   </div>
-  <navbar></navbar>
 </header>
 
 <main>
-  <router-outlet></router-outlet>
+  <div class="navbarContainer">
+    <navbar></navbar>
+  </div>
+
+  <div class="contentContainer">
+    <router-outlet></router-outlet>
+  </div>
 </main>
+
+<footer>
+  <p class="rights">
+    The original design rights belong to Triple and I have added some
+    modifications to it. | Pokémon and Pokémon character names are trademarks of
+    Nintendo.
+  </p>
+</footer>

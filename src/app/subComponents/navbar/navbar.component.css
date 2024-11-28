@@ -1,125 +1,84 @@
-.navDialog {
-  width: 20em;
-  aspect-ratio: 6/9;
+.navbar {
+  width: 100%;
+  height: 100%;
 
   padding: 1em 0.5em;
   border: none;
-  border-radius: 1em;
-  background-color: var(--sidebar_background_color);
-  box-shadow: var(--box-shadow);
-  position: fixed;
+  background-color: var(--background_color);
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  overflow: visible;
 }
 
-.navDialog.close {
-  display: none;
-}
-
-dialog::backdrop {
-  background-color: var(--pokeCard-backdrop);
-}
-
-.closeButtons {
-  width: 2.5em;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  position: absolute;
-  top: -0.5em;
-  right: -0.5em;
-
-  box-shadow: var(--box-shadow);
-  background-image: url(/assets/images/icons/close.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 70%;
-}
-
-.logoContainer {
+.navBarList ul {
   width: 100%;
-  height: 4em;
-  margin-bottom: 0.5em;
-  padding-bottom: 1em;
-  border-bottom: solid 0.1em var(--shades-silver);
-}
-
-.logoContainer img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.navBar ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: 1em;
 }
 
-.navBar ul li {
+.navBarList ul li {
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  aspect-ratio: 1;
   background-color: transparent;
 }
 
-.navBar ul li a {
+.navBarList ul li a {
+  display: block;
   width: 100%;
   height: 100%;
-  border-radius: 0.75rem;
-  padding: 0.75rem 1.25rem;
-  font-family: var(--primary-font);
-  font-size: 1rem;
-  font-weight: 200;
-  text-decoration: none;
+  border-radius: 50%;
   color: var(--primary_midnight);
   transition: 0.5s;
   opacity: 0.65;
 
-  text-indent: 2em;
   background-repeat: no-repeat;
-  background-position: 1em;
+  background-position: center;
   background-size: 1.5em;
 }
 
-.navBar ul li .pokemonsLink {
+.navBarList ul.darkMode li a {
+  background-color: var(--primary_midnight);
+}
+
+.navBarList ul li .pokemonsLink {
   background-image: url(/assets/images/icons/pokeball.svg);
 }
 
-.navBar ul li .pokemonsLink.activeLink {
+.navBarList ul li .pokemonsLink.activeLink {
   background-image: url(/assets/images/icons/active-pokeball.svg);
 }
 
-.navBar ul li .FavoritesLink {
+.navBarList ul li .FavoritesLink {
   background-image: url(/assets/images/icons/unfavorited.svg);
 }
 
-.navBar ul li .FavoritesLink.activeLink {
+.navBarList ul li .FavoritesLink.activeLink {
   background-image: url(/assets/images/icons/favorited.svg);
 }
 
-.navBar ul li .battleLink {
+.navBarList ul li .battleLink {
   background-image: url(/assets/images/icons/battle.svg);
 }
 
-.navBar ul li .battleLink.activeLink {
+.navBarList ul li .battleLink.activeLink {
   background-image: url(/assets/images/icons/active-battle.svg);
 }
 
-.navBar ul li .searchLink {
+.navBarList ul li .searchLink {
   background-image: url(/assets/images/icons/search.svg);
 }
 
-.navBar ul li .searchLink.activeLink {
+.navBarList ul li .searchLink.activeLink {
   background-image: url(/assets/images/icons/active-search.svg);
 }
 
-.navBar ul li .activeLink {
+.navBarList ul li .activeLink,
+.navBarList ul.darkMode li .activeLink {
   font-weight: 400;
   opacity: 1;
   background-color: var(--primary_purple);
@@ -127,21 +86,15 @@ dialog::backdrop {
 }
 
 .modeButton {
-  width: fit-content;
-  height: 3em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5em;
-  border-radius: 0.5em;
-  margin: 0 auto;
-  padding: 0 1em 0 0.5em;
-  border-radius: 0.75rem;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin: 0;
+  padding: 0;
   background-color: transparent;
-  font-weight: 400;
   transition: 1s;
   color: var(--pokemons-names-color);
-  box-shadow: 0 0 0.5em var(--primary_purple);
+  box-shadow: inset 0 0 0 0.2em var(--primary_purple);
 }
 
 .modeButton.darkMode {
@@ -150,21 +103,10 @@ dialog::backdrop {
 }
 
 .modeButton img {
-  width: 3em;
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-
-.rights {
-  font-family: var(--primary-font);
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 140%;
-  text-align: center;
-  color: var(--rights-color);
-  margin: 0;
-  margin-top: 1.5em;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
 }
 
 /* TODO: remove to search page */
