@@ -1,1 +1,9 @@
-<p>battle-page works!</p>
+<h1>Battle field</h1>
+<div *ngIf="!selectedBattlePokemon">
+  <states
+    state="empty"
+    text="Go and choose your pokemon to start a battle!"
+    link="/All-Pokémons"
+    linkText="choose your pokemon"
+  ></states>
+</div>

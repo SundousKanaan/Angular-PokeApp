@@ -1,0 +1,160 @@
+.statesContainer {
+  width: 100%;
+  height: fit-content;
+}
+
+.animationContainer {
+  --width: 80%;
+  width: var(--width);
+  display: grid;
+  place-items: center;
+  position: relative;
+  left: calc(50% - var(--width) / 2);
+}
+
+.animationContainer.emptyState {
+  height: 15em;
+}
+
+.animationContainer.errorState {
+  height: 5em;
+  --width: 15em;
+  margin-top: 3em;
+}
+
+.centerImage {
+  width: 5em;
+  height: 5em;
+
+  position: absolute;
+  overflow: hidden;
+
+  display: grid;
+  place-items: center;
+
+  z-index: 2;
+  animation: flowingAnimation 1.5s -0.5s infinite ease-in-out alternate both;
+}
+
+.centerImage img {
+  width: 200%;
+  height: auto;
+  position: absolute;
+}
+
+@keyframes flowingAnimation {
+  0% {
+    transform: translateY(-0.5em) rotateY(0turn);
+  }
+  100% {
+    transform: translateY(0.5em) rotateY(1turn);
+  }
+}
+
+.elementsList {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  position: absolute;
+
+  display: grid;
+  place-items: center;
+}
+
+.errorState .elementsList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.elementsList li {
+  width: 3.5em;
+  height: 3.5em;
+}
+
+.emptyState .elementsList li {
+  position: absolute;
+  transform-origin: center 220%;
+  transform: translateY(-170%) rotate(0);
+  --animation-delay: -2s;
+  animation: circleAnimation 12s var(--animation-delay) infinite linear both;
+}
+
+@keyframes circleAnimation {
+  0% {
+    transform: translateY(-170%) rotate(0);
+  }
+  100% {
+    transform: translateY(-170%) rotate(360deg);
+  }
+}
+
+.errorState .elementsList li {
+  animation: goCrazyAnimation 2s var(--animation-delay) infinite ease-in-out both alternate;
+}
+
+.errorState .elementsList li:nth-of-type(2n + 2) {
+  animation-direction: alternate-reverse;
+}
+
+@keyframes goCrazyAnimation {
+  0% {
+    transform: translateY(-50%) rotate(1turn);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(0) rotate(0);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(50%) rotate(2turn);
+    opacity: 1;
+  }
+}
+
+.elementsList li img {
+  width: 100%;
+  height: 100%;
+  object-fit: none;
+  object-position: center;
+}
+
+.content {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+}
+
+.content p {
+  width: 100%;
+  text-align: center;
+  font-family: var(--primary-font);
+  font-weight: 700;
+  font-size: 1.5em;
+  color: var(--primary_purple);
+
+  padding: 0 1.5em;
+}
+
+.content.errorState p {
+  font-size: 1em;
+  width: 18em;
+  padding: 0;
+}
+
+.content a {
+  width: fit-content;
+  text-decoration: none;
+  font-family: var(--primary-font);
+  font-weight: 700;
+  color: var(--offwhite);
+  background-color: var(--primary_purple);
+  padding: 1em 1.5em;
+  border-radius: 0.5em;
+  box-shadow: var(--box-shadow);
+}

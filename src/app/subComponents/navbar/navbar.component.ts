@@ -16,8 +16,4 @@ export class NavbarComponent {
     this.darkMode = !this.darkMode;
     document.body.classList.toggle('darkMode');
   }
-
-  closeNavbar() {
-    console.log('close navbar');
-  }
 }

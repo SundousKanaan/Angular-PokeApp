@@ -11,6 +11,10 @@ h1 {
   color: var(--titles-color);
 }
 
+.container {
+  width: 100%;
+}
+
 .pokemonList {
   width: 98.5%;
   list-style-type: none;
@@ -23,7 +27,7 @@ h1 {
 
 .pokemonList li {
   min-width: 9em;
-  max-width: 100%;
+  max-width: 12em;
   border-radius: 1em;
   box-shadow: var(--box-shadow);
   overflow: hidden;

@@ -1,1 +1,40 @@
-<p>search-page works!</p>
+<form [formGroup]="searchForm" class="searchForm">
+  <label class="searchBar">
+    <input
+      id="search"
+      type="search"
+      placeholder="Search for name or id"
+      formControlName="searchInput"
+      pattern="^\S+$"
+      (keyup.enter)="search()"
+    />
+    <button type="button" (click)="search()">Find</button>
+  </label>
+</form>
+<!-- the resultes list -->
+<div class="resultesContainer" [ngSwitch]="searchStatus">
+  <div class="container" *ngSwitchCase="'empty'">
+    <states state="empty" text="{{ emtptyStateMessage }}"></states>
+  </div>
+
+  <ul class="pokemonList" *ngSwitchCase="'loading'">
+    <li *ngFor="let pokemon of fullPokemonList">
+      <loadingPokemonBlock></loadingPokemonBlock>
+    </li>
+  </ul>
+
+  <ul class="pokemonList" *ngSwitchCase="'success'">
+    <ng-container>
+      <li *ngFor="let searchResult of searchResults">
+        <pokemonBlock
+          [pokemonData]="searchResult"
+          (openDialogEvent)="openDialog($event)"
+        ></pokemonBlock>
+      </li>
+    </ng-container>
+  </ul>
+
+  <div class="container" *ngSwitchCase="'error'">
+    <states state="error" text="{{ errorMessage }}"></states>
+  </div>
+</div>

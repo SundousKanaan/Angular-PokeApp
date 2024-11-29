@@ -13,16 +13,23 @@ import { Pokemon } from '../../types';
 import { pokemonCardComponent } from '../pokemonCard/pokemonCard.component';
 import { PokemonService } from '../../services/pokemon.service';
 import { MatDialog } from '@angular/material/dialog';
+import { statesComponent } from '../states/states.component';
 
 @Component({
   selector: 'pokemon-list',
   standalone: true,
-  imports: [CommonModule, PokemonBlockComponent, LoadingPokemonBlockComponent],
+  imports: [
+    CommonModule,
+    PokemonBlockComponent,
+    LoadingPokemonBlockComponent,
+    statesComponent,
+  ],
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.css'],
 })
 export class PokemonListComponent implements OnInit {
   @Input() pageTitle: string = '';
+
   pokemonList: (Pokemon | null)[] = [];
   loading: boolean = true;
 
@@ -37,9 +44,7 @@ export class PokemonListComponent implements OnInit {
   ngOnInit() {
     if (this.pageTitle === 'All Pokémons') {
       this.crreateAllPokemonList();
-    }
-
-    if (this.pageTitle === 'Favorites') {
+    } else if (this.pageTitle === 'Favorites') {
       this.createFavoritePokemonList();
     }
   }
@@ -110,8 +115,6 @@ export class PokemonListComponent implements OnInit {
     this.loading = true;
     this.shareDataService.currentFavoritePokemonNames.subscribe({
       next: (response) => {
-        console.log('response', response);
-
         // set temporary null values for each pokemon like a placeholder
         this.pokemonList = response.map(() => null);
 

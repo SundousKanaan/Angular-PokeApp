@@ -3,7 +3,6 @@ import { RouterOutlet } from '@angular/router';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatDialog } from '@angular/material/dialog';
 
 // import the PokemonService to make it available to the entire application
 import { PokemonService } from './services/pokemon.service';

@@ -10,7 +10,7 @@ import { Injectable } from '@angular/core';
 // HttpClient is used to make HTTP requests
 import { HttpClient } from '@angular/common/http';
 // Observable is used to handle asynchronous data
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 
 // The @Injectable() decorator is used to inject a service into another service
 @Injectable({
@@ -19,7 +19,6 @@ import { Observable } from 'rxjs';
 export class PokemonService {
   // private is used to declare a private variable
   private apiUrl = 'https://pokeapi.co/api/v2/pokemon';
-  PokemonEvolution_url: string = '';
   // Get all Pokemon from the API endpoint
   constructor(private http: HttpClient) {}
   // Fetcht de eerste 10 Pokémon
@@ -28,9 +27,25 @@ export class PokemonService {
     return this.http.get<{ results: object[] }>(`${this.apiUrl}?limit=50`);
   }
 
-  // Fetcht details for a specific Pokémon by name
-  getPokemonDetails(name: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${name}`);
+  getPokemonDetails(data: string | undefined | null): Observable<any> {
+    if (!data) {
+      return of({
+        success: false,
+        error: 'Invalid Pokémon name or ID.',
+      });
+    }
+
+    return this.http.get(`${this.apiUrl}/${data}`).pipe(
+      catchError((error) => {
+        console.log('Error fetching Pokémon details: error', error.status);
+
+        // Return an object with an error indicator
+        return of({
+          success: false,
+          error: 'Unable to fetch Pokémon details.',
+        });
+      })
+    );
   }
 
   // Fetcht the evolution chain for a specific Pokémon
@@ -40,6 +55,10 @@ export class PokemonService {
   }
 
   getPokemonEvolution(url: string): Observable<any> {
+    return this.http.get(url);
+  }
+
+  getPokemonFormData(url: string): Observable<any> {
     return this.http.get(url);
   }
 }
