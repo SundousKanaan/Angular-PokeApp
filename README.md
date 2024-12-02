@@ -51,7 +51,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Study notes
 
-<details open>
+<details>
 <summary>1- What is? | 2- Deploying | 3- P.Structure | 4- Component | 5- Tamplate | 6- Directive | 7- One way binding | 8- Two way binding | 9- ngIf/ngSwitch | 10- ngClass/ngStyle | 11- Routing | 12- Nested Routing</summary>
 <br>
 <img src="./readme/Angular1_1.jpg" alt="note1-1">
@@ -61,5 +61,21 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 <img src="./readme/Angular1_5.jpg" alt="note1-5">
 <img src="./readme/Angular1_6.jpg" alt="note1-6">
 <img src="./readme/Angular1_7.jpg" alt="note1-7">
+</details>
 
+<details>
+<summary>12- Data transfer (Static data) | 13- Component life cycle hooks | 14- Reactive forms</summary>
+<br>
+<img src="./readme/Angular2_1.jpg" alt="note2-1">
+<img src="./readme/Angular2_2.jpg" alt="note2-2">
+<img src="./readme/Angular2_3.jpg" alt="note2-3">
+<img src="./readme/Angular2_4.jpg" alt="note2-4">
+<img src="./readme/Angular2_5.jpg" alt="note2-5">
+</details>
+
+<details>
+<summary>15- Get data from API (HTTP)</summary>
+<br>
+<img src="./readme/Angular3_1.jpg" alt="note3-1">
+<img src="./readme/Angular3_2.jpg" alt="note3-2">
 </details>
