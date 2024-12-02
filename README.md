@@ -48,3 +48,18 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Study notes
+
+<details open>
+<summary>1- What is? | 2- Deploying | 3- P.Structure | 4- Component | 5- Tamplate | 6- Directive | 7- One way binding | 8- Two way binding | 9- ngIf/ngSwitch | 10- ngClass/ngStyle | 11- Routing | 12- Nested Routing</summary>
+<br>
+<img src="./readme/Angular1_1.jpg" alt="note1-1">
+<img src="./readme/Angular1_2.jpg" alt="note1-2">
+<img src="./readme/Angular1_3.jpg" alt="note1-3">
+<img src="./readme/Angular1_4.jpg" alt="note1-4">
+<img src="./readme/Angular1_5.jpg" alt="note1-5">
+<img src="./readme/Angular1_6.jpg" alt="note1-6">
+<img src="./readme/Angular1_7.jpg" alt="note1-7">
+
+</details>
