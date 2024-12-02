@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoadingBarComponent } from '../loadingBar/loading-bar.Component';
+import { LoadingBarComponent } from '../loadingBar/loading-bar.component';
 
 @Component({
   selector: 'loadingPokemonBlock',
