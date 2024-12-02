@@ -79,3 +79,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 <img src="./readme/Angular3_1.jpg" alt="note3-1">
 <img src="./readme/Angular3_2.jpg" alt="note3-2">
 </details>
+
+<details>
+<summary>16- Dialog | </summary>
+<br>
+<img src="./readme/Angular4_1.jpg" alt="note4-1">
+<img src="./readme/Angular4_2.jpg" alt="note4-2">
+</details>
