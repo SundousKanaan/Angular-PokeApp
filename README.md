@@ -52,7 +52,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Study notes
 
 <details>
-<summary>1- What is? | 2- Deploying | 3- P.Structure |</summary>
+<summary>1- What is? | 2- Deploying | 3- P.Structure | 4- Component | 5- Tamplate | 6- Directive | 7- One way binding | 8- Two way binding | 9- ngIf/ngSwitch | 10- ngClass/ngStyle | 11- Routing | 12- Nested Routing</summary>
 <br>
 <img src="./readme/Angular1_1.jpg" alt="note1-1">
 <img src="./readme/Angular1_2.jpg" alt="note1-2">
