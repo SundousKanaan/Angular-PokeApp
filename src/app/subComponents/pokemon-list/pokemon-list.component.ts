@@ -6,7 +6,7 @@ import { FormatPokemonIdService } from '../../services/formatPokemonId.service';
 
 // Import the PokemonBlockComponent (child component)
 import { PokemonBlockComponent } from '../../subComponents/pokemon-block/pokemon-block.component';
-import { LoadingPokemonBlockComponent } from '../LoadingComponents/loading-pokemon-block-Component/loading-pokemon-block.component';
+import { LoadingPokemonBlockComponent } from '../loading-pokemon-block-Component/loading-pokemon-block.component';
 
 // Import the Pokemon type from types.ts
 import { Pokemon } from '../../types';

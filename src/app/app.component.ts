@@ -15,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 // components
 import { NavbarComponent } from './subComponents/navbar/navbar.component';
-
 @Component({
   selector: 'app-root',
   standalone: true,

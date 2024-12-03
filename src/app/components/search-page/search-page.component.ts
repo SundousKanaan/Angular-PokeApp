@@ -7,7 +7,7 @@ import { Pokemon } from '../../types';
 import { PokemonBlockComponent } from '../../subComponents/pokemon-block/pokemon-block.component';
 import { MatDialog } from '@angular/material/dialog';
 import { pokemonCardComponent } from '../../subComponents/pokemonCard/pokemonCard.component';
-import { LoadingPokemonBlockComponent } from '../../subComponents/LoadingComponents/loading-pokemon-block-Component/loading-pokemon-block.component';
+import { LoadingPokemonBlockComponent } from '../../subComponents/loading-pokemon-block-Component/loading-pokemon-block.component';
 import { statesComponent } from '../../subComponents/states/states.component';
 
 @Component({
