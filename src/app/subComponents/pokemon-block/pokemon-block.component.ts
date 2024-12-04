@@ -46,19 +46,20 @@ export class PokemonBlockComponent implements OnInit {
     });
   }
 
+  // ToDo: fix deze functions
   handleBattlePokemon() {
     // get the favorite pokemons from the local storage
-    const battlePokemonsArr: number[] = JSON.parse(
+    const battlePokemonsArr: string[] = JSON.parse(
       localStorage.getItem('battlePokemons') || '[]'
     );
-    const index = battlePokemonsArr.indexOf(this.pokemonData.id);
+    const index = battlePokemonsArr.indexOf(this.pokemonData.name);
     if (index > -1) {
       // If the id is in the list, remove it
       battlePokemonsArr.splice(index, 1);
       this.battlePokemon = false;
     } else {
       // If the id is not in the list, add it
-      battlePokemonsArr.push(this.pokemonData.id);
+      battlePokemonsArr.push(this.pokemonData.name);
       this.battlePokemon = true;
     }
     // Save the updated list to local storage
@@ -70,10 +71,10 @@ export class PokemonBlockComponent implements OnInit {
       return;
     }
     // get the battle pokemons from the local storage
-    const battlePokemonsArr: number[] = JSON.parse(
+    const battlePokemonsArr: string[] = JSON.parse(
       localStorage.getItem('battlePokemons') || '[]'
     );
     // check if the pokemon is in the list
-    this.battlePokemon = battlePokemonsArr.includes(this.pokemonData.id);
+    this.battlePokemon = battlePokemonsArr.includes(this.pokemonData.name);
   }
 }

@@ -136,7 +136,10 @@
             }"
           >
             <div class="evolutionImage">
-              <img [src]="evolution?.sprites?.front_default" alt="" />
+              <img
+                [src]="evolution?.sprites?.front_default"
+                alt="default {{ pokemonData?.name }} image"
+              />
             </div>
             <div class="evolutionDitails">
               <h3>{{ evolution.name }}</h3>
@@ -146,7 +149,7 @@
               <img
                 *ngFor="let type of evolution.types"
                 src="assets/images/typesIcons/{{ type }}.png"
-                alt=""
+                alt="pokemon type {{ type }} icon"
               />
             </div>
           </li>
