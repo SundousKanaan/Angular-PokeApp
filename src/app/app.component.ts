@@ -38,8 +38,4 @@ import { NavbarComponent } from './subComponents/navbar/navbar.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent {
-  setDarkMode() {
-    document.body.classList.toggle('darkMode');
-  }
-}
+export class AppComponent {}
