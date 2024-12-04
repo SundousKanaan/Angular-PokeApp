@@ -13,22 +13,31 @@ export class NavbarComponent implements OnInit {
   darkMode = false;
 
   ngOnInit(): void {
-    const mode = localStorage.getItem('darkMode');
-
-    if (mode) {
-      this.darkMode = JSON.parse(mode);
-
-      if (mode === 'true') {
-        document.body.classList.add('darkMode');
-      } else {
-        document.body.classList.remove('darkMode');
+    if (this.isLocalStorageAvailable()) {
+      const storedMode = localStorage.getItem('darkMode');
+      if (storedMode) {
+        this.darkMode = JSON.parse(storedMode);
+        if (this.darkMode) {
+          document.body.classList.add('darkMode');
+        } else {
+          document.body.classList.remove('darkMode');
+        }
       }
     }
   }
 
-  handleMode() {
-    this.darkMode = !this.darkMode;
-    document.body.classList.toggle('darkMode');
-    localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
+  handleMode(): void {
+    if (this.isLocalStorageAvailable()) {
+      this.darkMode = !this.darkMode;
+      document.body.classList.toggle('darkMode');
+      localStorage.setItem('darkMode', JSON.stringify(this.darkMode));
+    }
+  }
+
+  private isLocalStorageAvailable(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      typeof window.localStorage !== 'undefined'
+    );
   }
 }

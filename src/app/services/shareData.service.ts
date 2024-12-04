@@ -54,7 +54,7 @@ export class ShareDataService {
       // Update BehaviorSubject to notify observers of changes
       this.favoritePokemonNames.next(storageFavoritePokemonList);
     } else {
-      console.error('[setFavoritePokemon] localStorage is not available 1');
+      console.log('[setFavoritePokemon] localStorage is not available');
     }
   }
 
@@ -66,7 +66,7 @@ export class ShareDataService {
 
       return storageFavoritePokemonList;
     } else {
-      console.error('localStorage is not available');
+      console.log('localStorage is not available');
       return [];
     }
   }
@@ -86,7 +86,7 @@ export class ShareDataService {
 
       return favoritePokemonsData;
     } else {
-      console.error('[getFavoritePokemons] localStorage is not available');
+      console.log('[getFavoritePokemons] localStorage is not available');
       return [];
     }
   }

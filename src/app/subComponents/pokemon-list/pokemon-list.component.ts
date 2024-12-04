@@ -106,7 +106,7 @@ export class PokemonListComponent implements OnInit {
         this.loading = false;
       },
       error: (error) => {
-        console.error('There was an error!', error);
+        console.log('There was an error!', error);
       },
     });
   }
@@ -168,7 +168,7 @@ export class PokemonListComponent implements OnInit {
         this.loading = false;
       },
       error: (error) => {
-        console.error('There was an error!', error);
+        console.log('There was an error!', error);
       },
     });
   }
