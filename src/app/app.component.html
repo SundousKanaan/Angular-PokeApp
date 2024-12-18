@@ -12,6 +12,10 @@
   <div class="contentContainer">
     <router-outlet></router-outlet>
   </div>
+
+  <div *ngIf="!isBattlePage" class="battleTeamPopup">
+    <battleTeamPopup></battleTeamPopup>
+  </div>
 </main>
 
 <footer>

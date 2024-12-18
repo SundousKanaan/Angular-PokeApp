@@ -91,3 +91,12 @@ footer {
   margin: 0;
   opacity: 0.5;
 }
+
+.battleTeamPopup {
+  width: fit-content;
+  height: fit-content;
+}
+
+.battleTeamPopup.hidden {
+  visibility: hidden;
+}

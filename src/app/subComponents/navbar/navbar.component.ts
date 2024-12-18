@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterModule, RouterLinkActive } from '@angular/router';
+import {
+  RouterModule,
+  RouterLinkActive,
+  NavigationEnd,
+  Router,
+} from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { BattleDataService } from '../../services/battleDataService';
 
 @Component({
   selector: 'navbar',
@@ -10,7 +16,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private battleDataService: BattleDataService
+  ) {
+    this.checkBattlePage();
+  }
+
   darkMode = false;
+  isListOpen = false;
+  isBattlePage = false;
+  battelTeamMembers = 0;
 
   ngOnInit(): void {
     if (this.isLocalStorageAvailable()) {
@@ -24,6 +40,12 @@ export class NavbarComponent implements OnInit {
         }
       }
     }
+
+    this.battleDataService.currentIsBattleListOpen.subscribe((data) => {
+      this.isListOpen = data;
+    });
+
+    this.trackTeamMembers();
   }
 
   handleMode(): void {
@@ -39,5 +61,30 @@ export class NavbarComponent implements OnInit {
       typeof window !== 'undefined' &&
       typeof window.localStorage !== 'undefined'
     );
+  }
+
+  handleOpenList(): void {
+    this.battleDataService.handleOpenBattleList(!this.isListOpen);
+  }
+
+  // track the number of battle pokemons
+  trackTeamMembers() {
+    this.battleDataService.currentBattleTeam.subscribe((team) => {
+      this.battelTeamMembers = team.length;
+    });
+  }
+
+  checkBattlePage() {
+    // Check if the current route is the battle page
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/battle') {
+          this.battleDataService.handleOpenBattleList(false);
+          this.isBattlePage = true;
+        } else {
+          this.isBattlePage = false;
+        }
+      }
+    });
   }
 }

@@ -6,7 +6,7 @@
           <a
             routerLink="/All-Pokémons"
             routerLinkActive="activeLink"
-            class="pokemonsLink"
+            class="pokedexLink"
           >
           </a>
         </li>
@@ -35,21 +35,31 @@
     </nav>
   </span>
 
-  <!-- TODO: save dark mode -->
-  <button
-    class="modeButton"
-    [ngClass]="{ darkMode: darkMode }"
-    (click)="handleMode()"
-  >
-    <img
-      *ngIf="darkMode"
-      src="/assets/images/icons/lunatone.svg"
-      alt="lunatone"
-    />
-    <img
-      *ngIf="!darkMode"
-      src="/assets/images/icons/solrock.svg"
-      alt="solrock"
-    />
-  </button>
+  <div class="actionButtons">
+    <button
+      [ngClass]="{ isListOpen: isListOpen }"
+      class="battleListButton"
+      (click)="handleOpenList()"
+      [disabled]="isBattlePage"
+    >
+      <p>{{ battelTeamMembers }}</p>
+    </button>
+
+    <button
+      class="modeButton"
+      [ngClass]="{ darkMode: darkMode }"
+      (click)="handleMode()"
+    >
+      <img
+        *ngIf="darkMode"
+        src="/assets/images/icons/lunatone.svg"
+        alt="lunatone"
+      />
+      <img
+        *ngIf="!darkMode"
+        src="/assets/images/icons/solrock.svg"
+        alt="solrock"
+      />
+    </button>
+  </div>
 </div>

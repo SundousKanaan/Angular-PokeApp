@@ -45,12 +45,13 @@
   background-color: var(--primary_midnight);
 }
 
-.navBarList ul li .pokemonsLink {
-  background-image: url(/assets/images/icons/pokeball.svg);
+.navBarList ul li .pokedexLink {
+  background-size: 1.3em;
+  background-image: url(/assets/images/icons/pokedex.svg);
 }
 
-.navBarList ul li .pokemonsLink.activeLink {
-  background-image: url(/assets/images/icons/active-pokeball.svg);
+.navBarList ul li .pokedexLink.activeLink {
+  background-image: url(/assets/images/icons/active-pokedex.svg);
 }
 
 .navBarList ul li .FavoritesLink {
@@ -85,7 +86,14 @@
   color: var(--active-button-tekst);
 }
 
-.modeButton {
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.actionButtons button {
   width: 2.5em;
   height: 2.5em;
   border-radius: 50%;
@@ -93,7 +101,46 @@
   padding: 0;
   background-color: transparent;
   transition: 1s;
-  color: var(--pokemons-names-color);
+}
+
+.actionButtons .battleListButton {
+  background-image: url(/assets/images/icons/pokeball.svg);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.actionButtons .battleListButton.isListOpen {
+  background-image: url(/assets/images/icons/active-pokeball.svg);
+}
+
+.actionButtons .battleListButton p {
+  width: 1.3em;
+  height: 1.3em;
+  border-radius: 50%;
+  color: var(--offwhite);
+  font-family: var(--primary-font);
+  font-size: 0.9em;
+  font-weight: 700;
+  margin: 0;
+
+  position: absolute;
+  top: -0.2em;
+  right: -0.2em;
+
+  display: grid;
+  place-items: center;
+
+  background-color: var(--primary_red);
+}
+
+.actionButtons .battleListButton[disabled],
+.actionButtons .battleListButton[disabled].isListOpen {
+  opacity: 0.5;
+}
+
+.modeButton {
   box-shadow: inset 0 0 0 0.2em var(--primary_purple);
 }
 
@@ -102,7 +149,7 @@
   background-color: var(--primary_purple);
 }
 
-.modeButton img {
+.actionButtons button img {
   width: 100%;
   height: auto;
   object-fit: contain;

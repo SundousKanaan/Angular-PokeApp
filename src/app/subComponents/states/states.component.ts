@@ -22,8 +22,6 @@ export class statesComponent implements OnInit {
   circleListSrcs: string[] = [];
 
   ngOnInit(): void {
-    console.log('state', this.state);
-
     this.getAnimationImages();
   }
 

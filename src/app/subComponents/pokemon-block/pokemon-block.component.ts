@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Pokemon } from '../../types';
 import { ShareDataService } from '../../services/shareData.service';
+import { BattleDataService } from '../../services/battleDataService';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -11,7 +12,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './pokemon-block.component.css',
 })
 export class PokemonBlockComponent implements OnInit {
-  constructor(private shareDataService: ShareDataService) {}
+  constructor(
+    private shareDataService: ShareDataService,
+    private battleDataService: BattleDataService
+  ) {}
 
   // Create an EventEmitter to notify the parent component
   @Output() openDialogEvent = new EventEmitter<Pokemon>();
@@ -42,39 +46,21 @@ export class PokemonBlockComponent implements OnInit {
 
   checkFavoritePokemon() {
     this.shareDataService.currentFavoritePokemonNames.subscribe((data) => {
-      this.favoritedPokemon = data.includes(this.pokemonData.name);
+      this.favoritedPokemon =
+        Array.isArray(data) && data.includes(this.pokemonData.name);
     });
   }
 
   // ToDo: fix deze functions
   handleBattlePokemon() {
-    // get the favorite pokemons from the local storage
-    const battlePokemonsArr: string[] = JSON.parse(
-      localStorage.getItem('battlePokemons') || '[]'
-    );
-    const index = battlePokemonsArr.indexOf(this.pokemonData.name);
-    if (index > -1) {
-      // If the id is in the list, remove it
-      battlePokemonsArr.splice(index, 1);
-      this.battlePokemon = false;
-    } else {
-      // If the id is not in the list, add it
-      battlePokemonsArr.push(this.pokemonData.name);
-      this.battlePokemon = true;
-    }
-    // Save the updated list to local storage
-    localStorage.setItem('battlePokemons', JSON.stringify(battlePokemonsArr));
+    this.battleDataService.setBattleTeam(this.pokemonData.name);
+    this.checkBattlePokemon();
   }
 
   checkBattlePokemon() {
-    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
-      return;
-    }
-    // get the battle pokemons from the local storage
-    const battlePokemonsArr: string[] = JSON.parse(
-      localStorage.getItem('battlePokemons') || '[]'
-    );
-    // check if the pokemon is in the list
-    this.battlePokemon = battlePokemonsArr.includes(this.pokemonData.name);
+    this.battleDataService.currentBattleTeam.subscribe((data) => {
+      this.battlePokemon =
+        Array.isArray(data) && data.includes(this.pokemonData.name);
+    });
   }
 }

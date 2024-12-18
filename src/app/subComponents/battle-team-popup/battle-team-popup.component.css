@@ -1,0 +1,104 @@
+.battlePokemons {
+  width: fit-content;
+  height: 7.5em;
+  position: fixed;
+  bottom: 3.5em;
+  left: 3.5em;
+  z-index: 9999;
+  border-radius: 0.5em;
+
+  list-style: none;
+  padding: 0 0.5em;
+  margin: 0;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  gap: 0.5em;
+  background-color: var(--background_color);
+  box-shadow: 0 0 0.5em 0.1em var(--shadow-color);
+
+  transform-origin: left;
+}
+
+.showTeam {
+  animation: fadeIn 0.8s 0.3s both;
+}
+
+.hideTeam {
+  animation: fadeOut 0.8s both;
+}
+
+.temporaryShow {
+  animation: fadeIn 0.8s both;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+
+    visibility: hidden;
+  }
+}
+
+.pokemonItem {
+  width: 5.5em;
+  aspect-ratio: 1;
+  position: relative;
+  background-color: white;
+  border-radius: 0.5em;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--box-shadow);
+}
+
+.name {
+  height: 20%;
+  text-transform: capitalize;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-align: center;
+  color: var(--pokemons-names-color);
+  margin: 0;
+  padding: 0.2em 0;
+  order: 2;
+}
+
+.imageContainer {
+  height: 70%;
+  overflow: hidden;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.deleteButton {
+  width: 1.5em;
+  height: 1.5em;
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+
+  background-color: var(--primary_daylight);
+  border-radius: 50%;
+}
+
+.deleteButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,9 +1,85 @@
 <h1>Battle field</h1>
-<div *ngIf="!selectedBattlePokemon">
+<section
+  *ngIf="teamState !== 'empty'"
+  class="battleContent"
+  [ngClass]="{
+    incomplete: teamState === 'incomplete',
+  }"
+>
+  <ul class="team">
+    <ng-container *ngFor="let index of [0, 1, 2]; let i = index">
+      <li class="pokemon" *ngIf="playerTeam[i]; else missingTemplate">
+        <div>
+          <img src="{{ playerTeam[i].sprites.official_artwork }}" alt="" />
+        </div>
+        <button
+          class="removePokemon"
+          (click)="removePokemon(playerTeam[i].name)"
+        ></button>
+      </li>
+
+      <ng-template #missingTemplate>
+        <li class="pokemon placeholder">
+          <div></div>
+        </li>
+      </ng-template>
+    </ng-container>
+  </ul>
+
+  <button
+    class="startBattle"
+    [disabled]="playerTeam.length < 3"
+    (click)="startBattle()"
+  >
+    Start battle
+  </button>
+</section>
+<section class="battleStarted" *ngIf="battleState === 'started'">
+  battleState: {{ battleState }}
+
+  <button (click)="surrender()">Surrender</button>
+</section>
+<section *ngIf="teamState === 'empty'">
   <states
     state="empty"
     text="Go and choose your pokemon to start a battle!"
     link="/All-Pokémons"
     linkText="choose your pokemon"
   ></states>
-</div>
+</section>
+
+<!-- <ng-container> -->
+<!-- <li class="pokemon" *ngIf="playerTeam[0]; else missingTemplate">
+        <div>
+          <img src="{{ playerTeam[0].sprites.official_artwork }}" alt="" />
+        </div>
+
+        <button
+          class="removePokemon"
+          (click)="removePokemon(playerTeam[2].name)"
+        ></button>
+      </li>
+      <li class="pokemon" *ngIf="playerTeam[1]; else missingTemplate">
+        <div>
+          <img src="{{ playerTeam[1].sprites.official_artwork }}" alt="" />
+        </div>
+
+        <button
+          class="removePokemon"
+          (click)="removePokemon(playerTeam[2].name)"
+        ></button>
+      </li>
+      <li class="pokemon" *ngIf="playerTeam[2]; else missingTemplate">
+        <div>
+          <img src="{{ playerTeam[2].sprites.official_artwork }}" alt="" />
+        </div>
+        <button
+          class="removePokemon"
+          (click)="removePokemon(playerTeam[2].name)"
+        ></button>
+      </li> -->
+
+<!-- <div class="filedImageContainer"> -->
+<!-- <img src="/assets/images/battleFields/{{ selectedField }}" alt="" /> -->
+<!-- <img src="/assets/images/battleFields/forestField.jpg" alt="" /> -->
+<!-- </div> -->

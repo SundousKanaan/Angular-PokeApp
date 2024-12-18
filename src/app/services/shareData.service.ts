@@ -66,7 +66,7 @@ export class ShareDataService {
 
       return storageFavoritePokemonList;
     } else {
-      console.log('localStorage is not available');
+      console.log('[setFavoritePokemonNames] localStorage is not available');
       return [];
     }
   }

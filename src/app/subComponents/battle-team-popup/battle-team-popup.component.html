@@ -1,0 +1,23 @@
+<ul
+  [class.showTeam]="showTeam"
+  [class.hideTeam]="!showTeam || battleTeam.length === 0"
+  class="battlePokemons"
+>
+  <ng-container *ngFor="let pokemon of battleTeam">
+    <li *ngIf="pokemon" class="pokemonItem">
+      <p class="name">{{ pokemon.name }}</p>
+      <div class="imageContainer">
+        <img
+          src="{{ pokemon.sprites.front_default }}"
+          alt="{{ pokemon.name }} front default image"
+        />
+      </div>
+      <button
+        class="deleteButton"
+        (click)="removePokemonFromBattleTeam(pokemon.name)"
+      >
+        <img src="/assets/images/icons/close.svg" alt="" />
+      </button>
+    </li>
+  </ng-container>
+</ul>
