@@ -5,11 +5,12 @@ import { PokemonService } from '../../services/pokemon.service';
 import { FormatDataService } from '../../services/formatData.service';
 import { Pokemon } from '../../types';
 import { BattleDataService } from '../../services/battleDataService';
+import { BattleComponent } from '../../subComponents/battle/battle.component';
 
 @Component({
   selector: 'app-battle-page',
   standalone: true,
-  imports: [CommonModule, statesComponent],
+  imports: [CommonModule, statesComponent, BattleComponent],
   templateUrl: './battle-page.component.html',
   styleUrl: './battle-page.component.css',
 })
@@ -19,28 +20,21 @@ export class BattlePageComponent implements OnInit {
     private formatDataService: FormatDataService,
     private battleDataService: BattleDataService
   ) {}
+
   teamState: string = 'empty';
-  battleFields: string[] = [
-    'desertField.png',
-    'forestAutumnField.png',
-    'forestField.jpg',
-    'forestSandField.png',
-    'grassField.png',
-    'tundraField.png',
-  ];
-  selectedField: string = 'grassField';
-  npcTeam: Pokemon[] = [];
+
   playerTeam: Pokemon[] = [];
   battleState: string = 'empty';
   battleStates: string[] = [
     'started',
     'playerTurn',
     'npcTurn',
-    'end',
+    'ended',
     'result',
     'draw',
     'error',
     'empty',
+    'surrender',
   ];
 
   ngOnInit(): void {
@@ -48,11 +42,19 @@ export class BattlePageComponent implements OnInit {
 
     console.log(this.teamState);
 
-    // this.selectField();
+    if (this.battleState === 'ended') {
+      this.battleState = 'empty';
+      this.battleDataService.setNpcTeam();
+    }
   }
   getStoragedBattleTeam() {
     this.battleDataService.currentBattleTeam.subscribe((team) => {
       this.playerTeam = [];
+
+      if (!team) {
+        this.teamState = 'empty';
+        return;
+      }
 
       if (team.length < 3 && team.length > 0) {
         this.teamState = 'incomplete';
@@ -60,8 +62,6 @@ export class BattlePageComponent implements OnInit {
       } else if (team.length === 3) {
         this.teamState = 'complete';
         this.getPokemonData(team);
-        this.battleDataService.setNpcTeam();
-        this.getNpcTeam();
       } else {
         this.teamState = 'empty';
         this.playerTeam = [];
@@ -71,37 +71,37 @@ export class BattlePageComponent implements OnInit {
 
   getPokemonData(pokemons: string[]) {
     pokemons.forEach((pokemonName) => {
+      let pokemonData = {};
       this.pokemonService.getPokemonDetails(pokemonName).subscribe((data) => {
-        const pokemon = this.formatDataService.formatPokemonData(data);
-        this.playerTeam.push(pokemon);
-        console.log(pokemon);
+        this.pokemonService
+          .getPokemonDamageRelations(data.types[0].type.url)
+          .subscribe((res) => {
+            const damageRelations = res.damage_relations;
+            pokemonData = { ...data, damageRelations };
+
+            const pokemon =
+              this.formatDataService.formatPokemonData(pokemonData);
+
+            this.playerTeam.push(pokemon);
+          });
       });
     });
   }
 
-  // get 3 random pokemons from the list
-  getNpcTeam() {
-    this.battleDataService.currentNpcTeam.subscribe((team) => {
-      this.npcTeam = team;
-    });
-  }
-
   removePokemon(name: string) {
-    console.log(name);
     this.battleDataService.removePokemonFromBattleTeam(name);
   }
 
-  selectField() {
-    // select random field from battleFields
-    this.selectedField =
-      this.battleFields[Math.floor(Math.random() * this.battleFields.length)];
-  }
-
   startBattle() {
-    this.battleState = 'started';
+    if (this.battleState === 'surrender') {
+      this.battleState = 'started';
+    } else {
+      this.battleDataService.setNpcTeam();
+      this.battleState = 'started';
+    }
   }
 
   surrender() {
-    this.battleState = 'empty';
+    this.battleState = 'surrender';
   }
 }

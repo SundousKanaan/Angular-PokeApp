@@ -90,7 +90,13 @@ export class BattleDataService {
   }
 
   setNpcTeam() {
-    this.pokemonService.getPokemonList().subscribe((data) => {
+    if (typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+      localStorage.setItem('npcPokemons', '[]');
+    }
+
+    let pokemonData: any = {};
+
+    this.pokemonService.getPokemonList().subscribe((data: any) => {
       const pokemons = data.results;
 
       for (let i = 0; i < 3; i++) {
@@ -100,9 +106,37 @@ export class BattleDataService {
 
         this.pokemonService
           .getPokemonDetails(randomPokemon.name)
-          .subscribe((data) => {
-            const pokemon = this.formatDataService.formatPokemonData(data);
-            this.npcTeam.next([...this.npcTeam.value, pokemon]);
+          .subscribe((data: any) => {
+            this.pokemonService
+              .getPokemonDamageRelations(data.types[0].type.url)
+              .subscribe((res) => {
+                const damageRelations = res.damage_relations;
+
+                pokemonData = {
+                  ...data,
+                  damageRelations,
+                };
+
+                const pokemon =
+                  this.formatDataService.formatPokemonData(pokemonData);
+
+                if (
+                  typeof window !== 'undefined' &&
+                  typeof localStorage !== 'undefined'
+                ) {
+                  let storageNpcTeam: Pokemon[] = JSON.parse(
+                    localStorage.getItem('npcPokemons') || '[]'
+                  );
+                  if (storageNpcTeam.length < 3) {
+                    storageNpcTeam.push(pokemon);
+                    localStorage.setItem(
+                      'npcPokemons',
+                      JSON.stringify(storageNpcTeam)
+                    );
+                  }
+                  this.npcTeam.next(storageNpcTeam);
+                }
+              });
           });
       }
     });

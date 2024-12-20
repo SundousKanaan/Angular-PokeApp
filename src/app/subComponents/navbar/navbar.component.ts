@@ -70,6 +70,10 @@ export class NavbarComponent implements OnInit {
   // track the number of battle pokemons
   trackTeamMembers() {
     this.battleDataService.currentBattleTeam.subscribe((team) => {
+      if (!team) {
+        this.battelTeamMembers = 0;
+        return;
+      }
       this.battelTeamMembers = team.length;
     });
   }

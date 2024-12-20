@@ -1,17 +1,5 @@
 // Define the properties types and what should be returned
 
-// <img [src]="pokemon.sprites?.front_default" alt="pokemon" />
-// <img [src]="pokemon.sprites?.back_default" alt="pokemon" />
-// <img [src]="pokemon.sprites?.front_shiny" alt="pokemon" />
-// <img [src]="pokemon.sprites?.back_shiny" alt="pokemon" />
-// <img [src]="pokemon.sprites?.front_f" alt="pokemon" />
-// <img [src]="pokemon.sprites?.back_f" alt="pokemon" />
-// <img [src]="pokemon.sprites?.front_shiny_f" alt="pokemon" />
-// <img [src]="pokemon.sprites?.back_shiny_f" alt="pokemon" />
-// <img [src]="pokemon.sprites?.dream_world" alt="pokemon" />
-// <img [src]="pokemon.sprites?.showdown?.front_default" alt="pokemon" />
-// <img [src]="pokemon.sprites?.showdown?.back_default" alt="pokemon" />
-
 export interface Pokemon {
   name: string;
   id: number;
@@ -25,6 +13,8 @@ export interface Pokemon {
   height: number;
   base: number;
   stats: PokemonState[];
+  damageRelations: DamageRelations;
+  maxHp: number;
 }
 
 export type PokemonSprites = {
@@ -55,4 +45,13 @@ export type PokemonAbility = {
 export type PokemonState = {
   baseStat: number;
   statName: string;
+};
+
+export type DamageRelations = {
+  double_damage_from: string[];
+  double_damage_to: string[];
+  half_damage_from: string[];
+  half_damage_to: string[];
+  no_damage_from: string[];
+  no_damage_to: string[];
 };

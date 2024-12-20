@@ -1,0 +1,230 @@
+.battleContainer {
+  width: 100dvw;
+  height: 100dvh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: calc(var(--top-layer) + 1);
+
+  display: grid;
+  grid-template-columns: 0.3em repeat(4, 1fr) 0.3em;
+  grid-template-rows: repeat(14, 1fr) 0.5em;
+  gap: 0.3em;
+}
+
+.data {
+  height: 3em;
+  align-self: center;
+
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+
+  padding: 0 0.5em;
+  margin: 0;
+  border-radius: 0.5em;
+}
+
+.playerData {
+  grid-area: 2/2/3/4;
+  justify-content: start;
+  background-image: linear-gradient(to right, var(--primary_midnight) 70%, transparent);
+}
+
+.npcData {
+  grid-area: 2/4/3/6;
+  flex-direction: row-reverse;
+  justify-content: end;
+  background-image: linear-gradient(to left, var(--primary_red) 70%, transparent);
+}
+
+.pokemons {
+  height: 80%;
+  aspect-ratio: 1;
+}
+
+.pokemons img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.playerPokemon {
+  grid-area: 10/1/14/4;
+  transform: scale(1.3);
+
+  position: relative;
+  --hp-color: var(--primary_purple);
+}
+
+.npcPokemon {
+  grid-area: 7/4/11/-1;
+  position: relative;
+  --hp-color: var(--primary_purple);
+}
+
+.playerPokemon::before,
+.npcPokemon::before {
+  content: "";
+  width: 7em;
+  height: 0.5em;
+  border-radius: 0.5em;
+
+  position: absolute;
+  top: 0em;
+  left: calc(55% - 7em / 2);
+  z-index: 2;
+
+  box-shadow: 0 0 0 0.1em white;
+  transform: scale(0.8);
+
+  background-image: linear-gradient(to right, var(--hp-color) 0 var(--hp), transparent 0);
+}
+
+.playerPokemon img,
+.npcPokemon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  animation: moving 2s infinite linear alternate;
+}
+
+.npcPokemon img {
+  animation-delay: -0.3s;
+}
+
+@keyframes moving {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+.pokemonsSelectButtons {
+  grid-area: 10/-3/14/-2;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  justify-self: end;
+  width: 3em;
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.pokemonsSelectButtons li {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+}
+
+.pokemonsSelectButtons li button {
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0;
+
+  background-color: var(--background_color);
+  box-shadow: var(--box-shadow);
+}
+
+.pokemonsSelectButtons li button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.actionButton {
+  grid-area: 13/3/15/-3;
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+}
+
+.actionButton .attackButton {
+  width: 5em;
+  height: 5em;
+
+  border-radius: 50%;
+  transition: 0.5s;
+  padding: 0;
+}
+
+.actionButton .attackButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.actionButton .attackButton:active {
+  transform: scale(0.9);
+}
+
+.filedImageContainer {
+  grid-area: 1/1/-1/-1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: -1;
+}
+
+.filedImageContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.vsIcon {
+  grid-area: 2/3/3/5;
+  justify-self: center;
+  align-self: center;
+  height: 4em;
+  aspect-ratio: 1;
+}
+
+.vsIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+
+  filter: drop-shadow(0 0 0.3em white);
+}
+
+.surrenderingButton {
+  grid-area: 1/1/2/2;
+  width: 8em;
+  height: 2.5em;
+  box-shadow: var(--box-shadow);
+  margin: 1em 0 0 1em;
+  border-radius: 0.5em;
+  text-transform: capitalize;
+  font-family: var(--primary-font);
+  font-weight: 700;
+  color: var(--offwhite);
+  background-color: var(--primary_purple);
+}
+
+.lowHp {
+  --hp-color: red;
+}
+
+.deadPokemon {
+  opacity: 0.5;
+}

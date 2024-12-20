@@ -46,6 +46,7 @@ header > button img {
 }
 
 main {
+  height: 100%;
   padding-top: 3em;
   display: grid;
   grid-template-columns: 3em 1fr;

@@ -34,11 +34,11 @@
     Start battle
   </button>
 </section>
-<section class="battleStarted" *ngIf="battleState === 'started'">
-  battleState: {{ battleState }}
 
-  <button (click)="surrender()">Surrender</button>
+<section *ngIf="battleState === 'started'">
+  <battle [playerTeam]="playerTeam" (battleState)="surrender()"></battle>
 </section>
+
 <section *ngIf="teamState === 'empty'">
   <states
     state="empty"
@@ -47,39 +47,3 @@
     linkText="choose your pokemon"
   ></states>
 </section>
-
-<!-- <ng-container> -->
-<!-- <li class="pokemon" *ngIf="playerTeam[0]; else missingTemplate">
-        <div>
-          <img src="{{ playerTeam[0].sprites.official_artwork }}" alt="" />
-        </div>
-
-        <button
-          class="removePokemon"
-          (click)="removePokemon(playerTeam[2].name)"
-        ></button>
-      </li>
-      <li class="pokemon" *ngIf="playerTeam[1]; else missingTemplate">
-        <div>
-          <img src="{{ playerTeam[1].sprites.official_artwork }}" alt="" />
-        </div>
-
-        <button
-          class="removePokemon"
-          (click)="removePokemon(playerTeam[2].name)"
-        ></button>
-      </li>
-      <li class="pokemon" *ngIf="playerTeam[2]; else missingTemplate">
-        <div>
-          <img src="{{ playerTeam[2].sprites.official_artwork }}" alt="" />
-        </div>
-        <button
-          class="removePokemon"
-          (click)="removePokemon(playerTeam[2].name)"
-        ></button>
-      </li> -->
-
-<!-- <div class="filedImageContainer"> -->
-<!-- <img src="/assets/images/battleFields/{{ selectedField }}" alt="" /> -->
-<!-- <img src="/assets/images/battleFields/forestField.jpg" alt="" /> -->
-<!-- </div> -->

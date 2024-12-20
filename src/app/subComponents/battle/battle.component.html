@@ -1,0 +1,98 @@
+<article
+  class="battleContainer"
+  *ngIf="selectedPlayerPokemon && selectedPlayerPokemon.mainType"
+>
+  <ul class="data playerData">
+    <li
+      [ngClass]="{
+        deadPokemon: pokemon.maxHp <= 0,
+        pokemons: true
+      }"
+      *ngFor="let pokemon of playerTeam; let i = index"
+    >
+      <img src="{{ pokemon.sprites.official_artwork }}" alt="" />
+    </li>
+  </ul>
+
+  <ul class="data npcData">
+    <li
+      [ngClass]="{ deadPokemon: npcPokemon.maxHp <= 0, pokemons: true }"
+      *ngFor="let npcPokemon of npcTeam; let y = index"
+    >
+      <img src="{{ npcPokemon.sprites.official_artwork }}" alt="" />
+    </li>
+  </ul>
+
+  <!-- field pokemons -->
+
+  <div
+    class="playerPokemon"
+    [ngStyle]="{ '--hp': selectedPlayerPokemon.maxHp + '%' }"
+    [class.lowHp]="selectedPlayerPokemon.maxHp <= 40"
+  >
+    <img src="{{ selectedPlayerPokemon.sprites.back_default }}" alt="" />
+  </div>
+
+  <div
+    class="npcPokemon"
+    [ngStyle]="{ '--hp': selectedNpcPokemon.maxHp + '%' }"
+    [class.lowHp]="selectedNpcPokemon.maxHp <= 40"
+  >
+    <img src="{{ selectedNpcPokemon.sprites.front_default }}" alt="" />
+  </div>
+
+  <ul class="pokemonsSelectButtons">
+    <li
+      [ngStyle]="{
+        background:
+          'conic-gradient(var(--type-' +
+          pokemon.mainType +
+          ') ' +
+          pokemon.maxHp +
+          '%, transparent 0% )'
+      }"
+      *ngFor="let pokemon of playerTeam"
+      [class.deadPokemon]="pokemon.maxHp <= 0"
+    >
+      <button
+        [disabled]="pokemon.maxHp <= 0"
+        (click)="handleSelectedPokemon(pokemon.name)"
+      >
+        <img src="{{ pokemon.sprites.front_default }}" alt="" />
+      </button>
+    </li>
+  </ul>
+
+  <div class="actionButton">
+    <button
+      class="attackButton"
+      [ngStyle]="{
+        boxShadow:
+          'inset 0 0 0 .3em var(--type-' +
+          selectedPlayerPokemon.mainType +
+          '),  0 0 0 .3em var(--type-' +
+          selectedPlayerPokemon.mainType +
+          ')'
+      }"
+      (click)="attack()"
+    >
+      <img
+        src="/assets/images/typesIcons/{{ selectedPlayerPokemon.mainType }}.png"
+        alt=""
+      />
+    </button>
+  </div>
+
+  <div class="filedImageContainer">
+    <!-- <img src="/assets/images/battleFields/{{ selectedField }}" alt="" /> -->
+    <img src="/assets/images/battleFields/forestField.jpg" alt="" />
+  </div>
+
+  <div class="vsIcon">
+    <img src="/assets/images/icons/vs.png" alt="" />
+  </div>
+
+  <button class="surrenderingButton" (click)="surrendering()">
+    surrendering
+  </button>
+</article>

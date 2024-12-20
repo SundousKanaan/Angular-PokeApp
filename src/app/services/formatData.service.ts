@@ -50,6 +50,27 @@ export class FormatDataService {
           statName: stat.stat.name,
         };
       }),
+      damageRelations: {
+        double_damage_from: data.damageRelations?.double_damage_from.map(
+          (type: any) => type.name
+        ),
+        double_damage_to: data.damageRelations?.double_damage_to.map(
+          (type: any) => type.name
+        ),
+        half_damage_from: data.damageRelations?.half_damage_from.map(
+          (type: any) => type.name
+        ),
+        half_damage_to: data.damageRelations?.half_damage_to.map(
+          (type: any) => type.name
+        ),
+        no_damage_from: data.damageRelations?.no_damage_from.map(
+          (type: any) => type.name
+        ),
+        no_damage_to: data.damageRelations?.no_damage_to.map(
+          (type: any) => type.name
+        ),
+      },
+      maxHp: 100,
     };
     return formattedPokemon;
   }

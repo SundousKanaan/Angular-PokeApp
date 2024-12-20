@@ -61,4 +61,8 @@ export class PokemonService {
   getPokemonFormData(url: string): Observable<any> {
     return this.http.get(url);
   }
+
+  getPokemonDamageRelations(url: string): Observable<any> {
+    return this.http.get(url);
+  }
 }
