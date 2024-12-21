@@ -110,6 +110,8 @@ h1 {
   color: var(--offwhite);
   border-radius: 0.5em;
   box-shadow: var(--box-shadow);
+  position: relative;
+  z-index: 2;
 }
 
 .startBattle[disabled] {
@@ -148,10 +150,18 @@ h1 {
 
 @media (min-width: 1024px) {
   .battleContent {
+    height: 100%;
     display: grid;
-    grid-template-columns: 1fr 50% 1fr;
-    grid-template-areas:
-      "player1 filed player2"
-      "player1 buttons player2";
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 5em;
+    justify-items: center;
+  }
+
+  .team {
+    height: 30em;
+  }
+
+  .pokemon {
+    width: 17em;
   }
 }

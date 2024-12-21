@@ -2,6 +2,38 @@
   class="battleContainer"
   *ngIf="selectedPlayerPokemon && selectedPlayerPokemon.mainType"
 >
+  <section class="intro" *ngIf="!isIntroover">
+    <ul class="player team">
+      <li *ngFor="let pokemon of playerTeam; let i = index">
+        <img src="{{ pokemon.sprites.official_artwork }}" alt="" />
+      </li>
+    </ul>
+
+    <ul class="npc team">
+      <li *ngFor="let npcPokemon of npcTeam; let x = index">
+        <img src="{{ npcPokemon.sprites.official_artwork }}" alt="" />
+      </li>
+    </ul>
+
+    <div class="introVsIcon">
+      <img src="/assets/images/icons/vs.png" alt="" />
+    </div>
+  </section>
+
+  <section class="battleResult" *ngIf="isWinnerKnown">
+    <ul class="winnerTeam">
+      <li *ngFor="let pokemon of playerTeam; let i = index">
+        <img src="{{ pokemon.sprites.official_artwork }}" alt="" />
+      </li>
+    </ul>
+    <p class="text" *ngIf="isPlayerWinner">
+      Gefeliciteerd!<br />Je hebt gewonnen!
+    </p>
+    <p class="text losing" *ngIf="!isPlayerWinner">
+      Helaas!<br />Je hebt verloren!
+    </p>
+  </section>
+
   <ul class="data playerData">
     <li
       [ngClass]="{
@@ -20,6 +52,18 @@
       *ngFor="let npcPokemon of npcTeam; let y = index"
     >
       <img src="{{ npcPokemon.sprites.official_artwork }}" alt="" />
+    </li>
+  </ul>
+
+  <ul class="pokemonTypes playerPokemonTypes">
+    <li *ngFor="let type of selectedPlayerPokemon.types">
+      <img src="/assets/images/typesIcons/{{ type }}.png" alt="" />
+    </li>
+  </ul>
+
+  <ul class="pokemonTypes npcPokemonTypes">
+    <li *ngFor="let type of selectedNpcPokemon.types">
+      <img src="/assets/images/typesIcons/{{ type }}.png" alt="" />
     </li>
   </ul>
 
@@ -63,29 +107,26 @@
     </li>
   </ul>
 
-  <div class="actionButton">
-    <button
-      class="attackButton"
-      [ngStyle]="{
-        boxShadow:
-          'inset 0 0 0 .3em var(--type-' +
-          selectedPlayerPokemon.mainType +
-          '),  0 0 0 .3em var(--type-' +
-          selectedPlayerPokemon.mainType +
-          ')'
-      }"
-      (click)="attack()"
-    >
-      <img
-        src="/assets/images/typesIcons/{{ selectedPlayerPokemon.mainType }}.png"
-        alt=""
-      />
-    </button>
-  </div>
+  <button
+    class="attackButton"
+    [ngStyle]="{
+      boxShadow:
+        'inset 0 0 0 .3em var(--type-' +
+        selectedPlayerPokemon.mainType +
+        '),  0 0 0 .3em var(--type-' +
+        selectedPlayerPokemon.mainType +
+        ')'
+    }"
+    (click)="attack()"
+  >
+    <img
+      src="/assets/images/typesIcons/{{ selectedPlayerPokemon.mainType }}.png"
+      alt=""
+    />
+  </button>
 
   <div class="filedImageContainer">
-    <!-- <img src="/assets/images/battleFields/{{ selectedField }}" alt="" /> -->
-    <img src="/assets/images/battleFields/forestField.jpg" alt="" />
+    <img src="/assets/images/battleFields/{{ selectedField }}" alt="" />
   </div>
 
   <div class="vsIcon">

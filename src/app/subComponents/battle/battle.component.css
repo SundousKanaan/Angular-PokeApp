@@ -12,6 +12,207 @@
   gap: 0.3em;
 }
 
+/* intro battle styles */
+
+.intro {
+  grid-area: 1/1/-1/-1;
+  z-index: var(--top-layer);
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.team {
+  list-style: none;
+  height: 100%;
+  height: 50%;
+  padding: 0;
+  margin: 0;
+
+  display: grid;
+  place-items: center;
+  position: relative;
+
+  background-image: url(/assets/images/battleFields/introField.jpg);
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+.team li {
+  position: absolute;
+  --size: 10em;
+  width: var(--size);
+  height: var(--sizes);
+}
+
+.team li:nth-child(1) {
+  transform: translateX(-50%);
+}
+
+.team li:nth-child(2) {
+  transform: translateX(50%);
+}
+
+.team li:nth-child(3) {
+  transform: translateY(40%);
+}
+
+.team li img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+
+  animation: moving 0.5s infinite linear alternate;
+}
+
+.introVsIcon {
+  --size: 6em;
+  width: var(--size);
+  height: var(--size);
+
+  position: absolute;
+  top: calc(50% - var(--size) / 2);
+  left: calc(50% - var(--size) / 2);
+  animation: introAppear 1s 1 linear both;
+}
+
+.introVsIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+@keyframes introAppear {
+  0% {
+    transform: scale(8);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 600px) {
+  .team li {
+    --size: 15em;
+  }
+
+  .introVsIcon {
+    --size: 10em;
+  }
+}
+
+@media (min-width: 1024px) {
+  .intro {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+  }
+
+  .team {
+    height: 100%;
+  }
+}
+
+/* battle result styles */
+.battleResult {
+  grid-area: 1/1/-1/-1;
+  z-index: var(--top-layer);
+  position: relative;
+  background-color: wheat;
+  background-image: url(/assets/images/icons/winner.svg), linear-gradient(to top, gold, white);
+  background-position: top 5% center;
+  background-size: 15em, cover;
+  background-repeat: no-repeat;
+}
+
+.winnerTeam {
+  list-style: none;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.winnerTeam li {
+  position: absolute;
+  --s: 10em;
+  width: var(--s);
+  height: var(--s);
+
+  animation: appear 1s 1 linear both;
+}
+
+@media (min-width: 1024px) {
+  .winnerTeam li {
+    --s: 20em;
+  }
+}
+
+.winnerTeam li:nth-child(1) {
+  --translate: translateX(-50%);
+  animation-delay: 0.5s;
+}
+
+.winnerTeam li:nth-child(2) {
+  --translate: translateX(50%);
+  animation-delay: 1.5s;
+}
+
+.winnerTeam li:nth-child(3) {
+  --translate: translateY(40%);
+  animation-delay: 2.5s;
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(8) translate(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) var(--translate);
+    opacity: 1;
+  }
+}
+
+.winnerTeam li img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+
+  animation: moving 0.5s infinite linear alternate;
+}
+
+.text {
+  width: 10em;
+  margin: 0;
+
+  font-weight: 700;
+  font-size: 2.5em;
+  text-align: center;
+  color: rgb(255, 196, 0);
+  text-shadow:
+    0 0 0.3em white,
+    0 0 0.3em white,
+    0 0 0.3em white;
+
+  position: absolute;
+  bottom: 15%;
+  left: calc(50% - 10em / 2);
+  animation: appear 1s 3.5s 1 linear both;
+}
+
+/* battle styles */
+
 .data {
   height: 3em;
   align-self: center;
@@ -51,6 +252,39 @@
   object-position: center;
 }
 
+.pokemonTypes {
+  align-self: start;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  display: flex;
+  gap: 0.5em;
+}
+
+.pokemonTypes li {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+}
+
+.pokemonTypes li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.playerPokemonTypes {
+  grid-area: 3/2/4/4;
+  justify-content: start;
+}
+
+.npcPokemonTypes {
+  grid-area: 3/4/4/6;
+  justify-content: end;
+}
+
 .playerPokemon {
   grid-area: 10/1/14/4;
   transform: scale(1.3);
@@ -79,7 +313,7 @@
 
   box-shadow: 0 0 0 0.1em white;
   transform: scale(0.8);
-
+  background-color: rgba(255, 255, 255, 0.5);
   background-image: linear-gradient(to right, var(--hp-color) 0 var(--hp), transparent 0);
 }
 
@@ -89,7 +323,7 @@
   height: 100%;
   object-fit: contain;
   object-position: center;
-  animation: moving 2s infinite linear alternate;
+  animation: moving 0.5s infinite linear alternate;
 }
 
 .npcPokemon img {
@@ -101,7 +335,7 @@
     transform: scale(1);
   }
   100% {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
 }
 
@@ -146,16 +380,10 @@
   object-position: center;
 }
 
-.actionButton {
+.attackButton {
   grid-area: 13/3/15/-3;
-  position: relative;
-  z-index: 2;
+  place-self: center;
 
-  display: grid;
-  place-items: center;
-}
-
-.actionButton .attackButton {
   width: 5em;
   height: 5em;
 
@@ -164,14 +392,14 @@
   padding: 0;
 }
 
-.actionButton .attackButton img {
+.attackButton img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.actionButton .attackButton:active {
+.attackButton:active {
   transform: scale(0.9);
 }
 
@@ -227,4 +455,87 @@
 
 .deadPokemon {
   opacity: 0.5;
+}
+
+@media (min-width: 1024px) {
+  .data {
+    height: 6em;
+  }
+
+  .playerData {
+    grid-area: 2/3/3/4;
+  }
+
+  .npcData {
+    grid-area: 2/4/3/5;
+  }
+
+  .vsIcon {
+    height: 7em;
+  }
+
+  .playerPokemonTypes {
+    grid-area: 3/3/4/4;
+  }
+
+  .npcPokemonTypes {
+    grid-area: 3/4/4/5;
+  }
+
+  .pokemonTypes li {
+    width: 2.5em;
+    height: 2.5em;
+  }
+
+  .playerPokemon {
+    height: 25em;
+    aspect-ratio: 1;
+    transform: scale(1);
+    justify-self: center;
+  }
+
+  .npcPokemon {
+    height: 20em;
+    aspect-ratio: 1;
+    grid-area: 9/4/13/-1;
+    justify-self: center;
+    align-self: end;
+  }
+
+  .playerPokemon::before,
+  .npcPokemon::before {
+    transform: scale(1);
+  }
+
+  .pokemonsSelectButtons {
+    grid-area: 13/5/14/6;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    gap: 0.5em;
+  }
+
+  .pokemonsSelectButtons li {
+    width: 6em;
+    height: 6em;
+  }
+
+  .pokemonsSelectButtons li button {
+    width: 6em;
+    height: 6em;
+  }
+
+  .attackButton {
+    grid-area: 13/3/15/-3;
+    place-self: center;
+    width: 6em;
+    height: 6em;
+  }
+
+  .surrenderingButton {
+    grid-area: 2/2/3/3;
+    justify-self: end;
+    align-self: center;
+    margin: 0 1em 0 0;
+  }
 }

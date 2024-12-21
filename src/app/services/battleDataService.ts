@@ -29,7 +29,6 @@ export class BattleDataService {
       const storageBattleTeamList = JSON.parse(
         localStorage.getItem('battlePokemons') || '[]'
       );
-      // this.battleTeam.next(storageBattleTeamList);
       return storageBattleTeamList;
     }
   }

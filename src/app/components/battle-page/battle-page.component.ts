@@ -25,17 +25,7 @@ export class BattlePageComponent implements OnInit {
 
   playerTeam: Pokemon[] = [];
   battleState: string = 'empty';
-  battleStates: string[] = [
-    'started',
-    'playerTurn',
-    'npcTurn',
-    'ended',
-    'result',
-    'draw',
-    'error',
-    'empty',
-    'surrender',
-  ];
+  battleStates: string[] = ['started', 'ended', 'empty', 'surrender'];
 
   ngOnInit(): void {
     this.getStoragedBattleTeam();
@@ -47,6 +37,7 @@ export class BattlePageComponent implements OnInit {
       this.battleDataService.setNpcTeam();
     }
   }
+
   getStoragedBattleTeam() {
     this.battleDataService.currentBattleTeam.subscribe((team) => {
       this.playerTeam = [];

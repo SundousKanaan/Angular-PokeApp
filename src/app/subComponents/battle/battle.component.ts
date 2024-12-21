@@ -22,10 +22,17 @@ export class BattleComponent implements OnInit {
     'desertField.jpg',
     'forestAutumnField.png',
     'forestField.jpg',
-    'forestSandField.png',
-    'grassField.png',
+    'castelField.jpg',
     'tundraField.png',
+    'routeField.jpg',
+    'forestDarkField.jpg',
+    'caveFiled.jpg',
   ];
+
+  isWinnerKnown: boolean = false;
+  isPlayerWinner: boolean = false;
+  winnerTeam: any;
+  isIntroover: boolean = false;
 
   selectedField: string = 'grassField';
 
@@ -83,21 +90,29 @@ export class BattleComponent implements OnInit {
     maxHp: 100,
   };
 
+  npcAttackTimerId: any;
+  npcAttackIntervalId: any;
+
   ngOnInit(): void {
+    this.resetHp();
+
     this.selectField();
     this.getNpcTeam();
     this.selectPlayerPokemon();
     this.selectedNpcPokemon = this.npcTeam[0];
 
     setTimeout(() => {
-      setInterval(() => {
+      this.isIntroover = true;
+    }, 5000);
+
+    this.npcAttackTimerId = setTimeout(() => {
+      this.npcAttackIntervalId = setInterval(() => {
         this.npcAttack();
-      }, 1000);
-    }, 1000);
+      }, 500);
+    }, 6500);
   }
 
   selectField() {
-    // select random field from battleFields
     this.selectedField =
       this.battleFields[Math.floor(Math.random() * this.battleFields.length)];
   }
@@ -105,9 +120,7 @@ export class BattleComponent implements OnInit {
   selectPlayerPokemon() {
     for (let i = 0; i < this.playerTeam.length; i++) {
       const playerTeam = this.playerTeam[i];
-      console.log('Checking NPC:', playerTeam);
       if (playerTeam.maxHp > 0) {
-        console.log('NPC selected:', playerTeam);
         this.selectedPlayerPokemon = playerTeam;
         break;
       }
@@ -144,29 +157,92 @@ export class BattleComponent implements OnInit {
     }
   }
 
+  resetHp() {
+    for (let i = 0; i < this.playerTeam.length; i++) {
+      this.playerTeam[i].maxHp = 100;
+    }
+
+    for (let i = 0; i < this.npcTeam.length; i++) {
+      this.npcTeam[i].maxHp = 100;
+    }
+    this.selectedPlayerPokemon.maxHp = 100;
+  }
+
   surrendering() {
-    this.battleState.emit('');
+    this.resetHp();
+    this.battleState.emit('surrender');
   }
 
   attack() {
-    console.log('attack', this.selectedNpcPokemon.maxHp);
+    if (!this.selectedNpcPokemon || !this.selectedPlayerPokemon) {
+      return;
+    }
 
-    this.selectedNpcPokemon.maxHp -= 10;
-    this.checkIfNpcPokemonIsDead(this.selectedNpcPokemon.name);
+    const npcType = this.selectedNpcPokemon.mainType;
+
+    const double_damage_to =
+      this.selectedPlayerPokemon.damageRelations.double_damage_to;
+
+    const half_damage_to =
+      this.selectedPlayerPokemon.damageRelations.half_damage_to;
+
+    const no_damage_to =
+      this.selectedPlayerPokemon.damageRelations.no_damage_to;
+
+    if (double_damage_to.includes(npcType)) {
+      this.selectedNpcPokemon.maxHp -= 20;
+      this.checkIfNpcPokemonIsDead(this.selectedNpcPokemon.name);
+    } else if (half_damage_to.includes(npcType)) {
+      this.selectedNpcPokemon.maxHp -= 10;
+      this.checkIfNpcPokemonIsDead(this.selectedNpcPokemon.name);
+    } else if (no_damage_to.includes(npcType)) {
+      this.selectedNpcPokemon.maxHp -= 2.5;
+      this.checkIfNpcPokemonIsDead(this.selectedNpcPokemon.name);
+    } else {
+      this.selectedNpcPokemon.maxHp -= 5;
+      this.checkIfNpcPokemonIsDead(this.selectedNpcPokemon.name);
+    }
+
+    this.checkWinner();
   }
 
   npcAttack() {
-    this.selectedPlayerPokemon.maxHp -= 10;
-    this.checkIfPlayerPokemonIsDead(this.selectedPlayerPokemon.name);
+    if (!this.selectedNpcPokemon || !this.selectedPlayerPokemon) {
+      return;
+    }
+
+    const playerType = this.selectedPlayerPokemon.mainType;
+
+    const double_damage_to =
+      this.selectedNpcPokemon.damageRelations.double_damage_to;
+
+    const half_damage_to =
+      this.selectedNpcPokemon.damageRelations.half_damage_to;
+
+    const no_damage_to = this.selectedNpcPokemon.damageRelations.no_damage_to;
+
+    if (double_damage_to.includes(playerType)) {
+      this.selectedPlayerPokemon.maxHp -= 20;
+      this.checkIfPlayerPokemonIsDead(this.selectedPlayerPokemon.name);
+    } else if (half_damage_to.includes(playerType)) {
+      this.selectedPlayerPokemon.maxHp -= 10;
+      this.checkIfPlayerPokemonIsDead(this.selectedPlayerPokemon.name);
+    } else if (no_damage_to.includes(playerType)) {
+      this.selectedPlayerPokemon.maxHp -= 2.5;
+      this.checkIfPlayerPokemonIsDead(this.selectedPlayerPokemon.name);
+    } else {
+      this.selectedPlayerPokemon.maxHp -= 5;
+      this.checkIfPlayerPokemonIsDead(this.selectedPlayerPokemon.name);
+    }
+
+    this.checkWinner();
   }
 
   checkIfNpcPokemonIsDead(name: string) {
     this.npcTeam.filter((poke) => {
       if (poke.name === name) {
         if (poke.maxHp <= 0) {
-          console.log('4 Pokemon is dead:', poke.maxHp);
           this.selectNpcPokemon();
-          // this.battleDataService battle state to 'ended' in the battleService
         }
       }
     });
@@ -176,10 +252,37 @@ export class BattleComponent implements OnInit {
     this.playerTeam.filter((poke) => {
       if (poke.name === name) {
         if (poke.maxHp <= 0) {
-          console.log('Player Pokemon is dead:', poke.maxHp);
           this.selectPlayerPokemon();
         }
       }
     });
+  }
+
+  checkWinner() {
+    if (this.playerTeam.every((pokemon) => pokemon.maxHp <= 0)) {
+      this.isWinnerKnown = true;
+      this.isPlayerWinner = false;
+      this.winnerTeam = this.npcTeam;
+
+      clearTimeout(this.npcAttackTimerId);
+      clearInterval(this.npcAttackIntervalId);
+
+      // na 1s emit 'ended'
+      setTimeout(() => {
+        this.battleState.emit('ended');
+      }, 7000);
+    } else if (this.npcTeam.every((pokemon) => pokemon.maxHp <= 0)) {
+      this.isWinnerKnown = true;
+      this.isPlayerWinner = true;
+      this.winnerTeam = this.playerTeam;
+
+      clearTimeout(this.npcAttackTimerId);
+      clearInterval(this.npcAttackIntervalId);
+
+      // na 1s emit 'ended'
+      setTimeout(() => {
+        this.battleState.emit('ended');
+      }, 7000);
+    }
   }
 }
