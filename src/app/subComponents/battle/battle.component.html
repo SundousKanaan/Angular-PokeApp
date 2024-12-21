@@ -136,4 +136,21 @@
   <button class="surrenderingButton" (click)="surrendering()">
     surrendering
   </button>
+
+  <button class="musicButton" (click)="playMusic()">
+    <img *ngIf="isMusicPlayed" src="/assets/images/icons/speaker.svg" alt="" />
+    <img
+      *ngIf="!isMusicPlayed"
+      src="/assets/images/icons/speaker-muted.svg"
+      alt=""
+    />
+  </button>
 </article>
+
+<!-- bron: https://downloads.khinsider.com/game-soundtracks/album/pokemon-sword-shield-ost -->
+<audio
+  id="battleMusic"
+  loop
+  style="position: absolute; top: 5em; left: 0; z-index: 99999"
+  src="https://vgmsite.com/soundtracks/pokemon-sword-shield-ost/vlmfxbhinb/95%20-%20Battle%21%20%28Pok%C3%A9mon%20League%20Tournament%29.mp3"
+></audio>

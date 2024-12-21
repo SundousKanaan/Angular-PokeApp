@@ -33,6 +33,7 @@ export class BattleComponent implements OnInit {
   isPlayerWinner: boolean = false;
   winnerTeam: any;
   isIntroover: boolean = false;
+  isMusicPlayed: boolean = false;
 
   selectedField: string = 'grassField';
 
@@ -110,6 +111,24 @@ export class BattleComponent implements OnInit {
         this.npcAttack();
       }, 500);
     }, 6500);
+
+    this.playMusic(true);
+  }
+
+  playMusic(state?: boolean) {
+    if (state === undefined) {
+      this.isMusicPlayed = !this.isMusicPlayed;
+    } else {
+      this.isMusicPlayed = state;
+    }
+
+    // call audio with id music
+    const music = document.getElementById('battleMusic') as HTMLAudioElement;
+    music.play();
+
+    if (!this.isMusicPlayed) {
+      music.pause();
+    }
   }
 
   selectField() {
@@ -171,6 +190,7 @@ export class BattleComponent implements OnInit {
   surrendering() {
     this.resetHp();
     this.battleState.emit('surrender');
+    this.playMusic(false);
   }
 
   attack() {
@@ -259,28 +279,39 @@ export class BattleComponent implements OnInit {
   }
 
   checkWinner() {
+    const audio = document.getElementById('battleMusic') as HTMLAudioElement;
+
     if (this.playerTeam.every((pokemon) => pokemon.maxHp <= 0)) {
       this.isWinnerKnown = true;
       this.isPlayerWinner = false;
       this.winnerTeam = this.npcTeam;
+
+      audio.src =
+        'https://vgmsite.com/soundtracks/pokemon-sword-shield-ost/nljplnpeob/109%20-%20Victory%21%20%28Champion%20Leon%29.mp3';
+      audio.play();
 
       clearTimeout(this.npcAttackTimerId);
       clearInterval(this.npcAttackIntervalId);
 
       // na 1s emit 'ended'
       setTimeout(() => {
+        audio.pause();
         this.battleState.emit('ended');
       }, 7000);
     } else if (this.npcTeam.every((pokemon) => pokemon.maxHp <= 0)) {
       this.isWinnerKnown = true;
       this.isPlayerWinner = true;
       this.winnerTeam = this.playerTeam;
+      audio.src =
+        'https://vgmsite.com/soundtracks/pokemon-sword-shield-ost/dgkmtagjdd/25%20-%20Victory%21%20%28Trainer%29.mp3';
+      audio.play();
 
       clearTimeout(this.npcAttackTimerId);
       clearInterval(this.npcAttackIntervalId);
 
       // na 1s emit 'ended'
       setTimeout(() => {
+        audio.pause();
         this.battleState.emit('ended');
       }, 7000);
     }

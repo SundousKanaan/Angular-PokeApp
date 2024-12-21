@@ -6,6 +6,7 @@ import { FormatDataService } from '../../services/formatData.service';
 import { Pokemon } from '../../types';
 import { BattleDataService } from '../../services/battleDataService';
 import { BattleComponent } from '../../subComponents/battle/battle.component';
+import { trace } from 'console';
 
 @Component({
   selector: 'app-battle-page',
@@ -21,8 +22,8 @@ export class BattlePageComponent implements OnInit {
     private battleDataService: BattleDataService
   ) {}
 
+  isMusicPlayed: boolean = true;
   teamState: string = 'empty';
-
   playerTeam: Pokemon[] = [];
   battleState: string = 'empty';
   battleStates: string[] = ['started', 'ended', 'empty', 'surrender'];
@@ -35,6 +36,23 @@ export class BattlePageComponent implements OnInit {
     if (this.battleState === 'ended') {
       this.battleState = 'empty';
       this.battleDataService.setNpcTeam();
+    }
+    this.playMusic(true);
+  }
+
+  playMusic(state?: boolean) {
+    if (state === undefined) {
+      this.isMusicPlayed = !this.isMusicPlayed;
+    } else {
+      this.isMusicPlayed = state;
+    }
+
+    // call audio with id music
+    const music = document.getElementById('lobbyMusic') as HTMLAudioElement;
+    music.play();
+
+    if (!this.isMusicPlayed) {
+      music.pause();
     }
   }
 
@@ -84,6 +102,8 @@ export class BattlePageComponent implements OnInit {
   }
 
   startBattle() {
+    this.playMusic(false);
+
     if (this.battleState === 'surrender') {
       this.battleState = 'started';
     } else {
