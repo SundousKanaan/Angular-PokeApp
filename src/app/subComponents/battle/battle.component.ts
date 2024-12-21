@@ -297,7 +297,7 @@ export class BattleComponent implements OnInit {
       setTimeout(() => {
         audio.pause();
         this.battleState.emit('ended');
-      }, 7000);
+      }, 9000);
     } else if (this.npcTeam.every((pokemon) => pokemon.maxHp <= 0)) {
       this.isWinnerKnown = true;
       this.isPlayerWinner = true;
@@ -313,7 +313,7 @@ export class BattleComponent implements OnInit {
       setTimeout(() => {
         audio.pause();
         this.battleState.emit('ended');
-      }, 7000);
+      }, 9000);
     }
   }
 }
