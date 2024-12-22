@@ -16,7 +16,7 @@ I built this project to learn Angular practically after learning about it theore
 - [x] The user must be able to open a single Pokemon in a Modal View
 - [x] The user must be able to see all the stats of a pokemon in three tabs
 - [x] The user must be able to see an overview of all their favorite Pokemons on a different page/route
-- [ ] The user should see a 'not found' page when the route is not identified
+- [x] The user should see a 'not found' page when the route is not identified
 - [x] The user should be able to search through all the pokemons
 - [x] The user should be able to switch to darkmode in the sidebar
 - [x] Search loading states (spinner of skeleton loading)
