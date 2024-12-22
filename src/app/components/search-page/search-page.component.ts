@@ -8,7 +8,7 @@ import { PokemonBlockComponent } from '../../subComponents/pokemon-block/pokemon
 import { MatDialog } from '@angular/material/dialog';
 import { pokemonCardComponent } from '../../subComponents/pokemonCard/pokemonCard.component';
 import { LoadingPokemonBlockComponent } from '../../subComponents/loading-pokemon-block-Component/loading-pokemon-block.component';
-import { statesComponent } from '../../subComponents/states/states.component';
+import { StatesComponent } from '../../subComponents/states/states.component';
 
 @Component({
   selector: 'searchPage',
@@ -18,7 +18,7 @@ import { statesComponent } from '../../subComponents/states/states.component';
     ReactiveFormsModule,
     PokemonBlockComponent,
     LoadingPokemonBlockComponent,
-    statesComponent,
+    StatesComponent,
   ],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.css',

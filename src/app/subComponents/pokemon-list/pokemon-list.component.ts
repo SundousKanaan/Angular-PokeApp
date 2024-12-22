@@ -13,7 +13,7 @@ import { Pokemon } from '../../types';
 import { pokemonCardComponent } from '../pokemonCard/pokemonCard.component';
 import { PokemonService } from '../../services/pokemon.service';
 import { MatDialog } from '@angular/material/dialog';
-import { statesComponent } from '../states/states.component';
+import { StatesComponent } from '../states/states.component';
 
 @Component({
   selector: 'pokemon-list',
@@ -22,7 +22,7 @@ import { statesComponent } from '../states/states.component';
     CommonModule,
     PokemonBlockComponent,
     LoadingPokemonBlockComponent,
-    statesComponent,
+    StatesComponent,
   ],
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.css'],

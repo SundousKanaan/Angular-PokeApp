@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { statesComponent } from '../../subComponents/states/states.component';
+import { StatesComponent } from '../../subComponents/states/states.component';
 import { PokemonService } from '../../services/pokemon.service';
 import { FormatDataService } from '../../services/formatData.service';
 import { Pokemon } from '../../types';
@@ -11,7 +11,7 @@ import { trace } from 'console';
 @Component({
   selector: 'app-battle-page',
   standalone: true,
-  imports: [CommonModule, statesComponent, BattleComponent],
+  imports: [CommonModule, StatesComponent, BattleComponent],
   templateUrl: './battle-page.component.html',
   styleUrl: './battle-page.component.css',
 })

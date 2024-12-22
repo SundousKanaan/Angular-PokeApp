@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './states.component.html',
   styleUrl: './states.component.css',
 })
-export class statesComponent implements OnInit {
+export class StatesComponent implements OnInit {
   index: any;
   constructor(private pokemonService: PokemonService) {}
   @Input() state: string = '';
