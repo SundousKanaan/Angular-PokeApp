@@ -17,13 +17,13 @@ I built this project to learn Angular practically after learning about it theore
 - [x] The user must be able to see all the stats of a pokemon in three tabs
 - [x] The user must be able to see an overview of all their favorite Pokemons on a different page/route
 - [ ] The user should see a 'not found' page when the route is not identified
-- [ ] The user should be able to search through all the pokemons
+- [x] The user should be able to search through all the pokemons
 - [x] The user should be able to switch to darkmode in the sidebar
-- [ ] Search loading states (spinner of skeleton loading)
-- [ ] "Not found" search empty state
-- [ ] Favorites empty state
-- [ ] Pokemon battle functie?
-- [ ] The user could be treated with nice animations throughout the app
+- [x] Search loading states (spinner of skeleton loading)
+- [x] "Not found" search empty state
+- [x] Favorites empty state
+- [x] Pokemon battle functie?
+- [x] The user could be treated with nice animations throughout the app
 
 ## Development server
 
