@@ -5,25 +5,34 @@
   <section class="intro" *ngIf="!isIntroover">
     <ul class="player team">
       <li *ngFor="let pokemon of playerTeam; let i = index">
-        <img src="{{ pokemon.sprites.official_artwork }}" alt="" />
+        <img
+          src="{{ pokemon.sprites.official_artwork }}"
+          alt="{{ pokemon.name }} official artwork"
+        />
       </li>
     </ul>
 
     <ul class="npc team">
       <li *ngFor="let npcPokemon of npcTeam; let x = index">
-        <img src="{{ npcPokemon.sprites.official_artwork }}" alt="" />
+        <img
+          src="{{ npcPokemon.sprites.official_artwork }}"
+          alt="{{ npcPokemon.name }} official artwork"
+        />
       </li>
     </ul>
 
     <div class="introVsIcon">
-      <img src="/assets/images/icons/vs.png" alt="" />
+      <img src="/assets/images/icons/vs.png" alt="VS icon" />
     </div>
   </section>
 
   <section class="battleResult" *ngIf="isWinnerKnown">
     <ul class="winnerTeam">
       <li *ngFor="let pokemon of playerTeam; let i = index">
-        <img src="{{ pokemon.sprites.official_artwork }}" alt="" />
+        <img
+          src="{{ pokemon.sprites.official_artwork }}"
+          alt="{{ pokemon.name }} official artwork"
+        />
       </li>
     </ul>
     <p class="text" *ngIf="isPlayerWinner">
@@ -42,7 +51,10 @@
       }"
       *ngFor="let pokemon of playerTeam; let i = index"
     >
-      <img src="{{ pokemon.sprites.official_artwork }}" alt="" />
+      <img
+        src="{{ pokemon.sprites.official_artwork }}"
+        alt="{{ pokemon.name }} official artwork"
+      />
     </li>
   </ul>
 
@@ -51,19 +63,28 @@
       [ngClass]="{ deadPokemon: npcPokemon.maxHp <= 0, pokemons: true }"
       *ngFor="let npcPokemon of npcTeam; let y = index"
     >
-      <img src="{{ npcPokemon.sprites.official_artwork }}" alt="" />
+      <img
+        src="{{ npcPokemon.sprites.official_artwork }}"
+        alt="{{ npcPokemon.name }} official artwork"
+      />
     </li>
   </ul>
 
   <ul class="pokemonTypes playerPokemonTypes">
     <li *ngFor="let type of selectedPlayerPokemon.types">
-      <img src="/assets/images/typesIcons/{{ type }}.png" alt="" />
+      <img
+        src="/assets/images/typesIcons/{{ type }}.png"
+        alt="pokemon {{ type }} icon"
+      />
     </li>
   </ul>
 
   <ul class="pokemonTypes npcPokemonTypes">
     <li *ngFor="let type of selectedNpcPokemon.types">
-      <img src="/assets/images/typesIcons/{{ type }}.png" alt="" />
+      <img
+        src="/assets/images/typesIcons/{{ type }}.png"
+        alt="pokemon {{ type }} icon"
+      />
     </li>
   </ul>
 
@@ -74,7 +95,11 @@
     [ngStyle]="{ '--hp': selectedPlayerPokemon.maxHp + '%' }"
     [class.lowHp]="selectedPlayerPokemon.maxHp <= 40"
   >
-    <img src="{{ selectedPlayerPokemon.sprites.back_default }}" alt="" />
+    <img
+      src="{{ selectedPlayerPokemon.sprites.back_default }}"
+      alt="{{ selectedPlayerPokemon.name }}
+    back default"
+    />
   </div>
 
   <div
@@ -82,7 +107,11 @@
     [ngStyle]="{ '--hp': selectedNpcPokemon.maxHp + '%' }"
     [class.lowHp]="selectedNpcPokemon.maxHp <= 40"
   >
-    <img src="{{ selectedNpcPokemon.sprites.front_default }}" alt="" />
+    <img
+      src="{{ selectedNpcPokemon.sprites.front_default }}"
+      alt="{{ selectedNpcPokemon.name }}
+    back default"
+    />
   </div>
 
   <ul class="pokemonsSelectButtons">
@@ -102,7 +131,10 @@
         [disabled]="pokemon.maxHp <= 0"
         (click)="handleSelectedPokemon(pokemon.name)"
       >
-        <img src="{{ pokemon.sprites.front_default }}" alt="" />
+        <img
+          src="{{ pokemon.sprites.front_default }}"
+          alt="{{ pokemon.name }} front default"
+        />
       </button>
     </li>
   </ul>
@@ -121,16 +153,19 @@
   >
     <img
       src="/assets/images/typesIcons/{{ selectedPlayerPokemon.mainType }}.png"
-      alt=""
+      alt="{{ selectedPlayerPokemon }} main type icon"
     />
   </button>
 
   <div class="filedImageContainer">
-    <img src="/assets/images/battleFields/{{ selectedField }}" alt="" />
+    <img
+      src="/assets/images/battleFields/{{ selectedField }}"
+      alt="selectedField"
+    />
   </div>
 
   <div class="vsIcon">
-    <img src="/assets/images/icons/vs.png" alt="" />
+    <img src="/assets/images/icons/vs.png" alt="VS icon" />
   </div>
 
   <button class="surrenderingButton" (click)="surrendering()">
@@ -138,11 +173,15 @@
   </button>
 
   <button class="musicButton" (click)="playMusic()">
-    <img *ngIf="isMusicPlayed" src="/assets/images/icons/speaker.svg" alt="" />
+    <img
+      *ngIf="isMusicPlayed"
+      src="/assets/images/icons/speaker.svg"
+      alt="speaker icon"
+    />
     <img
       *ngIf="!isMusicPlayed"
       src="/assets/images/icons/speaker-muted.svg"
-      alt=""
+      alt="muted speaker icon"
     />
   </button>
 </article>

@@ -10,7 +10,11 @@
     <ng-container *ngFor="let index of [0, 1, 2]; let i = index">
       <li class="pokemon" *ngIf="playerTeam[i]; else missingTemplate">
         <div>
-          <img src="{{ playerTeam[i].sprites.official_artwork }}" alt="" />
+          <img
+            src="{{ playerTeam[i].sprites.official_artwork }}"
+            alt="{{ playerTeam[i].name }}
+          official artwork"
+          />
         </div>
         <button
           class="removePokemon"
@@ -56,10 +60,14 @@
 ></audio>
 
 <button class="musicButton" (click)="playMusic()">
-  <img *ngIf="isMusicPlayed" src="/assets/images/icons/speaker.svg" alt="" />
+  <img
+    *ngIf="isMusicPlayed"
+    src="/assets/images/icons/speaker.svg"
+    alt="speaker icon"
+  />
   <img
     *ngIf="!isMusicPlayed"
     src="/assets/images/icons/speaker-muted.svg"
-    alt=""
+    alt="muted speaker icon"
   />
 </button>
