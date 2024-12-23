@@ -61,7 +61,8 @@ export class AppComponent {
     });
   }
 
-  onActivate(event: any) {
+  onActivate() {
+    if (typeof window === 'undefined') return;
     window.scroll({
       top: 0,
       left: 0,
