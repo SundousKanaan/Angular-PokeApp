@@ -8,11 +8,11 @@ import { NotFoundComponentComponent } from './components/not-found-component/not
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'All-Pokémons',
+    redirectTo: 'AllPokémons',
     pathMatch: 'full',
   },
   {
-    path: 'All-Pokémons',
+    path: 'AllPokémons',
     component: PokemonsPageComponent,
   },
   {
