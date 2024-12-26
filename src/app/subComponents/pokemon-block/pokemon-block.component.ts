@@ -51,7 +51,6 @@ export class PokemonBlockComponent implements OnInit {
     });
   }
 
-  // ToDo: fix deze functions
   handleBattlePokemon() {
     this.battleDataService.setBattleTeam(this.pokemonData.name);
     this.checkBattlePokemon();

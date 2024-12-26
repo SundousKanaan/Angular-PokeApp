@@ -138,7 +138,6 @@ body {
 /*  media to laptop en bigger screens */
 @media (min-width: 1024px) {
   body {
-    width: 100vw;
     padding: 1em 1em 1em 2em;
   }
 }
