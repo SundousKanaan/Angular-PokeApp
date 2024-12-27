@@ -28,7 +28,7 @@
 
   <section class="battleResult" *ngIf="isWinnerKnown">
     <ul class="winnerTeam">
-      <li *ngFor="let pokemon of playerTeam; let i = index">
+      <li *ngFor="let pokemon of winnerTeam; let i = index">
         <img
           src="{{ pokemon.sprites.official_artwork }}"
           alt="{{ pokemon.name }} official artwork"
@@ -71,8 +71,9 @@
   </ul>
 
   <ul class="pokemonTypes playerPokemonTypes">
-    <li *ngFor="let type of selectedPlayerPokemon.types">
+    <li *ngFor="let type of selectedPlayerPokemon?.types">
       <img
+        *ngIf="type"
         src="/assets/images/typesIcons/{{ type }}.png"
         alt="pokemon {{ type }} icon"
       />
@@ -80,10 +81,11 @@
   </ul>
 
   <ul class="pokemonTypes npcPokemonTypes">
-    <li *ngFor="let type of selectedNpcPokemon.types">
+    <li *ngFor="let npcType of selectedNpcPokemon?.types">
       <img
-        src="/assets/images/typesIcons/{{ type }}.png"
-        alt="pokemon {{ type }} icon"
+        *ngIf="npcType"
+        src="/assets/images/typesIcons/{{ npcType }}.png"
+        alt="pokemon {{ npcType }} icon"
       />
     </li>
   </ul>
@@ -92,6 +94,7 @@
 
   <div
     class="playerPokemon"
+    *ngIf="selectedPlayerPokemon"
     [ngStyle]="{ '--hp': selectedPlayerPokemon.maxHp + '%' }"
     [class.lowHp]="selectedPlayerPokemon.maxHp <= 40"
   >
@@ -104,6 +107,7 @@
 
   <div
     class="npcPokemon"
+    *ngIf="selectedNpcPokemon"
     [ngStyle]="{ '--hp': selectedNpcPokemon.maxHp + '%' }"
     [class.lowHp]="selectedNpcPokemon.maxHp <= 40"
   >
@@ -190,6 +194,8 @@
 <audio
   id="battleMusic"
   loop
+  autoplay
+  [muted]="!isMusicPlayed"
   style="position: absolute; top: 5em; left: 0; z-index: 99999"
   src="https://vgmsite.com/soundtracks/pokemon-sword-shield-ost/vlmfxbhinb/95%20-%20Battle%21%20%28Pok%C3%A9mon%20League%20Tournament%29.mp3"
 ></audio>

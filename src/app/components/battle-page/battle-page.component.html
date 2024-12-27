@@ -1,4 +1,5 @@
 <h1>Battle field</h1>
+
 <section
   *ngIf="teamState !== 'empty'"
   class="battleContent"
@@ -52,22 +53,24 @@
   ></states>
 </section>
 
-<!-- bron: https://downloads.khinsider.com/game-soundtracks/album/pokemon-sword-shield-ost -->
-<audio
-  id="lobbyMusic"
-  loop
-  src="https://vgmsite.com/soundtracks/pokemon-sword-shield-ost/zonzcdmspz/52%20-%20Gym%20Challenge%20~%20Lobby.mp3"
-></audio>
-
 <button class="musicButton" (click)="playMusic()">
   <img
-    *ngIf="isMusicPlayed"
+    *ngIf="isAudioPlayed"
     src="/assets/images/icons/speaker.svg"
     alt="speaker icon"
   />
   <img
-    *ngIf="!isMusicPlayed"
+    *ngIf="!isAudioPlayed"
     src="/assets/images/icons/speaker-muted.svg"
     alt="muted speaker icon"
   />
 </button>
+
+<!-- bron: https://downloads.khinsider.com/game-soundtracks/album/pokemon-sword-shield-ost -->
+<audio
+  id="lobbyMusic"
+  loop
+  [muted]="!isAudioPlayed"
+  autoplay
+  src="https://vgmsite.com/soundtracks/pokemon-sword-shield-ost/zonzcdmspz/52%20-%20Gym%20Challenge%20~%20Lobby.mp3"
+></audio>

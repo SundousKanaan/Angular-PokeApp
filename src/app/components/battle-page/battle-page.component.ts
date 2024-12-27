@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StatesComponent } from '../../subComponents/states/states.component';
 import { PokemonService } from '../../services/pokemon.service';
@@ -6,7 +6,6 @@ import { FormatDataService } from '../../services/formatData.service';
 import { Pokemon } from '../../types';
 import { BattleDataService } from '../../services/battleDataService';
 import { BattleComponent } from '../../subComponents/battle/battle.component';
-import { trace } from 'console';
 
 @Component({
   selector: 'app-battle-page',
@@ -19,10 +18,11 @@ export class BattlePageComponent implements OnInit {
   constructor(
     private pokemonService: PokemonService,
     private formatDataService: FormatDataService,
-    private battleDataService: BattleDataService
+    private battleDataService: BattleDataService,
+    private renderer: Renderer2
   ) {}
 
-  isMusicPlayed: boolean = true;
+  isAudioPlayed: boolean = true;
   teamState: string = 'empty';
   playerTeam: Pokemon[] = [];
   battleState: string = 'empty';
@@ -42,17 +42,9 @@ export class BattlePageComponent implements OnInit {
 
   playMusic(state?: boolean) {
     if (state === undefined) {
-      this.isMusicPlayed = !this.isMusicPlayed;
+      this.isAudioPlayed = !this.isAudioPlayed;
     } else {
-      this.isMusicPlayed = state;
-    }
-
-    // call audio with id music
-    const music = document.getElementById('lobbyMusic') as HTMLAudioElement;
-    music.play();
-
-    if (!this.isMusicPlayed) {
-      music.pause();
+      this.isAudioPlayed = state;
     }
   }
 

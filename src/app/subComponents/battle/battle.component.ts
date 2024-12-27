@@ -121,14 +121,6 @@ export class BattleComponent implements OnInit {
     } else {
       this.isMusicPlayed = state;
     }
-
-    // call audio with id music
-    const music = document.getElementById('battleMusic') as HTMLAudioElement;
-    music.play();
-
-    if (!this.isMusicPlayed) {
-      music.pause();
-    }
   }
 
   selectField() {
